@@ -62,9 +62,13 @@ public class ReportWithdrawalService {
         List<ReportDelivery> deliveries = report.getExternalSystemDeliveries();
         int reportId = report.getId();
         StringBuilder sb = new StringBuilder();
+        String systemName;
         sb.append("<EXTERNAL_SYSTEMS>");
+        //FIXME: Shared code with Report Submision service.
         for (ReportDelivery delivery : deliveries) {
             sb.append(delivery.getEndPoint()).append("::").append(delivery.getUserName()).append("::" ).append(delivery.getPassword());
+            systemName = delivery.getReportDeliveryDefinition().getEntityName();
+            sb.append("::" ).append(systemName);
         }
         sb.append("</EXTERNAL_SYSTEMS>");
         sb.append("<REPORT_ID>" + reportId + "</REPORT_ID>");

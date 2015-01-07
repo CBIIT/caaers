@@ -338,13 +338,17 @@ public class ReportSubmissionService {
     	Report report = context.report;
     	String xml = context.caaersXML;
     	ReportTracking reportTracking = report.getLastVersion().getLastReportTracking();
+    	String systemName = "UNKOWN";
     	
         List<ReportDelivery> deliveries = report.getExternalSystemDeliveries();
         int reportId = report.getId();
         StringBuilder sb = new StringBuilder();
         sb.append("<EXTERNAL_SYSTEMS>");
+      //FIXME: Shared code with Report Withdrawal service.
         for (ReportDelivery delivery : deliveries) {
             sb.append(delivery.getEndPoint()).append("::").append(delivery.getUserName()).append("::" ).append(delivery.getPassword());
+            systemName = delivery.getReportDeliveryDefinition().getEntityName();
+            sb.append("::" ).append(systemName.replace("::", ":"));
         }
         sb.append("</EXTERNAL_SYSTEMS>");
         sb.append("<REPORT_ID>" + reportId + "</REPORT_ID>");
