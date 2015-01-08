@@ -14,12 +14,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.axis.client.Call;
 import org.apache.log4j.Logger;
 
 import webservice.AdeersWebService;
@@ -37,6 +40,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 	private String submitOrWithdraw(String aeReportWithCaaersId) throws Exception {
 		ServiceContext serviceContext = ServiceContext.getServiceContext();
 		log.info("caAERS-adEERS-Service-Assembly processing report submitted by caAERS"); 
+		log.error("DIRKTEST; Function Called.");
 		String aeReport = detach(aeReportWithCaaersId,serviceContext);	
 		//FIXME: The below ensures the message is only sent to one system, not all.
 		String adeersEPR = serviceContext.externalEPRs.split(",")[0];
@@ -62,20 +66,21 @@ public class AdeersWebServiceImpl implements AdeersWebService {
         binding.setTimeout(60000);
         binding.setUsername(uid);
         binding.setPassword(pwd);
+        binding._setProperty(Call.CHARACTER_SET_ENCODING, "ISO-8859-1");
+        
+        log.error("DIRKTEST; Charset set.");
         
         aeReport = aeReport.startsWith("<?xml") ? aeReport.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", xmlProlog) : (xmlProlog + aeReport);
         
-
-        log.error("DIRKTEST; Output: ***}}}***\n" + aeReport + "\n***}}}***");
-        System.err.println("DIRKTEST; Output: ***}}}***\n" + aeReport + "\n***}}}***");
-        InputStream reader = new ByteArrayInputStream(aeReport.getBytes("ISO-8859-1"));
+        Reader reader = new StringReader(aeReport);
+        Source attachment = new StreamSource(reader,"");
         String reponseStr = "";
+        
         if (serviceContext.withdraw) {
         	log.info("Withdraw to adEERS...");
-        	Source attachment = new StreamSource(reader,"");
         	log.info("MESSAGE TO ADEERS : ======================================================\n" + aeReport + "\n===================================================");
 	        //call the web service  - withdraw method..              
-	        binding.withdrawAEReport( attachment);
+	        binding.withdrawAEReport(attachment);
 	        reponseStr = binding._getCall().getMessageContext().getResponseMessage().getSOAPPartAsString();
             log.info("Actual Response Received from adEERS: ======================================================\n" + reponseStr + "\n===================================================");
 	        //attach the id to the returned message
@@ -83,7 +88,6 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 	        log.info("Processed Response Received from adEERS: ======================================================\n" + reponseStr + "\n===================================================");
         } else {
 	        log.info("Submitting to adEERS...");
-	        Source attachment = new StreamSource(reader,"");
 	        //call the web service    - submit method ..   
             log.info("MESSAGE TO ADEERS : ======================================================\n" + aeReport + "\n===================================================");
 	        binding.submitAEDataXMLAsAttachment(ReportingMode.SYNCHRONOUS, attachment);
