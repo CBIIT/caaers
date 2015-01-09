@@ -16,3 +16,4 @@ target
 .classpath
 caAERS/software/web/${env.CATALINA_HOME}/
 caAERS/software/jbi/caaers2adeers-sync/core-camel-su/data/
+caAERS/software/null
