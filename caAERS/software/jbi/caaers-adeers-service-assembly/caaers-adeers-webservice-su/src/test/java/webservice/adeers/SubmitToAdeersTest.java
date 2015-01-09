@@ -6,7 +6,7 @@
  ******************************************************************************/
 package webservice.adeers;
 
-import gov.nih.nci.ctep.adeers.client.AEReportJobInfo;
+import gov.nih.nci.ctep.service.types.AEReportJobInfo;
 
 public class SubmitToAdeersTest extends AdeersIntegrationTestCase {
 	

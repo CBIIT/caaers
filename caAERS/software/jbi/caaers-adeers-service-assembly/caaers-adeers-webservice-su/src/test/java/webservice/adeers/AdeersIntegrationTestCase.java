@@ -6,8 +6,8 @@
  ******************************************************************************/
 package webservice.adeers;
 
-import gov.nih.nci.ctep.adeers.client.*;
-import gov.nih.nci.ctep.adeers.client.Error;
+import gov.nih.nci.ctep.adeers.ws.types.*;
+import gov.nih.nci.ctep.service.types.*;
 import junit.framework.TestCase;
 
 import javax.xml.transform.Source;
@@ -36,7 +36,7 @@ public abstract class AdeersIntegrationTestCase extends TestCase{
 		adeersUserName= (String) testprops.getProperty("adeers.username");
 		adeersPassword= (String) testprops.getProperty("adeers.password");
 	}
-	protected void displayErrors(Error[] errors) {
+	protected void displayErrors(gov.nih.nci.ctep.service.types.Error[] errors) {
        if (errors != null ) {
            System.out.println("---- Exceptions -----:");
 	        for (int i=0;i<errors.length;i++) {
@@ -141,7 +141,7 @@ public abstract class AdeersIntegrationTestCase extends TestCase{
     	//String AEReportXMLService_address = "https://eapps.ctisinc.com/adeersws10gtest/services/AEReportXMLService";
          try {
             binding = (AEReportXMLServiceSoapBindingStub)
-                          new AEReportXMLService_ServiceLocator(adeersWebServiceAddress).getAEReportXMLService();
+                          new AEReportXMLService_ServiceLocator(adeersWebServiceAddress, new javax.xml.namespace.QName("")).getAEReportXMLService();
         }
         catch (javax.xml.rpc.ServiceException jre) {
             if(jre.getLinkedCause()!=null)

@@ -6,8 +6,8 @@
  ******************************************************************************/
 package webservice.adeers;
 
-import gov.nih.nci.ctep.adeers.client.AEReportCancelInfo;
-import gov.nih.nci.ctep.adeers.client.AEReportJobInfo;
+import gov.nih.nci.ctep.service.types.AEReportCancelInfo;
+import gov.nih.nci.ctep.service.types.AEReportJobInfo;
 
 /**
  * @author: Biju Joseph

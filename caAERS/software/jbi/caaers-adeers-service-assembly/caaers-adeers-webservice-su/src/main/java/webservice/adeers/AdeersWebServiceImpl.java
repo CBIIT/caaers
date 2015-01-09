@@ -6,9 +6,9 @@
  ******************************************************************************/
 package webservice.adeers;
 
-import gov.nih.nci.ctep.adeers.client.AEReportXMLServiceSoapBindingStub;
-import gov.nih.nci.ctep.adeers.client.AEReportXMLService_ServiceLocator;
-import gov.nih.nci.ctep.adeers.client.ReportingMode;
+import gov.nih.nci.ctep.adeers.ws.types.AEReportXMLServiceSoapBindingStub;
+import gov.nih.nci.ctep.adeers.ws.types.AEReportXMLService_ServiceLocator;
+import gov.nih.nci.ctep.service.types.ReportingMode;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -54,7 +54,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 
 		AEReportXMLServiceSoapBindingStub binding;
         try {
-            binding = (AEReportXMLServiceSoapBindingStub)   new AEReportXMLService_ServiceLocator(url).getAEReportXMLService();
+            binding = (AEReportXMLServiceSoapBindingStub)   new AEReportXMLService_ServiceLocator(url, new javax.xml.namespace.QName("")).getAEReportXMLService();
         }
         catch (javax.xml.rpc.ServiceException jre) {
             if(jre.getLinkedCause()!=null)

@@ -28,7 +28,7 @@
     <location>./lib/activation.jar</location>
 	<location>./lib/axis-ant.jar</location>
 	<location>./lib/_junit.jar</location>
-	<location>./lib/caaers-adeers-client-1.9.5.jar</location>
+	<location>./lib/caaers-adeers-client-1.9.5_rebuild.jar</location>
 	<location>./lib/commons-discovery-0.2.jar</location>
 	<location>./lib/commons-logging-1.0.4.jar</location>
 	<location>./lib/jdom-1.0.jar</location>
