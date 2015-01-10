@@ -52,9 +52,10 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 		//String fileSeparator = System.getProperty("file.separator");
 		//String clientAbsoluteTrustStore = System.getProperty("user.home") + fileSeparator + clientTrustStore;
 
+		log.error("DIRKTEST; Parsing WSDL from: '" + url +"'.");
 		AEReportXMLServiceSoapBindingStub binding;
         try {
-            binding = (AEReportXMLServiceSoapBindingStub)   new AEReportXMLService_ServiceLocator(url+"?wsdl", new javax.xml.namespace.QName("")).getAEReportXMLService();
+            binding = (AEReportXMLServiceSoapBindingStub)   new AEReportXMLService_ServiceLocator(url, new javax.xml.namespace.QName("")).getAEReportXMLService();
         }
         catch (javax.xml.rpc.ServiceException jre) {
             if(jre.getLinkedCause()!=null)
