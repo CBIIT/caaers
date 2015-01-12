@@ -60,9 +60,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
         binding.setTimeout(60000);
         binding.setUsername(uid);
         binding.setPassword(pwd);
-        binding._setProperty(Call.CHARACTER_SET_ENCODING, "ISO-8859-1");
-        
-        log.error("DIRKTEST; Charset set.");
+        log.error("DIRKTEST; Test 2");
         
         aeReport = aeReport.startsWith("<?xml") ? aeReport.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", xmlProlog) : (xmlProlog + aeReport);
         
@@ -74,7 +72,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
         	log.info("Withdraw to adEERS...");
         	log.info("MESSAGE TO ADEERS : ======================================================\n" + aeReport + "\n===================================================");
 	        //call the web service  - withdraw method..              
-	        binding.withdrawAEReport(attachment);
+	        binding.withdrawAEReport(attachment, "ISO-8859-1");
 	        reponseStr = binding._getCall().getMessageContext().getResponseMessage().getSOAPPartAsString();
             log.info("Actual Response Received from adEERS: ======================================================\n" + reponseStr + "\n===================================================");
 	        //attach the id to the returned message
@@ -84,7 +82,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 	        log.info("Submitting to adEERS...");
 	        //call the web service    - submit method ..   
             log.info("MESSAGE TO ADEERS : ======================================================\n" + aeReport + "\n===================================================");
-	        binding.submitAEDataXMLAsAttachment(ReportingMode.SYNCHRONOUS, attachment);
+	        binding.submitAEDataXMLAsAttachment(ReportingMode.SYNCHRONOUS, attachment, "ISO-8859-1");
 	        reponseStr = binding._getCall().getMessageContext().getResponseMessage().getSOAPPartAsString();
             log.info("Actual Response Received from adEERS: ======================================================\n" + reponseStr + "\n===================================================");
 
