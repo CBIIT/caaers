@@ -41,7 +41,7 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 	private String submitOrWithdraw(String aeReportWithCaaersId) throws Exception {
 		ServiceContext serviceContext = ServiceContext.getServiceContext();
 		log.info("caAERS-adEERS-Service-Assembly processing report submitted by caAERS"); 
-		log.error("DIRKTEST; Function Called.");
+		
 		String aeReport = detach(aeReportWithCaaersId,serviceContext);	
 		//FIXME: The below ensures the message is only sent to one system, not all.
 		String adeersEPR = serviceContext.externalEPRs.split(",")[0];
@@ -53,14 +53,12 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 		//String fileSeparator = System.getProperty("file.separator");
 		//String clientAbsoluteTrustStore = System.getProperty("user.home") + fileSeparator + clientTrustStore;
 
-		log.error("DIRKTEST; Parsing WSDL from: '" + url +"'.");
 		AEReportXMLServiceSoapBindingStub binding = new AEReportXMLServiceSoapBindingStub(new URL(url), null);
        
         // Time out after a minute
         binding.setTimeout(60000);
         binding.setUsername(uid);
         binding.setPassword(pwd);
-        log.error("DIRKTEST; Test 2");
         
         aeReport = aeReport.startsWith("<?xml") ? aeReport.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", xmlProlog) : (xmlProlog + aeReport);
         
