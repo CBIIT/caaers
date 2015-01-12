@@ -18,6 +18,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
+import java.net.URL;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -53,16 +54,8 @@ public class AdeersWebServiceImpl implements AdeersWebService {
 		//String clientAbsoluteTrustStore = System.getProperty("user.home") + fileSeparator + clientTrustStore;
 
 		log.error("DIRKTEST; Parsing WSDL from: '" + url +"'.");
-		AEReportXMLServiceSoapBindingStub binding;
-        try {
-            binding = (AEReportXMLServiceSoapBindingStub)   new AEReportXMLService_ServiceLocator(url, new javax.xml.namespace.QName("http://types.ws.adeers.ctep.nci.nih.gov")).getAEReportXMLService();
-        }
-        catch (javax.xml.rpc.ServiceException jre) {
-            if(jre.getLinkedCause()!=null)
-                jre.getLinkedCause().printStackTrace();
-            log.error("caAERS-adEERS-Service-Assembly caught JAX-RPC ServiceException :", jre);
-            throw new RuntimeException("Unable to communicate to Adeers report submission webservice", jre);
-        }
+		AEReportXMLServiceSoapBindingStub binding = new AEReportXMLServiceSoapBindingStub(new URL(url), null);
+       
         // Time out after a minute
         binding.setTimeout(60000);
         binding.setUsername(uid);
