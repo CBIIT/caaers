@@ -28,6 +28,8 @@ public class AdverseEventRecommendedReport extends AbstractMutableDomainObject{
 	private Date dueDate;
 	
 	private Date createdDate = new Date();
+	
+	private ReportDefinition reportDefinition;
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -81,7 +83,4 @@ public class AdverseEventRecommendedReport extends AbstractMutableDomainObject{
 	public void setReportDefinition(ReportDefinition reportDefinition) {
 		this.reportDefinition = reportDefinition;
 	}
-
-
-	private ReportDefinition reportDefinition;
 }

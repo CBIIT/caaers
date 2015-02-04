@@ -738,7 +738,7 @@ public class SAEEvaluationServiceImpl implements ApplicationContextAware {
 	}
 	
 	private void manageAdverseEventRecommendedReports(RequestType requestType,EvaluationResultDTO dto ){
-		 Map<AdverseEvent,List<ReportDefinition>> adverseEventReportDefinitionMap = dto.getAdverseEventRecommendedReportsMap();
+		 Map<AdverseEvent,List<ReportDefinition>> adverseEventReportDefinitionMap = evaluationService.getAdverseEventRecommendedReportsMap();
 		 for (Map.Entry<AdverseEvent, List<ReportDefinition>> entry : adverseEventReportDefinitionMap.entrySet()) {
 					AdverseEvent ae = entry.getKey();
 					List<ReportDefinition> rds = entry.getValue();
