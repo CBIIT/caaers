@@ -113,7 +113,7 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
             //create a map, consisting of report definitions
             for(ReportDefinition rd : allReportDefs){
                 if(aeReport != null && aeReport.hasExistingReportsOfSameOrganizationAndType(rd)) {
-                    baseDate = updatedDate;
+//                    baseDate = updatedDate;
                     reportsToAmendList.addAll(aeReport.findReportsToAmmend(rd));
 
                 }
