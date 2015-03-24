@@ -786,7 +786,7 @@ public class SAEEvaluationServiceImpl implements ApplicationContextAware {
 	}
 
     private String generateDueDate(ReportDefinition rd, Date baseDate) {
-        if(rd != null && baseDate != null) return DateUtils.getDateWithTimeZone(rd.getExpectedDueDate(baseDate)).toString();
+        if(rd != null && baseDate != null) return DateUtils.formatToWSResponseDateWithTimeZone(rd.getExpectedDueDate(baseDate));
         return "";
     }
 
