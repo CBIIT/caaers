@@ -55,6 +55,13 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
                     }
                 }
 
+                if(wrapper.getAction() == ReportDefinitionWrapper.ActionType.EDIT) {
+                    ExpeditedAdverseEventReport aeReport = aeReportIndexMap.get(aeReportId);
+                    if(aeReport != null){
+                        baseDate = AdverseEventReportingPeriod.findEarliestGradedDate(aeReport.getAdverseEvents());
+                    }
+                }
+
                 ReportTableRow row  = ReportTableRow.createReportTableRow(wrapper.getDef(), baseDate, wrapper.getAction());
                 row.setAeReportId(aeReportId);
 
@@ -86,6 +93,12 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
             List<AdverseEvent> seriousAdverseEvents = evaluationResult.getSeriousAdverseEvents(aeReportId);
             Date updatedDate = null;
             Date gradedDate = null;
+            Date earliestGradedDateOnActiveAE = null;
+            ExpeditedAdverseEventReport aeReport = aeReportIndexMap.get(aeReportId);
+            if(aeReport != null){
+                earliestGradedDateOnActiveAE = AdverseEventReportingPeriod.findEarliestGradedDate(aeReport.getAdverseEvents());
+            }
+
             if(CollectionUtils.isNotEmpty(seriousAdverseEvents)){
                 updatedDate = AdverseEventReportingPeriod.findEarliestPostSubmissionUpdatedDate(seriousAdverseEvents);
                 gradedDate = AdverseEventReportingPeriod.findEarliestGradedDate(seriousAdverseEvents);
@@ -104,7 +117,6 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
             Map<Integer, ReportTableRow> rowMap = new LinkedHashMap<Integer, ReportTableRow>();
 
 
-            ExpeditedAdverseEventReport aeReport = aeReportIndexMap.get(aeReportId);
             Date baseDate =  gradedDate;
 
             List<Report> reportsToAmendList = new ArrayList<Report>();
@@ -170,6 +182,7 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
                     row.setGrpStatus("Being withdrawn");
                     row.setOtherStatus("Being withdrawn");
 
+                    row.setBaseDate(earliestGradedDateOnActiveAE != null ? earliestGradedDateOnActiveAE : baseDate);
                     row.setDue(DurationUtils.formatDuration(wrapper.getDueOn().getTime() - new Date().getTime(), wrapper.getDef().getTimeScaleUnitType().getFormat()));
                     row.setGrpDue("");
                     row.setOtherDue("");
