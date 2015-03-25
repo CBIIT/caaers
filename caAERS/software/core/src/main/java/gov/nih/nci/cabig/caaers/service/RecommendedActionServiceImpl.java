@@ -58,7 +58,7 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
                 if(wrapper.getAction() == ReportDefinitionWrapper.ActionType.EDIT) {
                     ExpeditedAdverseEventReport aeReport = aeReportIndexMap.get(aeReportId);
                     if(aeReport != null){
-                        baseDate = AdverseEventReportingPeriod.findEarliestGradedDate(aeReport.getAdverseEvents());
+                        baseDate = wrapper.getDueOn();
                     }
                 }
 
@@ -68,7 +68,7 @@ public class RecommendedActionServiceImpl implements RecommendedActionService {
                 if(wrapper.getAction() == ReportDefinitionWrapper.ActionType.AMEND){
                     row.setStatus(wrapper.getStatus());
                     row.setDue("");
-                }else if(wrapper.getAction() == ReportDefinitionWrapper.ActionType.WITHDRAW || wrapper.getAction() == ReportDefinitionWrapper.ActionType.EDIT) {
+                }else if(wrapper.getAction() == ReportDefinitionWrapper.ActionType.WITHDRAW ) {
                     row.setDue(DurationUtils.formatDuration(wrapper.getDueOn().getTime() - new Date().getTime(), wrapper.getDef().getTimeScaleUnitType().getFormat()));
                     row.setStatus(wrapper.getStatus());
                 }else {
