@@ -24,7 +24,7 @@ public class DateUtils {
 
     public static final String DATE_PATTERN= "MM/dd/yyyy";
     public static final String WS_DATE_PATTERN= "yyyy-MM-dd'T'HH:mm:ss";
-    public static final String WS_DATE_PATTERN_WITH_TZ= "yyyy-MM-dd'T'HH:mm:ssz";
+    public static final String WS_DATE_PATTERN_WITH_TZ= "yyyy-MM-dd'T'HH:mm:ssX";
     public static final String DATE_PATTERN_WITH_TZ= "EEE MMM dd yyyy h:mm:ss a z";
     public static final String DATE_WITH_HYPHENS= "MM-dd-yyyy";
     public static final String DATE_WITH_DATETIME= "MM/dd/yyyy HH:mm";
@@ -187,14 +187,17 @@ public class DateUtils {
     	if(t1 < t2) return -1;
     	return 0;
     }
+    
     public static String formatDate(Date d){
         if ( d.getHours() > 0 || d.getMinutes() > 0)
             return formatDate(d, DATE_WITH_DATETIME);
         return formatDate(d, DATE_PATTERN);
     }
+    
     public static String formatDateForWS(Date d){
         return formatDate(d, WS_DATE_PATTERN);
     }
+    
     public static String formatDate(Date d, String pattern){
     	return formatDate(d, pattern, TimeZone.getDefault());
     }
