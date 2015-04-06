@@ -341,6 +341,7 @@ public class DateUtils {
     public static String formatToWSResponseDateWithTimeZone(Date date){
         String str = formatDate(date, WS_DATE_PATTERN_WITH_TZ, TimeZone.getTimeZone("UTC"));
         str = str.replace("UTC", "Z");
+        str = str.replace("+0000", "Z");
         return str;
     }
 
