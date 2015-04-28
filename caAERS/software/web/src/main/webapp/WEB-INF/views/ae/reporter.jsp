@@ -133,13 +133,13 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                         caaersLog(ajaxResult.errorMessage);
                     } else {
                         $('report-validation-section').innerHTML = output.htmlContent;
-                        if (${command.workflowEnabled == true}) {
+                        <c:if test="${command.workflowEnabled == true}">
     						<c:forEach items="${command.aeReport.reports}" varStatus="status" var="report">
     							<c:if test="${report.status ne 'WITHDRAWN' and report.status ne 'REPLACED' and report.status ne 'AMENDED' and report.status ne 'COMPLETED'}">
     				 	          	routingHelper.updateWorkflowActions('${report.id}');
     		 	    		    </c:if>
     		 	    		</c:forEach>
-    					}
+    					</c:if>
     					createDropDowns();
     					hideDWRLoadingIndicator();
                     }
@@ -148,6 +148,26 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                 caaersLog(e)
             }
         }   
+        
+        function createDropDowns() {
+    		jQuery(".actionsButton").each(function(){
+    			id = jQuery(this).attr("id");
+    			options = "options-" + id;
+    			jQuery("#"+id).menu({
+    				content: jQuery("#"+options).html(),		
+    				maxHeight: 180,
+    				width: 230,
+                    positionOpts: {
+                        directionV: 'down',
+                        posX: 'right',
+                        posY: 'bottom',
+                        offsetX: 0,
+                        offsetY: 0
+                    },
+                    showSpeed: 300
+    			});
+    		});
+    	}
 
         function updateFieldValue(uiField, value){
 			var f = $(uiField);
