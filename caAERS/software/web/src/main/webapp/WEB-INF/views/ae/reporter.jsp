@@ -118,6 +118,37 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
             })
         }
 
+        function updatePhysicianSignOffLocal(rIndex){
+            try {
+            	showDWRLoadingIndicator();
+                var caseNumber = '';
+                if(rIndex > -1){
+
+                    var caseNumberField = $('aeReport.reports[' + rIndex + '].caseNumber')
+                    if(caseNumberField) caseNumber = caseNumberField.value;
+                }
+                createAE.updateReviewPageInfo($('aeReport.physicianSignOff').checked,rIndex,caseNumber,function(output) {
+                    ajaxResult = output;
+                    if (ajaxResult.error) {
+                        caaersLog(ajaxResult.errorMessage);
+                    } else {
+                        $('report-validation-section').innerHTML = output.htmlContent;
+                        if (${command.workflowEnabled == true}) {
+    						<c:forEach items="${command.aeReport.reports}" varStatus="status" var="report">
+    							<c:if test="${report.status ne 'WITHDRAWN' and report.status ne 'REPLACED' and report.status ne 'AMENDED' and report.status ne 'COMPLETED'}">
+    				 	          	routingHelper.updateWorkflowActions('${report.id}');
+    		 	    		    </c:if>
+    		 	    		</c:forEach>
+    					}
+    					createDropDowns();
+    					hideDWRLoadingIndicator();
+                    }
+                });
+            } catch(e) {
+                caaersLog(e)
+            }
+        }   
+
         function updateFieldValue(uiField, value){
 			var f = $(uiField);
 			if (f){
