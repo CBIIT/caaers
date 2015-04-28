@@ -301,7 +301,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
 			<chrome:box title="Physician signoff">
 			 	<div class="row">
    		     		<div class="label">
-			        	<ui:checkbox path="aeReport.physicianSignOff" onclick="javascript:updatePhysicianSignOffLocal(-1);"></ui:checkbox>
+			        	<ui:checkbox path="aeReport.physicianSignOff" onclick="javascript:updatePage();"></ui:checkbox>
     	   			</div>
       	 	 	<div class="value">
        		  		<b>I certify that this report has been reviewed and approved by a physician or his/her medically certified designee responsible for the care of this patient.</b>
@@ -324,6 +324,9 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
 	    	<div class="flow-buttons">
 	        <span class="prev">
 	        		<tags:button type="submit" id="flow-prev" color="blue" value="Save &amp; Back" icon="Save &amp; Back" cssClass="tab9"></tags:button>
+	        </span>
+	        <span class="next">
+	        	<tags:button type="submit" color="blue" icon="save" id="flow-update" cssClass="tab1" value="Save" />
 	        </span>
 	        <%--<span class="next">
 	            <input type="image" alt="save »" value="Go to Manage Reports " id="flow-next" src="<c:url value="/images/blue/go_to_manage_reports_btn.png" />"/>
