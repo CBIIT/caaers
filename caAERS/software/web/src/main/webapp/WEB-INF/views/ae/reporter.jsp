@@ -119,6 +119,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
         }
 
         function updatePhysicianSignOffLocal(rIndex){
+        	alert('testing, 123...');
             try {
             	showDWRLoadingIndicator();
                 var caseNumber = '';
@@ -150,6 +151,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
         }   
         
         function createDropDowns() {
+        	alert('wtf??');
     		jQuery(".actionsButton").each(function(){
     			id = jQuery(this).attr("id");
     			options = "options-" + id;
