@@ -26,7 +26,7 @@
                         <jsp:attribute name="embededJS">
                             Event.observe('${fieldGroups[mainGroup].fields[0].propertyName}', "blur", function() {
                                 if($F('${fieldGroups[mainGroup].fields[0].propertyName}')){
-                                    updatePhysicianSignOff(${status.index});
+                                    updatePhysicianSignOffLocal(${status.index});
                                 }
 
                             });

@@ -86,7 +86,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
     });
        
        
-    function updatePhysicianSignOff(rIndex){
+    function updatePhysicianSignOffLocal(rIndex){
         try {
         	showDWRLoadingIndicator();
             var caseNumber = '';
@@ -203,7 +203,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                                 else {
                                     $('aeReport.physicianSignOff').checked = false;
                                 }
-                                updatePhysicianSignOff(-1);
+                                updatePhysicianSignOffLocal(-1);
 
 //                                createAE.refreshSubmitReportValidationSection(function(output) {
 //                                    var ajaxResult = output;
@@ -301,7 +301,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
 			<chrome:box title="Physician signoff">
 			 	<div class="row">
    		     		<div class="label">
-			        	<ui:checkbox path="aeReport.physicianSignOff" onclick="javascript:updatePhysicianSignOff(-1);"></ui:checkbox>
+			        	<ui:checkbox path="aeReport.physicianSignOff" onclick="javascript:updatePhysicianSignOffLocal(-1);"></ui:checkbox>
     	   			</div>
       	 	 	<div class="value">
        		  		<b>I certify that this report has been reviewed and approved by a physician or his/her medically certified designee responsible for the care of this patient.</b>
