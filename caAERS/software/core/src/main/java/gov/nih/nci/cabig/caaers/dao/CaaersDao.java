@@ -11,6 +11,7 @@ import gov.nih.nci.cabig.caaers.dao.query.AbstractQuery;
 import gov.nih.nci.cabig.caaers.dao.query.HQLQuery;
 import gov.nih.nci.cabig.caaers.dao.query.NativeSQLQuery;
 import gov.nih.nci.cabig.caaers.dao.query.ajax.AbstractAjaxableDomainObjectQuery;
+import gov.nih.nci.cabig.caaers.dao.report.ReportDao;
 import gov.nih.nci.cabig.caaers.domain.Identifier;
 import gov.nih.nci.cabig.caaers.domain.Participant;
 import gov.nih.nci.cabig.ctms.dao.AbstractDomainObjectDao;
@@ -27,6 +28,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -48,6 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class CaaersDao<T extends DomainObject> extends AbstractDomainObjectDao<T> {
 
     protected static final int DEFAULT_MAX_RESULTS_SIZE = 0;
+    private static final Log log =  LogFactory.getLog(CaaersDao.class);
 
     /**
      * A variation of {@link #findBySubname} that does not allow for extra conditions

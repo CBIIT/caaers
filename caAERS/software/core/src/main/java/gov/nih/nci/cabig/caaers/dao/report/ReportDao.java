@@ -161,6 +161,6 @@ public class ReportDao extends GridIdentifiableDao<Report> implements MutableDom
     	query.filterByStudyAndSubjectAndSubmissionStatusAndSearchIdentifier(study, participant, 
     			reportStatus, searchIdentifier);
     	 log.error("DirkDebug >>> " + query.toString());
-    	return (List<Report>) super.search(query, null, maxResults);
+    	return (List<Report>) super.search(query, 0, maxResults);
     }
 }
