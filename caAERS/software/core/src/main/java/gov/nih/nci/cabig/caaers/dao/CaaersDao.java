@@ -492,7 +492,7 @@ public abstract class CaaersDao<T extends DomainObject> extends AbstractDomainOb
     @SuppressWarnings("unchecked")
 	public List<?> search(final AbstractQuery query, final Integer firstResult, final Integer maxResults) {
 	       String queryString = query.getQueryString();
-	       if(log.isDebugEnabled()) log.debug("::: " + queryString);
+	       log.error("::: " + queryString);
 	       return (List<?>) getHibernateTemplate().execute(new HibernateCallback() {
 
 	            public Object doInHibernate(final Session session) throws HibernateException, SQLException {
