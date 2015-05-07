@@ -51,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class CaaersDao<T extends DomainObject> extends AbstractDomainObjectDao<T> {
 
     protected static final int DEFAULT_MAX_RESULTS_SIZE = 0;
-    private static final Log log =  LogFactory.getLog(CaaersDao.class);
+    public static final Log log =  LogFactory.getLog(CaaersDao.class);
 
     /**
      * A variation of {@link #findBySubname} that does not allow for extra conditions
