@@ -7,6 +7,7 @@
 package gov.nih.nci.cabig.caaers.web.ae;
 
 import gov.nih.nci.cabig.caaers.dao.AdverseEventReportingPeriodDao;
+import gov.nih.nci.cabig.caaers.dao.CaaersDao;
 import gov.nih.nci.cabig.caaers.dao.ParticipantDao;
 import gov.nih.nci.cabig.caaers.dao.PersonDao;
 import gov.nih.nci.cabig.caaers.dao.ResearchStaffDao;
@@ -42,6 +43,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -56,6 +59,7 @@ public class ListAdverseEventsController extends SimpleFormController {
 	
 	private static final String SELECTED_STUDY_ID = "pre_selected_study_id";
 	private static final String SELECTED_PARTICIPANT_ID = "pre_selected_participant_id";
+	private static final Log log =  LogFactory.getLog(ListAdverseEventsController.class);
 	
 	private static final String ACTION_PARAMETER = "action";
     
@@ -149,7 +153,8 @@ public class ListAdverseEventsController extends SimpleFormController {
         command.setUserId(userId);
 		
 		List<Report> reports = reportDao.search(command.getStudy(), command.getParticipant(), command.getReportStatus(), command.getSearchIdentifier(), 20);
-        command.setReports(reports);
+        log.error("DirkDebug; In list adverse events, list size;" + reports.size());
+		command.setReports(reports);
     	//if there is no validation error, update the report submitability
         command.updateSubmittability();
         command.updateSubmittabilityBasedOnReportStatus();
@@ -211,6 +216,7 @@ public class ListAdverseEventsController extends SimpleFormController {
         command.setMaxResults(15);
         ReportStatus reportStatus = command.getReportStatus();
         List<Report> reports = reportDao.search(study, participant, reportStatus, command.getSearchIdentifier(), command.getMaxResults());
+        log.error("DirkDebug; in list adverse events, on bind and validate, list size;" + reports.size());
         command.setReports(reports);
     }
 
