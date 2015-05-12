@@ -319,7 +319,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
 						</div>
 	  				</td>
 				</tr></table>
-		  <c:forEach items="${command.filteredResultMap}" var="entry">
+		  <c:forEach items="${command.resultList}" var="entry">
 		     <br/>
 		 	 <c:choose>
 		    	   <c:when test="${command.studyCentric}">
