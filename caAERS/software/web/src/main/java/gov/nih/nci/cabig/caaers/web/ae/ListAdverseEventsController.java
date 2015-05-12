@@ -152,7 +152,7 @@ public class ListAdverseEventsController extends SimpleFormController {
         request.setAttribute("isStaff", isStaff);
         command.setUserId(userId);
 		
-		List<Report> reports = reportDao.search(command.getStudy(), command.getParticipant(), command.getReportStatus(), command.getSearchIdentifier(), 20);
+		List<Report> reports = reportDao.search(command.getStudy(), command.getParticipant(), command.getReportStatus(), command.getSearchIdentifier(), 5000);
         log.error("DirkDebug; In list adverse events, list size;" + reports.size());
 		command.setReports(reports);
     	//if there is no validation error, update the report submitability
@@ -166,7 +166,7 @@ public class ListAdverseEventsController extends SimpleFormController {
     	for(Report report : command.getReports()){
     		reportingPeriods.add(report.getAeReport().getReportingPeriod());
     	}
-    	log.error("DirkDebug; In list adverse events part 4, list size;" + reports.size());
+    	log.error("DirkDebug; In list adverse events part 4, list size;" + reportingPeriods.size());
 		List<AdverseEventReportingPeriod> reportingPeriodsList = new ArrayList<AdverseEventReportingPeriod>();
 		reportingPeriodsList.addAll(reportingPeriods);
 		command.populateResults(reportingPeriodsList);
