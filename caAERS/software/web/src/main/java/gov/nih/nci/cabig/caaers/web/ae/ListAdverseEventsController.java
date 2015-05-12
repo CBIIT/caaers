@@ -159,7 +159,7 @@ public class ListAdverseEventsController extends SimpleFormController {
         command.updateSubmittability();
         command.updateSubmittabilityBasedOnReportStatus();
         command.updateOptions();
-        
+        log.error("DirkDebug; In list adverse events part 2, list size;" + reports.size());
         command.updateSubmittabilityBasedOnWorkflow();
     	Set<AdverseEventReportingPeriod> reportingPeriods = new HashSet<AdverseEventReportingPeriod>();
     	for(Report report : command.getReports()){
@@ -169,9 +169,9 @@ public class ListAdverseEventsController extends SimpleFormController {
 		reportingPeriodsList.addAll(reportingPeriods);
 		command.populateResults(reportingPeriodsList);
 		
-		int endIndex = Math.min(14,command.getTotalResultsCount());
+		//int endIndex = Math.min(14,command.getTotalResultsCount());
 			
-		filterResultMap(command, 0, endIndex);
+		//filterResultMap(command, 0, endIndex);
         return command;
     }
 
@@ -322,7 +322,7 @@ public class ListAdverseEventsController extends SimpleFormController {
 		Integer endIndex = newPageNumber * numPerPage - 1;
 		if(endIndex > command.getTotalResultsCount())
 			endIndex = command.getTotalResultsCount() - 1;
-		filterResultMap(command, startIndex, endIndex);
+		
 		request.getSession().setAttribute(CURRENT_PAGE_NUMBER, newPageNumber);
 		modelAndView.getModel().put("totalResults", command.getTotalResultsCount());
 		modelAndView.getModel().put("startIndex", startIndex + 1);
@@ -377,35 +377,6 @@ public class ListAdverseEventsController extends SimpleFormController {
 		
     }
     
-    /**
-	 * This will go through the original search results,
-	 * Will pick the first entry in the result, then loops through it,
-	 * Will only add the RoutingAndReviewSearchResultDTO, starting from startIndex, till endIndex.
-	 *
-	 * @param startIndex the start index
-	 * @param endIndex the end index
-	 */
-	public void filterResultMap(ListAdverseEventsCommand command, int startIndex, int endIndex){
-		int index = 0;
-		command.getFilteredResultMap().clear();
-		
-		Set<String> keySet = command.getResultList().keySet();
-		for(String key : keySet){
-			for(ManageReportsRepotingPeriodDTO mrp :  command.getResultList().get(key)){
-				if(startIndex <= index && index <= endIndex){
-					if(command.getFilteredResultMap().get(key) != null){
-						command.getFilteredResultMap().get(key).add(mrp);
-					} else {
-						LinkedList<ManageReportsRepotingPeriodDTO> reportsList = new LinkedList<ManageReportsRepotingPeriodDTO>();
-						reportsList.add(mrp);
-						command.getFilteredResultMap().put(key,reportsList);
-					}
-				}
-				index++;
-			}
-		}
-	}
-
     // //// CONFIGURATION
 
     public void setAssignmentDao(StudyParticipantAssignmentDao assignmentDao) {

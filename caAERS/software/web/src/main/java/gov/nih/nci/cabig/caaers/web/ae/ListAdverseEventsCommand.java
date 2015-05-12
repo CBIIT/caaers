@@ -78,18 +78,6 @@ public class ListAdverseEventsCommand {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	// map for pagination
-	private Map<String, LinkedList<ManageReportsRepotingPeriodDTO>> filteredResultMap = new HashMap<String, LinkedList<ManageReportsRepotingPeriodDTO>>();
-
-	public Map<String, LinkedList<ManageReportsRepotingPeriodDTO>> getFilteredResultMap() {
-		return filteredResultMap;
-	}
-
-	public void setFilteredResultMap(
-			Map<String, LinkedList<ManageReportsRepotingPeriodDTO>> filteredResultMap) {
-		this.filteredResultMap = filteredResultMap;
-	}
 
 	// map to store study/participant title as key and reporting period info as list
 	private Map<String, LinkedList<ManageReportsRepotingPeriodDTO>> resultList = new HashMap<String, LinkedList<ManageReportsRepotingPeriodDTO>>();
