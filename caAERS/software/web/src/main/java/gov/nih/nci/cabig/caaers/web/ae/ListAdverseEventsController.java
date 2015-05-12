@@ -161,10 +161,12 @@ public class ListAdverseEventsController extends SimpleFormController {
         command.updateOptions();
         log.error("DirkDebug; In list adverse events part 2, list size;" + reports.size());
         command.updateSubmittabilityBasedOnWorkflow();
+        log.error("DirkDebug; In list adverse events part 3, list size;" + reports.size());
     	Set<AdverseEventReportingPeriod> reportingPeriods = new HashSet<AdverseEventReportingPeriod>();
     	for(Report report : command.getReports()){
     		reportingPeriods.add(report.getAeReport().getReportingPeriod());
     	}
+    	log.error("DirkDebug; In list adverse events part 4, list size;" + reports.size());
 		List<AdverseEventReportingPeriod> reportingPeriodsList = new ArrayList<AdverseEventReportingPeriod>();
 		reportingPeriodsList.addAll(reportingPeriods);
 		command.populateResults(reportingPeriodsList);
