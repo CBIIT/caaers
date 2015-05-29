@@ -202,6 +202,7 @@ public class AdverseEventDaoTest extends CaaersDbNoSecurityTestCase {
     public void testGetByAdverseEventReportingPeriodWithAECorrectGrade() throws Exception{
     	AdverseEventReportingPeriod reportingPeriod  = adverseEventReportingPeriodDao.getById(1001);
     	AdverseEvent ae = new AdverseEvent();
+    	ae.setCreatedDate(null);
     	ae.setSolicited(null);
     	ae.setGrade(Grade.DEATH);
     	List<AdverseEvent> aeList = getDao().getByAdverseEventReportingPeriod(reportingPeriod, reportingPeriod.getStudy(), reportingPeriod.getParticipant(), ae);
@@ -314,6 +315,7 @@ public class AdverseEventDaoTest extends CaaersDbNoSecurityTestCase {
     	AdverseEvent adverseEvent = new AdverseEvent();
     	adverseEvent.setHospitalization(Hospitalization.NONE);
     	adverseEvent.setSolicited(true);
+    	adverseEvent.setCreatedDate(null);
 		TimeValue tv = new TimeValue();
 		tv.setType(1);
     	adverseEvent.setEventApproximateTime(tv);

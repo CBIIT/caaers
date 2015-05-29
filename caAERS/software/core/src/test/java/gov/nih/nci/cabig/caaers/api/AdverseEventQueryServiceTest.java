@@ -61,6 +61,7 @@ public class AdverseEventQueryServiceTest extends CaaersDbNoSecurityTestCase {
 		Participant participant = new Participant();
 		participant.setFirstName("Dilbert");
 		AdverseEvent ae = new AdverseEvent();
+		ae.setCreatedDate(null);
 		ae.setGrade(Grade.DEATH);
 		ae.setEventApproximateTime(getDefaultTimeValue());
 		List<AdverseEvent> aes = svc.getByParticipant(participant, ae);
@@ -81,6 +82,7 @@ public class AdverseEventQueryServiceTest extends CaaersDbNoSecurityTestCase {
 		Participant participant = new Participant();
 		participant.setFirstName("Dilbert");
 		AdverseEvent ae = new AdverseEvent();
+		ae.setCreatedDate(null);
 		ae.setHospitalization(Hospitalization.NO);
 		ae.setEventApproximateTime(getDefaultTimeValue());
 		List<AdverseEvent> aes = svc.getByParticipant(participant, ae);
@@ -92,6 +94,7 @@ public class AdverseEventQueryServiceTest extends CaaersDbNoSecurityTestCase {
 		Participant participant = new Participant();
 		participant.setFirstName("Dilbert");
 		AdverseEvent ae = new AdverseEvent();
+		ae.setCreatedDate(null);
 		ae.setHospitalization(Hospitalization.YES);
 		ae.setEventApproximateTime(getDefaultTimeValue());
 		List<AdverseEvent> aes = svc.getByParticipant(participant, ae);
