@@ -10,6 +10,7 @@ import junit.framework.TestCase;
 /**
  * 
  * @author Biju Joseph
+ * @author JanakiRam
  *
  */
 public class AbstractQueryTest extends TestCase {
@@ -27,23 +28,23 @@ public class AbstractQueryTest extends TestCase {
 		query.andWhere("x = 1");
 		query.orWhere("y = 2");
 		query.orWhere("z = 3");
-		assertEquals("select * from emp WHERE x = 1 AND ( y = 2 OR z = 3 )",query.getQueryString());
+		assertEquals("select * from emp  WHERE x = 1 AND ( y = 2 OR z = 3 )",query.getQueryString());
 	}
 
 	public void testGetQueryString_WithoutAnd(){
 		query.orWhere("y = 2");
 		query.orWhere("z = 3");
-		assertEquals("select * from emp WHERE y = 2 OR z = 3",query.getQueryString());
+		assertEquals("select * from emp  WHERE y = 2 OR z = 3",query.getQueryString());
 	}
 
 	public void test2(){
 		query.orWhere("y = 3");
-		assertEquals("select * from emp WHERE y = 3", query.getQueryString());
+		assertEquals("select * from emp  WHERE y = 3", query.getQueryString());
 	}
 
 	public void testOneAnd(){
 		query.andWhere("dept = 'ABC'");
-		assertEquals("select * from emp WHERE dept = 'ABC'", query.getQueryString());
+		assertEquals("select * from emp  WHERE dept = 'ABC'", query.getQueryString());
 	}
 
 	public void testWithMultipleAndAndOr(){
@@ -52,7 +53,7 @@ public class AbstractQueryTest extends TestCase {
 		query.andWhere("m = 5");
 		query.orWhere("y = 3");
 		query.orWhere("y = 4");
-		assertEquals("select * from emp join dept on dept.id = emp.id WHERE j = 1 AND m = 5 AND ( y = 3 OR y = 4 )", query.getQueryString());
+		assertEquals("select * from emp join dept on dept.id = emp.id  WHERE j = 1 AND m = 5 AND ( y = 3 OR y = 4 )", query.getQueryString());
 	}
 
 	public void testCreateDateQueryForLessThan() {
@@ -64,10 +65,10 @@ public class AbstractQueryTest extends TestCase {
 		String courseStartDateQuery = "";
 		String courseEndDateQuery = "";
 		try {
-			startDateQuery = adverseEventQuery.createDateQuery("ae.startDate", "04/01/2015", "<");
-			endDateQuery = adverseEventQuery.createDateQuery("ae.endDate", "04/10/2015", "<");
-			courseStartDateQuery = adverseEventQuery.createDateQuery("aeRp.startDate", "04/01/2015", "<");
-			courseEndDateQuery = adverseEventQuery.createDateQuery("aeRp.endDate", "04/10/2015", "<");
+			startDateQuery = adverseEventQuery.createDateQuery("ae.startDate", "04/01/2015", "l");
+			endDateQuery = adverseEventQuery.createDateQuery("ae.endDate", "04/10/2015", "l");
+			courseStartDateQuery = adverseEventQuery.createDateQuery("aeRp.startDate", "04/01/2015", "l");
+			courseEndDateQuery = adverseEventQuery.createDateQuery("aeRp.endDate", "04/10/2015", "l");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,10 +88,10 @@ public class AbstractQueryTest extends TestCase {
 		String courseStartDateQuery = "";
 		String courseEndDateQuery = "";
 		try {
-			startDateQuery = adverseEventQuery.createDateQuery("ae.startDate", "04/01/2015", "<=");
-			endDateQuery = adverseEventQuery.createDateQuery("ae.endDate", "04/10/2015", "<=");
-			courseStartDateQuery = adverseEventQuery.createDateQuery("aeRp.startDate", "04/01/2015", "<=");
-			courseEndDateQuery = adverseEventQuery.createDateQuery("aeRp.endDate", "04/10/2015", "<=");
+			startDateQuery = adverseEventQuery.createDateQuery("ae.startDate", "04/01/2015", "lt");
+			endDateQuery = adverseEventQuery.createDateQuery("ae.endDate", "04/10/2015", "lt");
+			courseStartDateQuery = adverseEventQuery.createDateQuery("aeRp.startDate", "04/01/2015", "lt");
+			courseEndDateQuery = adverseEventQuery.createDateQuery("aeRp.endDate", "04/10/2015", "lt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
