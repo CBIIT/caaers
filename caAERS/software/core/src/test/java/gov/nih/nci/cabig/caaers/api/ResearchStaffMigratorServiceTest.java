@@ -222,6 +222,9 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
         if (rsList == null || rsList.isEmpty()) {
             return null;
         }
+        if(rsList.size() > 1) {
+        	fail("Got multiple results for research staff.");
+        }
         return rsList.get(0);
     }
 	

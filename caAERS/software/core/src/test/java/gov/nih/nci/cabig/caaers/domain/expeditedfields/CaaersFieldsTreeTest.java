@@ -34,11 +34,21 @@ public class CaaersFieldsTreeTest  extends CaaersTestCase {
         assertEquals("adverseEvents", nodes.get(0).getPropertyName());
     }
 
-    //TODO: JanakiRam. This test cases is failing sometime. Either Dirk/Biju needs to fix this.
-   /* public void testSections() {
+    public void testSections() {
     	//FIXME: Sometimes this is 3, not 2.
-        assertEquals(2, tree.getChildren().size());
-    }*/
+        assertEquals("The tree has sections; " + printSections(tree.getChildren()), 2, tree.getChildren().size());
+    }
+    
+    private String printSections(List<TreeNode> list) {
+    	if(list == null) {
+    		return "[Empty List]";
+    	}
+    	String str = "[";
+    	for(TreeNode node : list) {
+    		str += node.getDisplayName() + ";";
+    	}
+    	return str + "]";
+    }
     
     //checks whether the call is properly getting delegated to expedited tree. 
     public void testInitialize() {

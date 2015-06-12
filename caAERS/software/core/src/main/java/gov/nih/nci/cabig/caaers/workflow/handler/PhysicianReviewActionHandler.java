@@ -6,12 +6,9 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.workflow.handler;
 
-import gov.nih.nci.cabig.caaers.dao.ExpeditedAdverseEventReportDao;
 import gov.nih.nci.cabig.caaers.dao.report.ReportDao;
-import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.ReportStatus;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
-import gov.nih.nci.cabig.caaers.domain.ReportStatus;
 
 import java.util.Map;
 
@@ -36,7 +33,7 @@ public class PhysicianReviewActionHandler extends Action{
 	
 	public void execute(ExecutionContext context) throws Exception{
 		ProcessInstance pInstance = context.getProcessInstance();
-		Map<Object, Object> contextVariables = pInstance.getContextInstance().getVariables();
+		Map<String, Object> contextVariables = pInstance.getContextInstance().getVariables();
 		if(contextVariables != null){
 			String workflowType = (String) contextVariables.get(VAR_WF_TYPE);
 			if(workflowType != null && workflowType.equals(Report.class.getName())){
