@@ -75,7 +75,6 @@ public class CaaersFieldsTree extends PropertylessNode {
                                                 property("cycleNumber", getMessage("LBL_reportingPeriod.cycleNumber", "")),
                                                 property("treatmentAssignment", getMessage("LBL_reportingPeriod.treatmentAssignment", ""))
                                             )
-						        //)
                         )
         );
 	}
@@ -108,7 +107,7 @@ public class CaaersFieldsTree extends PropertylessNode {
      * @param children the children
      * @return the tree node
      */
-    public static TreeNode section(TabSection section, TreeNode... children) {
+    private static TreeNode section(TabSection section, TreeNode... children) {
         return new TabSectionNode(section).add(children);
     }
 
