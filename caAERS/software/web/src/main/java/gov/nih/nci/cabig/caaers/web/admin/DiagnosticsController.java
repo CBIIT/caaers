@@ -9,18 +9,16 @@ package gov.nih.nci.cabig.caaers.web.admin;
 import gov.nih.nci.cabig.caaers.esb.client.impl.CaaersAdeersMessageBroadcastServiceImpl;
 import gov.nih.nci.cabig.caaers.tools.configuration.Configuration;
 import gov.nih.nci.cabig.caaers.tools.mail.CaaersJavaMailSender;
+import gov.nih.nci.cabig.caaers.web.listener.EventMonitor;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
-import gov.nih.nci.cabig.caaers.web.listener.EventMonitor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-
-import java.io.File;
 
 public class DiagnosticsController extends SimpleFormController{
 	
@@ -36,7 +34,7 @@ public class DiagnosticsController extends SimpleFormController{
     }
     
     @Override
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+    protected DiagnosticsCommand formBackingObject(HttpServletRequest request) throws Exception {
     	DiagnosticsCommand diagnosticsCommand =  new DiagnosticsCommand(configuration);
     	diagnosticsCommand.setSmtpTestResult(testSmtp(diagnosticsCommand));
     	diagnosticsCommand.setServiceMixUp(testServiceMix());

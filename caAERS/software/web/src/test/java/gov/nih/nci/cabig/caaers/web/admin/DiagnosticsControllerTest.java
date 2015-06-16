@@ -34,128 +34,44 @@ public class DiagnosticsControllerTest extends AbstractTestCase {
 	public void testFormBackingObjectHttpServletRequest1() throws Exception{
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		DiagnosticsController controller = new DiagnosticsController();
-		Configuration configuration = registerMockFor(Configuration.class);
-        EventMonitor eventMonitor = registerMockFor(EventMonitor.class);
-        EasyMock.expect(eventMonitor.getAllEvents()).andReturn(new ArrayList<Event>());
-		EasyMock.expect(configuration.getProperties()).andReturn(new ConfigurationProperties() {
-			
-			@Override
-			public int size() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public String getStoredDefaultFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String getNameFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String getDescriptionFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Collection<ConfigurationProperty<?>> getAll() {
-				return new ArrayList<ConfigurationProperty<?>>();
-			}
-			
-			@Override
-			public ConfigurationProperty<?> get(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public boolean containsKey(String arg0) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
-		controller.setConfiguration(configuration);
+		EventMonitor eventMonitor = new EventMonitor();
 		controller.setEventMonitor(eventMonitor);
-		replayMocks();
-		DiagnosticsCommand command = (DiagnosticsCommand)controller.formBackingObject(request);
+		controller.setConfiguration(new Configuration());
+		DiagnosticsCommand command = controller.formBackingObject(request);
 		assertNotNull(command);
 		assertFalse(command.isSmtpTestResult());
 		assertFalse(command.isServiceMixUp());
         assertNotNull(command.getEvents());
-		verifyMocks();
 	}
 	
 	public void testFormBackingObjectHttpServletRequest2() throws Exception{
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		DiagnosticsController controller = new DiagnosticsController();
-		Configuration configuration = registerMockFor(Configuration.class);
-		EventMonitor eventMonitor = registerMockFor(EventMonitor.class);
+		Configuration configuration = new Configuration() {
+
+			@Override
+			public <V> V get(ConfigurationProperty<V> property) {
+				return null;
+			} 
+			
+		};
+		EventMonitor eventMonitor = new EventMonitor();
 		CaaersJavaMailSender caaersJavaMailSender = registerMockFor(CaaersJavaMailSender.class);
 		CaaersAdeersMessageBroadcastServiceImpl messageBroadcastService = registerMockFor(CaaersAdeersMessageBroadcastServiceImpl.class);
 		Session session = null;
-		MimeMessage mimeMessage = new MimeMessage(session);//registerMockFor(MimeMessage.class);
+		MimeMessage mimeMessage = new MimeMessage(session);
 		EasyMock.expect(caaersJavaMailSender.createMimeMessage()).andReturn(mimeMessage);
 		mimeMessage.setSubject("Test mail from caAERS Diagnostics");
 		mimeMessage.setFrom(new InternetAddress("caaers.app@gmail.com"));
 		caaersJavaMailSender.send(EasyMock.isA(MimeMessage.class));
 		messageBroadcastService.initialize();
-		EasyMock.expect(eventMonitor.getAllEvents()).andReturn(new ArrayList<Event>());
-        EasyMock.expect(configuration.get(Configuration.SYSTEM_FROM_EMAIL)).andReturn("biju@ll.com").anyTimes();
-		EasyMock.expect(configuration.getProperties()).andReturn(new ConfigurationProperties() {
-			
-			@Override
-			public int size() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public String getStoredDefaultFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String getNameFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String getDescriptionFor(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Collection<ConfigurationProperty<?>> getAll() {
-				return new ArrayList<ConfigurationProperty<?>>();
-			}
-			
-			@Override
-			public ConfigurationProperty<?> get(String arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public boolean containsKey(String arg0) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
+		
 		controller.setConfiguration(configuration);
 		controller.setEventMonitor(eventMonitor);
 		controller.setCaaersJavaMailSender(caaersJavaMailSender);
 		controller.setMessageBroadcastService(messageBroadcastService);
 		replayMocks();
-		DiagnosticsCommand command = (DiagnosticsCommand)controller.formBackingObject(request);
+		DiagnosticsCommand command = controller.formBackingObject(request);
 		assertNotNull(command);
 		assertTrue(command.isSmtpTestResult());
 		assertTrue(command.isServiceMixUp());
