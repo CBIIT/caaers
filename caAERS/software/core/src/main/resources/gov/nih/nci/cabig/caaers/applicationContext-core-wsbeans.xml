@@ -86,7 +86,7 @@
                 <property name="readTimeout" value="300000" />
 	        </bean>
 	    </property>
-	    <property name="defaultUri" value="https://localhost:8196/GenericProcessorService"/>
+	    <property name="defaultUri" value="http://localhost:8196/GenericProcessorService"/>
 	    <property name="faultMessageResolver" ref="soapFaultResolver"/>
 	</bean>
 	
