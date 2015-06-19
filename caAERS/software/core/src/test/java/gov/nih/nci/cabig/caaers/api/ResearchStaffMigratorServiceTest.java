@@ -60,8 +60,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 		researchStaffRepository = (ResearchStaffRepository)getDeployedApplicationContext().getBean("researchStaffRepository");
 	}
 
-    //TODO: JanakiRam. This test cases is failing sometime. Either Dirk/Biju needs to fix this.
-	/*@Test
+    @Test
 	public void testResearchStaffByLoginIdSave() throws Exception{
 		try {
 			//Create or update , whatever it is new data will be populated ..
@@ -78,10 +77,12 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			
 			updatedResearchStaff = fetchResearchStaff("jchapman");
 			
-			if("[879]-345-0983".equals(updatedResearchStaff.getFaxNumber())) {
-				wait(5000);
+			/*if("879-345-0983".equals(updatedResearchStaff.getFaxNumber())) {
+				synchronized (updatedResearchStaff) {
+					updatedResearchStaff.wait(15000);
+				} 
 				updatedResearchStaff = fetchResearchStaff("jchapman");
-			}
+			}*/
 			
 			assertNotNull("The updated reseach staff should not be null.", updatedResearchStaff);
 			
@@ -95,6 +96,18 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			assertNotNull(updatedResearchStaff.getSiteResearchStaffs());
 			assertEquals(1,updatedResearchStaff.getSiteResearchStaffs().size());
 			
+			//update with modified data ..
+			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/UpdateResearchStaffSiteRsAdd.xml")[0].getFile();
+			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
+			modifyDates(staff);
+			svc.saveResearchStaff(staff);
+			
+			updatedResearchStaff = fetchResearchStaff("jchapman");
+			
+			assertNotNull("The updated reseach staff should not be null.", updatedResearchStaff);
+			
+			assertNotNull(updatedResearchStaff.getSiteResearchStaffs());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("Error running test: " + e.getMessage());
@@ -102,7 +115,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			e.printStackTrace();
 			fail("Error running test: " + e.getMessage());
 		}		
-	}*/
+	}
 	
 	@Test
 	public void testResearchStaffByEmailSave() throws Exception{
@@ -134,40 +147,6 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			fail("Error running test: " + e.getMessage());
 		}		
 	}
-	
-	@Test
-	public void testSiteRsAdd() throws Exception{
-		
-		try {
-			//Create or update , whatever it is new data will be populated ..
-			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/CreateResearchStaffTest.xml")[0].getFile();
-			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
-			modifyDates(staff);
-			svc.saveResearchStaff(staff);	
-			
-			//update with modified data ..
-			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/UpdateResearchStaffSiteRsAdd.xml")[0].getFile();
-			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
-			modifyDates(staff);
-			svc.saveResearchStaff(staff);
-			
-			updatedResearchStaff = fetchResearchStaff("jchapman");
-			
-			assertNotNull("The updated reseach staff should not be null.", updatedResearchStaff);
-			
-			assertNotNull(updatedResearchStaff.getSiteResearchStaffs());
-//			assertEquals(1,updatedResearchStaff.getSiteResearchStaffs().size());    //for some reason this fails in oracle.
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("Error running test: " + e.getMessage());
-		} catch (JAXBException e) {
-			e.printStackTrace();
-			fail("Error running test: " + e.getMessage());
-		}
-		
-	}
-	
 	
 	public void _BROKEN_testSiteRsRemove() throws Exception{
 		
