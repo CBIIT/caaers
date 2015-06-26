@@ -131,12 +131,12 @@ public class AgentImporterTest extends WebTestCase {
 		verifyMocks();
 		assertNotNull(agentMap);
 		
-		agentMap = new HashMap<String,Agent>();
+		/*agentMap = new HashMap<String,Agent>();
 		Map returnedMap = null; 
 		agentMap.put("54321", agent1);
 		agentMap.put("098765", agent2);
 		importer.setAgentMap(agentMap);
-		returnedMap = importer.getAgentMap();
+		returnedMap = importer.getAgentMap();*/
 		
 	}
 	

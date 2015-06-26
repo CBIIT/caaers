@@ -60,9 +60,10 @@ public class AgentAjaxFacadeTest extends DwrFacadeTestCase {
 		EasyMock.expect(webContext.getSession()).andReturn(session).times(1);
 		EasyMock.expect(agentRepository.getAgentByID(1)).andReturn(agent);
 		EasyMock.expect(ctcTermDao.getById(2)).andReturn(ctcTerm);
-		EasyMock.expect(webContext.forwardToString(EasyMock.isA(String.class))).andReturn("Test HTML");
+		EasyMock.expect(webContext.forwardToString((String)EasyMock.anyObject())).andReturn("Test HTML");
 		replayMocks();
 		AjaxOutput out = agentAjaxFacade.addAgentSpecificTerms(1, "ctep", new int[]{2});
+		verifyMocks();
 		assertNotNull(out);
 		assertEquals("Test HTML", out.getHtmlContent());
 		assertEquals(1, agentCommand.getAgentSpecificTerms().size());
@@ -74,9 +75,10 @@ public class AgentAjaxFacadeTest extends DwrFacadeTestCase {
 		EasyMock.expect(webContext.getSession()).andReturn(session).times(1);
 		EasyMock.expect(agentRepository.getAgentByID(1)).andReturn(agent);
 		EasyMock.expect(lowLevelTermDao.getById(2)).andReturn(lowLevelTerm);
-		EasyMock.expect(webContext.forwardToString(EasyMock.isA(String.class))).andReturn("Test HTML");
+		EasyMock.expect(webContext.forwardToString((String)EasyMock.anyObject())).andReturn("Test HTML");
 		replayMocks();
 		AjaxOutput out = agentAjaxFacade.addAgentSpecificTerms(1, "meddra", new int[]{2});
+		verifyMocks();
 		assertNotNull(out);
 		assertEquals("Test HTML", out.getHtmlContent());
 		assertEquals(1, agentCommand.getAgentSpecificTerms().size());

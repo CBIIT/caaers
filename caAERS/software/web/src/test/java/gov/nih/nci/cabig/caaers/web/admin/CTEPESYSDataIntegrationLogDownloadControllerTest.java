@@ -56,7 +56,7 @@ public class CTEPESYSDataIntegrationLogDownloadControllerTest extends WebTestCas
 	
 	public void testHandleRequestInternal1() throws Exception{
 		String esbLocation = "abc/def";
-		EasyMock.expect(configuration.get((ConfigurationProperty)EasyMock.anyObject())).andReturn(esbLocation);
+		EasyMock.expect(configuration.get(Configuration.ESB_LOG_LOCATION)).andReturn(esbLocation);
 		replayMocks();
 		controller.handleRequestInternal(request, response);
 		verifyMocks();
