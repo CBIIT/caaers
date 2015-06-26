@@ -17,41 +17,29 @@ import java.util.List;
  * @author Ion C. Olaru
  * @author Biju Joseph
  */
-public class CaaersFieldsTreeTest extends CaaersTestCase {
-	
+public class CaaersFieldsTreeTest  extends CaaersTestCase {
+
+
+	private CaaersFieldsTree tree;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
     }
 
     public void testRecurcivelyCollectListNodes(){
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
         List<TreeNode> nodes = new ArrayList<TreeNode>();
         tree.recursivelyCollectListNodes(nodes);
         assertEquals("adverseEvents", nodes.get(0).getPropertyName());
     }
 
     public void testSections() {
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
-        assertEquals("The tree has sections; " + printSections(tree.getChildren()), 2, tree.getChildren().size());
-    }
-    
-    private String printSections(List<TreeNode> list) {
-    	if(list == null) {
-    		return "[Empty List]";
-    	}
-    	String str = "[";
-    	for(TreeNode node : list) {
-    		str += node.getDisplayName() + ";";
-    	}
-    	return str + "]";
+        assertEquals(2, tree.getChildren().size());
     }
     
     //checks whether the call is properly getting delegated to expedited tree. 
     public void testInitialize() {
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
-        
     	try {
 	        ExpeditedReportTree reportTree = registerMockFor(ExpeditedReportTree.class);
 	        tree.setExpeditedReportTree(reportTree);
@@ -69,8 +57,6 @@ public class CaaersFieldsTreeTest extends CaaersTestCase {
 
     //checks that if expedited report tree is null, the initialize will not throw NPE.
     public void testInitializeWillNotThrowNPE(){
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
-        
         try{
             tree.setExpeditedReportTree(null);
             tree.initialize();
@@ -80,8 +66,6 @@ public class CaaersFieldsTreeTest extends CaaersTestCase {
     }
 
     public void testAdd() {
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
-        
         tree.setExpeditedReportTree(null);
         tree.initialize();
         TabSectionNode tabSectionNode = new TabSectionNode(TabSection.COURSE_CYCLE_SECTION);
@@ -90,11 +74,12 @@ public class CaaersFieldsTreeTest extends CaaersTestCase {
         tree.add(tabSectionNode);
         TreeNode node = tree.getNodeForSection(TabSection.COURSE_CYCLE_SECTION);
         assertEquals(2, node.getChildren().size());
+        
+        // remove the node that is added
+        tree.getChildren().remove(tabSectionNode);
     }
 
     public void testGetMessage() {
-    	CaaersFieldsTree tree = (CaaersFieldsTree)getDeployedApplicationContext().getBean("caaersFieldsTree");
-        
         String m = tree.getMessage("LBL_one", "DEF");
         assertEquals("DEF", m);
     }
