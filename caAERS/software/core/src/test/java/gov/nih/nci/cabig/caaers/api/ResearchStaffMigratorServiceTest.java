@@ -8,6 +8,7 @@ package gov.nih.nci.cabig.caaers.api;
 
 import gov.nih.nci.cabig.caaers.CaaersDbNoSecurityTestCase;
 import gov.nih.nci.cabig.caaers.api.impl.DefaultResearchStaffMigratorService;
+import gov.nih.nci.cabig.caaers.dao.ResearchStaffDao;
 import gov.nih.nci.cabig.caaers.dao.query.ResearchStaffQuery;
 import gov.nih.nci.cabig.caaers.domain.Identifier;
 import gov.nih.nci.cabig.caaers.domain.Organization;
@@ -45,6 +46,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 	private Unmarshaller unmarshaller = null;
 	private gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff staff = null;
 	private File xmlFile = null;
+	private ResearchStaffDao researchStaffDao;
 
 	private ResearchStaffRepository researchStaffRepository= null;
 	Identifier identifier = null;
@@ -58,6 +60,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 		unmarshaller = jaxbContext.createUnmarshaller();
 		svc = (DefaultResearchStaffMigratorService)getDeployedApplicationContext().getBean("researchStaffMigratorService");
 		researchStaffRepository = (ResearchStaffRepository)getDeployedApplicationContext().getBean("researchStaffRepository");
+		researchStaffDao = (ResearchStaffDao)getDeployedApplicationContext().getBean("researchStaffDao");
 	}
 
     @Test
@@ -70,6 +73,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			svc.saveResearchStaff(staff);	
 			interruptSession();
 			
+			
 			//update with modified data ..
 			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/UpdateResearchStaffTest.xml")[0].getFile();
 			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
@@ -77,6 +81,7 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			svc.saveResearchStaff(staff);
 			
 			interruptSession();
+			Thread.sleep(2000);
 			
 			updatedResearchStaff = fetchResearchStaff("jchapman");
 			
