@@ -8,7 +8,6 @@ package gov.nih.nci.cabig.caaers.api;
 
 import gov.nih.nci.cabig.caaers.CaaersDbNoSecurityTestCase;
 import gov.nih.nci.cabig.caaers.api.impl.DefaultResearchStaffMigratorService;
-import gov.nih.nci.cabig.caaers.dao.ResearchStaffDao;
 import gov.nih.nci.cabig.caaers.dao.query.ResearchStaffQuery;
 import gov.nih.nci.cabig.caaers.domain.Identifier;
 import gov.nih.nci.cabig.caaers.domain.Organization;
@@ -46,7 +45,6 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 	private Unmarshaller unmarshaller = null;
 	private gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff staff = null;
 	private File xmlFile = null;
-	private ResearchStaffDao researchStaffDao;
 
 	private ResearchStaffRepository researchStaffRepository= null;
 	Identifier identifier = null;
@@ -60,7 +58,6 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 		unmarshaller = jaxbContext.createUnmarshaller();
 		svc = (DefaultResearchStaffMigratorService)getDeployedApplicationContext().getBean("researchStaffMigratorService");
 		researchStaffRepository = (ResearchStaffRepository)getDeployedApplicationContext().getBean("researchStaffRepository");
-		researchStaffDao = (ResearchStaffDao)getDeployedApplicationContext().getBean("researchStaffDao");
 	}
 
     @Test
@@ -72,24 +69,14 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			modifyDates(staff);
 			svc.saveResearchStaff(staff);	
 			interruptSession();
-			
-			
-			//update with modified data ..
-			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/UpdateResearchStaffTest.xml")[0].getFile();
-			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
-			modifyDates(staff);
-			svc.saveResearchStaff(staff);
-			
-			interruptSession();
-			Thread.sleep(2000);
-			
+			//fetch rearch staff by login id
 			updatedResearchStaff = fetchResearchStaff("jchapman");
 			
 			assertNotNull("The updated reseach staff should not be null.", updatedResearchStaff);
 			
-			assertEquals("111-345-0983", updatedResearchStaff.getFaxNumber());
-			assertEquals("111-678-0098", updatedResearchStaff.getPhoneNumber());
-			assertEquals("caaers.app2@gmail.com",updatedResearchStaff.getEmailAddress());
+			assertEquals("879-345-0983", updatedResearchStaff.getFaxNumber());
+			assertEquals("657-678-0098", updatedResearchStaff.getPhoneNumber());
+			assertEquals("caaers.app@gmail.com",updatedResearchStaff.getEmailAddress());
 			assertNotNull("Research Staff should have an address.", updatedResearchStaff.getAddress());
 			assertEquals("13921 Park Center Road", updatedResearchStaff.getAddress().getStreet());
 			assertEquals("Herndon", updatedResearchStaff.getAddress().getCity());
@@ -150,15 +137,9 @@ public class ResearchStaffMigratorServiceTest extends CaaersDbNoSecurityTestCase
 			
 			interruptSession();
 			
-			//update with modified data ..
-			xmlFile = getResources("classpath*:gov/nih/nci/cabig/caaers/api/testdata/UpdateResearchStaffSiteRsAdd.xml")[0].getFile();
-			staff = (gov.nih.nci.cabig.caaers.integration.schema.researchstaff.Staff)unmarshaller.unmarshal(xmlFile);
-			modifyDates(staff);
-			svc.saveResearchStaff(staff);
-			
-			interruptSession();
-			
+			//fetch rearch staff by login id
 			updatedResearchStaff = fetchResearchStaff("jchapman");
+			
 			
 			assertNotNull("The updated reseach staff should not be null.", updatedResearchStaff);
 			
