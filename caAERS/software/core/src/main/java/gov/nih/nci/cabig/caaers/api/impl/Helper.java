@@ -172,8 +172,13 @@ public class Helper {
         return createCaaersFault(message, errorCode, desc, null);
     }
     
-    public static CaaersFault createCaaersFault(String message, String errorCode, String desc, String exception){     
-    	CaaersFault caaersFault = new CaaersFault(message, new CaaersFaultInfo());
+    public static CaaersFault createCaaersFault(String message, String errorCode, String desc, Exception exception) {
+    	CaaersFault caaersFault;
+    	if(exception == null) {
+    		caaersFault = new CaaersFault(message, new CaaersFaultInfo());
+    	} else {
+    		caaersFault = new CaaersFault(message, new CaaersFaultInfo(), exception);
+    	}
         populateCaaersFault(caaersFault, errorCode, desc, exception);
         return caaersFault;
     }
@@ -182,12 +187,12 @@ public class Helper {
         populateCaaersFault(caaersFault, errorCode, desc, null);
     }
     
-    public static void populateCaaersFault(CaaersFault caaersFault, String errorCode, String desc, String exception){        
+    public static void populateCaaersFault(CaaersFault caaersFault, String errorCode, String desc, Exception exception){        
         List<Fault> faults = caaersFault.getFaultInfo().getFault();
         faults.add(createFault(errorCode, desc, exception));
     }
     
-    public static Fault createFault(String errorCode, String desc, String exception){
+    public static Fault createFault(String errorCode, String desc, Exception exception){
     	String description = desc == null ? "Processing failure" : desc;
         description += " Error occured in system " + Configuration.LAST_LOADED_CONFIGURATION.get(Configuration.SYSTEM_NAME);
     	Fault fault = new Fault();

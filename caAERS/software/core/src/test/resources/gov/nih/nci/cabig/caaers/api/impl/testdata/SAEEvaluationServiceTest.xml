@@ -42,7 +42,7 @@
   	<!--  ======================== Study participant assignment ============================== -->
     <PARTICIPANT_ASSIGNMENTS id="-14"
                              study_site_id="-1004" participant_id="-101" date_of_enrollment="2006-09-30"
-                             load_status="1"/>
+                             load_status="1" study_subject_identifier="TSTSUBJ-14"/>
 
 	<study_agents />
     <ind_holders/>
