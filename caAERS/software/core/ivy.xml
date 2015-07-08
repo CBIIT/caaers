@@ -149,6 +149,8 @@
 
             <!-- Databases -->
             <dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4"  conf="build,dist,distGrid->default"/>
+            <!-- For oracle 12c we need ojdbc7. We have to download ojdbc7 and follow the instructions specified in quick start guide -->
+            <dependency org="oracle" name="ojdbc7" rev="12.1.0.2.0"  conf="build,dist,distGrid->default"/>
 
             <dependency org="oracle" name="ojdbc14" rev="10.2.0.2"  />
 
@@ -244,7 +246,7 @@
                 <exclude module="axis-ant" />
                 <exclude module="junit" />
             </dependency>
-            
+            <dependency org="org.opensaml" name="opensaml" rev="1.1"/>
             <dependency org="wsdl4j" name="wsdl4j" rev="1.5.2">
                   <exclude module="pull-parser" />
             </dependency>
