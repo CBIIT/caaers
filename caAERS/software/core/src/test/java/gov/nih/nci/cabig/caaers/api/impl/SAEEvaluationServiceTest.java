@@ -9,6 +9,7 @@ package gov.nih.nci.cabig.caaers.api.impl;
 import gov.nih.nci.cabig.caaers.CaaersDbNoSecurityTestCase;
 import gov.nih.nci.cabig.caaers.domain.Fixtures;
 import gov.nih.nci.cabig.caaers.domain.Grade;
+import gov.nih.nci.cabig.caaers.domain.RuleSet;
 import gov.nih.nci.cabig.caaers.domain.StudyParticipantAssignment;
 import gov.nih.nci.cabig.caaers.integration.schema.adverseevent.AdverseEventType;
 import gov.nih.nci.cabig.caaers.integration.schema.adverseevent.CourseType;
@@ -17,26 +18,49 @@ import gov.nih.nci.cabig.caaers.integration.schema.adverseevent.OutcomeType;
 import gov.nih.nci.cabig.caaers.integration.schema.saerules.AdverseEvents;
 import gov.nih.nci.cabig.caaers.integration.schema.saerules.Criteria;
 import gov.nih.nci.cabig.caaers.integration.schema.saerules.SaveAndEvaluateAEsInputMessage;
+import gov.nih.nci.cabig.caaers.rules.business.service.CaaersRulesEngineService;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.datatype.DatatypeConstants;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import com.semanticbits.rules.utils.RuleUtil;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 public class SAEEvaluationServiceTest extends CaaersDbNoSecurityTestCase {
 	
 	private SAEEvaluationServiceImpl SAEEvaluationService = null;
+	private CaaersRulesEngineService caaersRulesEngineService = null;
 	
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         
         SAEEvaluationService = (SAEEvaluationServiceImpl)getApplicationContext().getBean("SAEEvaluationServiceImpl");
+        caaersRulesEngineService = (CaaersRulesEngineService) getDeployedApplicationContext().getBean("caaersRulesEngineService");
+        
+        //Load rules;
+        try(InputStream in = RuleUtil.getResouceAsStream("safety_signalling_rules_study_7211.xml")) {
+	        String xml = RuleUtil.getFileContext(in);
+	        System.out.println(xml);
+	        IOUtils.closeQuietly(in);
+	        File f = File.createTempFile("r_"+ System.currentTimeMillis(), "sae.xml");
+	        System.out.println(f.getAbsolutePath());
+	        FileWriter fw = new FileWriter(f);
+	        IOUtils.write(xml, fw);
+	        IOUtils.closeQuietly(fw);
+	        
+	        caaersRulesEngineService.importRules(f.getAbsolutePath());
+	        f.delete();
+        }
     }
     
     @Test
