@@ -38,7 +38,7 @@ public class ToCaaersReportWSRouteBuilder {
         Map<String, String> nss = new HashMap<String, String>();
         nss.put("svrl", "http://purl.oclc.org/dsdl/svrl");
         
-        routeBuilder.from("file://"+inputEDIDir+"?preMove=inprogress&move=done&moveFailed=movefailed")
+        routeBuilder.from("file://"+inputEDIDir+"?preMove=inprogress&move=done&moveFailed=$simple{file:parent}/movefailed")
             .streamCaching()
             .setExchangePattern(ExchangePattern.InOnly)
             .setProperty(NEEDS_ACK, rb.constant(Boolean.TRUE.toString()))
