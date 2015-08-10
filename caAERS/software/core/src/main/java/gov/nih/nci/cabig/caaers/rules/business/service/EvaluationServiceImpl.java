@@ -123,14 +123,16 @@ public class EvaluationServiceImpl implements EvaluationService {
         		
         		//populate the reported adverse event - report definition map.
         		List<Report> completedAmendableReports = aeReport.findCompletedAmendableReports();
-        		for(AdverseEvent ae : aeReport.getAdverseEvents()){
-        			List<ReportDefinition> rdList = new ArrayList<ReportDefinition>();
-        			for(Report completedReport : completedAmendableReports){
-            			if(completedReport.isReported(ae)){
-            				rdList.add(completedReport.getReportDefinition());
-            			}
-            		}
-        			result.getReportedAEIndexMap().put(ae.getId(), rdList);
+        		for(AdverseEvent ae : aeReport.getAdverseEvents()) {
+        			if(ae != null) {
+	        			List<ReportDefinition> rdList = new ArrayList<ReportDefinition>();
+	        			for(Report completedReport : completedAmendableReports){
+	            			if(completedReport.isReported(ae)){
+	            				rdList.add(completedReport.getReportDefinition());
+	            			}
+	            		}
+	        			result.getReportedAEIndexMap().put(ae.getId(), rdList);
+        			}
     			}
         		
         		
@@ -276,7 +278,12 @@ public class EvaluationServiceImpl implements EvaluationService {
                             log.warn("Report definition (" + reportDefName + "), is referred in rules but is not found");
                             continue; //we cannot find the report referred by the rule
                         }
-                        loadedReportDefinitionsMap.put(reportDefName, rd);
+						if (rd.getEnabled()) {
+							loadedReportDefinitionsMap.put(reportDefName, rd);
+						} else {
+							log.debug("Ignoring Report definition ["
+									+ reportDefName + "] as it is disabled");
+						}
                     }
 
                     if(rd.getEnabled()){

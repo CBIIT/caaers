@@ -29,7 +29,7 @@ public abstract class AbstractEventListener   implements ApplicationListener {
 
     public void preProcess(ApplicationEvent event) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -47,12 +47,11 @@ public abstract class AbstractEventListener   implements ApplicationListener {
             String eventType = "AUTHENTICATION";
             if(event instanceof AuthenticationSuccessEvent){
                 loginName = SecurityUtils.getUserLoginName(((AuthenticationSuccessEvent) event).getAuthentication());
-            }
-            if(event instanceof EntityModificationEvent) {
+            } else if(event instanceof EntityModificationEvent) {
                 EntityModificationEvent entityModificationEvent = (EntityModificationEvent)event;
                 loginName = SecurityUtils.getUserLoginName(entityModificationEvent.getAuthentication());
                 entityId = entityModificationEvent.getEntity().getId() != null ? entityModificationEvent.getEntity().getId() : -1;
-                eventType = entityModificationEvent.getEventType().name();
+                eventType = entityModificationEvent.getClass().getSimpleName() + " - "  + entityModificationEvent.getEventType().name();
             }
 
             return eventMonitor.addEvent(loginName, eventType, entityId);
