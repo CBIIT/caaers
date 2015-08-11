@@ -568,7 +568,15 @@ public class SafetyReportServiceImpl {
     	RecommendedActions withdrawAction = null;
 		RecommendedActions createAction = null;
 		List<RecommendedActions> recActions = response.getRecommendedActions();
-    	if(response.getRecommendedActions().size() > 1) {
+		if(evaluateInputMessage.isWithdrawReport() != null && evaluateInputMessage.isWithdrawReport().booleanValue()) {
+			final RecommendedActions action = response.getRecommendedActions().get(0);
+			action.setAction("Withdraw");
+			action.setActionText("Withdraw the " + action.getReport());
+			action.setDue(null);
+			action.setDueDate(null);
+			response.getRecommendedActions().clear();
+			response.getRecommendedActions().add(action);
+		} else if(response.getRecommendedActions().size() > 1) {
     		boolean withdraw = false;
     		boolean create = false;
     		boolean amend = false;
