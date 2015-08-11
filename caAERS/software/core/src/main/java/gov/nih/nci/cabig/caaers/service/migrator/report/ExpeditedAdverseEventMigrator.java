@@ -34,6 +34,11 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
                         String.valueOf(aeSrc.getStartDate()), String.valueOf(aeSrc.getEndDate()), String.valueOf(aeSrc.getExternalId()));
                 return;
             }
+            //doing object comparison to skip useless migrations
+            if(aeDest == aeSrc) {
+            	System.err.println("DirkDebug; In EAEM; skip same!");
+            	continue;
+            }
             
             System.err.println("DirkDebug; In EAEM; copy " + aeSrc + " to " +  aeDest);
 
