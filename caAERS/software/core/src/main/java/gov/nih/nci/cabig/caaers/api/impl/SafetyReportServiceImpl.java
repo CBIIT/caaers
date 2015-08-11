@@ -617,7 +617,7 @@ public class SafetyReportServiceImpl {
 		if(replace) {
 			response.getRecommendedActions().clear();
 			response.getRecommendedActions().add(createAction);
-			evaluateInputMessage.setReportId(null);
+			//evaluateInputMessage.setReportId(null);
 			aeSrcReport = evaluateAndInitiateReportConverter.convert(evaluateInputMessage, repPeriod, response);
 			initiateSafetyReportAction(aeSrcReport, caaersServiceResponse, errors, true);
 		}

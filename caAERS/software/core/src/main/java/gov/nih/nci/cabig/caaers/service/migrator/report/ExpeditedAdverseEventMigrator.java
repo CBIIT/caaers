@@ -23,6 +23,7 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
     
     public void migrate(ExpeditedAdverseEventReport src, ExpeditedAdverseEventReport dest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
+    	System.err.println("DirkDebug; In EAEM; looping over " + src.getActiveAdverseEvents().size());
         AdverseEventReportingPeriod reportingPeriod = dest.getReportingPeriod();
         List<AdverseEvent> destAdverseEvents = new ArrayList<AdverseEvent>();
          // Associate the updated information to adverse events.
@@ -33,6 +34,8 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
                         String.valueOf(aeSrc.getStartDate()), String.valueOf(aeSrc.getEndDate()), String.valueOf(aeSrc.getExternalId()));
                 return;
             }
+            
+            System.err.println("DirkDebug; In EAEM; copy " + aeSrc + " to " +  aeDest);
 
             if(aeSrc.getStartDate() != null)
             	aeDest.setStartDate(aeSrc.getStartDate());
