@@ -9,6 +9,7 @@ package gov.nih.nci.cabig.caaers.security;
 import gov.nih.nci.cabig.caaers.CaaersDbTestCase;
 import gov.nih.nci.cabig.caaers.domain.User;
 import gov.nih.nci.cabig.caaers.domain.repository.UserRepository;
+import gov.nih.nci.cabig.caaers.domain.security.passwordpolicy.LoginPolicy;
 import gov.nih.nci.cabig.caaers.service.security.user.Credential;
 import gov.nih.nci.security.authentication.CommonAuthenticationManager;
 
@@ -235,7 +236,7 @@ public class CaaersCSMAuthenticationProviderTest extends CaaersDbTestCase {
 
 		{
 			User user = loadUser();
-			assertEquals(-1, user.getFailedLoginAttempts());
+			assertEquals(LoginPolicy.MAX_LOGIN_ATTEMPTS_ALLOWED.intValue(), user.getFailedLoginAttempts());
 		}
 	}
 
@@ -248,7 +249,7 @@ public class CaaersCSMAuthenticationProviderTest extends CaaersDbTestCase {
 		{
 			User user = loadUser();
 			user.setPasswordLastSet(now);
-			user.setFailedLoginAttempts(-1);
+			user.setFailedLoginAttempts(LoginPolicy.MAX_LOGIN_ATTEMPTS_ALLOWED);
 			user.setLastFailedLoginAttemptTime(now);
 			// Login Policy Lockout duration = 3 minutes
 			saveUser(user);
