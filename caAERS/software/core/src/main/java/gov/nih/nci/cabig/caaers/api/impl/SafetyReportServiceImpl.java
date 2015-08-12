@@ -572,7 +572,7 @@ public class SafetyReportServiceImpl {
 			final RecommendedActions action = response.getRecommendedActions().get(0);
 			action.setAction("Withdraw");
 			action.setActionText("Withdraw the " + action.getReport());
-			action.setDue(null);
+			action.setDue("Never");
 			action.setDueDate(null);
 			response.getRecommendedActions().clear();
 			response.getRecommendedActions().add(action);
