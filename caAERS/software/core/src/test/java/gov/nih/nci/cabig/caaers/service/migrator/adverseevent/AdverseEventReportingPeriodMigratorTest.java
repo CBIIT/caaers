@@ -51,7 +51,7 @@ public class AdverseEventReportingPeriodMigratorTest extends AbstractTestCase {
        // Removed this validation in the Source as the Adverse Events can be empty.
        // assertEquals("WS_AEMS_025", outcome.getValidationErrors().getErrors().get(0).getCode());
        
-       assertEquals("WS_AEMS_083", outcome.getValidationErrors().getErrors().get(0).getCode());
+       assertEquals("WS_AEMS_034", outcome.getValidationErrors().getErrors().get(0).getCode());
 
        verifyMocks();
     }

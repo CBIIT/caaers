@@ -30,35 +30,48 @@ public class TreatmentAssignmentSynchronizer implements Migrator<gov.nih.nci.cab
         Hashtable<String, TreatmentAssignment> dbTacIndexMap = new Hashtable<String, TreatmentAssignment>();
         Hashtable<String, TreatmentAssignment> dbCtepIndexMap = new Hashtable<String, TreatmentAssignment>();
         for (TreatmentAssignment ta : dbStudy.getActiveTreatmentAssignments()) {
-            dbTacIndexMap.put(ta.getCode().toUpperCase(), ta);
-            if(ta.getCtepDbIdentifier() != null && !ta.getCtepDbIdentifier().isEmpty()) {
-            	dbCtepIndexMap.put(ta.getCtepDbIdentifier().toUpperCase(), ta);
-            }
+            String ctepDbId = StringUtils.upperCase(ta.getCtepDbIdentifier());
+            String tac = StringUtils.upperCase(ta.getCode());
+            dbTacIndexMap.put(tac, ta);
+            if(StringUtils.isNotEmpty(ctepDbId)) dbCtepIndexMap.put(ctepDbId, ta);
         }
 
         //Identify New TreatmentAssignments and also update existing ones.
         for (TreatmentAssignment xmlTreatmentAssignment : xmlStudy.getTreatmentAssignments()) {
 
+            // //CAAERS-7367 - /REFACTORED - always prefer the tac that is available.
+            String ctepDbId = StringUtils.upperCase(xmlTreatmentAssignment.getCtepDbIdentifier());
+            String tac = StringUtils.upperCase(xmlTreatmentAssignment.getCode());
+            if(StringUtils.isEmpty(tac) && StringUtils.isEmpty(ctepDbId)) continue; //no I cannot process this record
             TreatmentAssignment ta = null;
-            if (xmlTreatmentAssignment.getCtepDbIdentifier() != null) {
-            	ta = dbCtepIndexMap.get(xmlTreatmentAssignment.getCtepDbIdentifier().toUpperCase());
-            }
 
-            if (ta == null && !StringUtils.isBlank(xmlTreatmentAssignment.getCtepDbIdentifier())) {
-                //newly added one, so add it to study
+            //try to identify the TA by ctep-id
+            if(StringUtils.isNotEmpty(ctepDbId)) {
+                ta = dbCtepIndexMap.get(ctepDbId) ;
+            }
+            //TA not found : try to find by tac
+            if(ta ==  null) ta = dbTacIndexMap.get(tac);
+
+            //still tac null -- create a new one.
+            if(ta == null) {
+                ta = xmlTreatmentAssignment;
                 dbStudy.addTreatmentAssignment(xmlTreatmentAssignment);
                 continue;
             }
-            
-            //CAAERS-7367 - tac existing in db, update the details from xml and remove it from the dbTacIndexMap map
-            if (StringUtils.isNotEmpty(xmlTreatmentAssignment.getDescription())) ta.setDescription(xmlTreatmentAssignment.getDescription());
-            if (StringUtils.isNotEmpty(xmlTreatmentAssignment.getComments())) ta.setComments(xmlTreatmentAssignment.getComments());
-            if (xmlTreatmentAssignment.getDoseLevelOrder() != null) ta.setDoseLevelOrder(xmlTreatmentAssignment.getDoseLevelOrder());
-            
-            dbTacIndexMap.remove(xmlTreatmentAssignment.getCode().toUpperCase());
+
+            //it is an existing TA, so lets sync up the attributes
+            ta.setCtepDbIdentifier(xmlTreatmentAssignment.getCtepDbIdentifier());
+            ta.setCode(xmlTreatmentAssignment.getCode());
+            ta.setDescription(xmlTreatmentAssignment.getDescription());
+            ta.setComments(xmlTreatmentAssignment.getComments());
+            ta.setDoseLevelOrder(xmlTreatmentAssignment.getDoseLevelOrder());
+
+            //marking the TA as processed by removing it from index
+            dbTacIndexMap.remove(tac);
+
         }
 
-        //soft delete - all the TACs that were not present in XML Study
+        //soft delete - all the TAs that were not present in XML Study
 		AbstractMutableRetireableDomainObject.retire(dbTacIndexMap.values());
 
 	}
