@@ -92,6 +92,10 @@ public class AdverseEventMigrator implements Migrator<AdverseEventReportingPerio
     public void migrate(AdverseEventReportingPeriod src, AdverseEventReportingPeriod dest, DomainObjectImportOutcome<AdverseEventReportingPeriod> outcome) {
         Study study = dest.getStudy();
         AeTerminology aeTerminology = study.getAeTerminology();
+        if(src == dest) {
+        	//object equivalence, don't bother to migrate.
+        	return;
+        }
 
         for(AdverseEvent aeSrc : src.getAdverseEvents()){
             AdverseEvent aeDest = new AdverseEvent();

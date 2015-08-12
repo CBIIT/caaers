@@ -37,6 +37,7 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
             //doing object comparison to skip useless migrations
             if(aeDest == aeSrc) {
             	System.err.println("DirkDebug; In EAEM; skip same!");
+            	destAdverseEvents.add(aeDest);
             	continue;
             }
             
