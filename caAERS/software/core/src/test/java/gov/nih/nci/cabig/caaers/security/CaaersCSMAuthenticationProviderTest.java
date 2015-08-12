@@ -270,7 +270,7 @@ public class CaaersCSMAuthenticationProviderTest extends CaaersDbTestCase {
 		try {
 			provider.additionalAuthenticationChecks(user, token);
 			fail("Should not reach here as the account is still locked ");
-		} catch (LockedException e) {
+		} catch (DisabledException|LockedException e) {
 		}
 	}
 }
