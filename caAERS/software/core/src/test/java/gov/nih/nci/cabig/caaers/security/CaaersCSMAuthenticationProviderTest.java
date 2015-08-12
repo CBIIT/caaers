@@ -126,8 +126,7 @@ public class CaaersCSMAuthenticationProviderTest extends CaaersDbTestCase {
 		interruptSession();
 
 		{
-			provider
-					.setCsmAuthenticationManager(new CommonAuthenticationManager() {
+			provider.setCsmAuthenticationManager(new CommonAuthenticationManager() {
 						@Override
 						public Subject authenticate(String userName,
 								String password) {

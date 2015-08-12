@@ -85,6 +85,7 @@ public class CaaersCSMAuthenticationProvider extends CSMAuthenticationProvider {
 
                     credential.setUser(caaersUser);
                     loginPolicyValidator.validate(passwordPolicy, credential, null);
+                    super.additionalAuthenticationChecks(user, token);
 
                 }
 		} catch (DisabledException attemptsEx) {
