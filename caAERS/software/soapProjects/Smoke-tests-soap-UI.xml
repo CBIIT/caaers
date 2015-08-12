@@ -6295,17 +6295,17 @@ xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-s
                </saer:adverseEvent>-->
             </saer:adverseEvents>
             <saer:criteria>
-               <studySubjectIdentifier>S14RC1-A071102</studySubjectIdentifier>
+               <studySubjectIdentifier>9102340</studySubjectIdentifier>
                <studyIdentifier>A071102</studyIdentifier>
                <course>
                   <startDateOfFirstCourse>2014-01-06</startDateOfFirstCourse>
-                  <startDateOfThisCourse>2015-07-17</startDateOfThisCourse>
-                  <cycleNumber>17</cycleNumber>
+                  <startDateOfThisCourse>2015-07-22</startDateOfThisCourse>
+                  <cycleNumber>22</cycleNumber>
                   <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>
-                  <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
-               </course>
+                  <otherTreatmentAssignmentDescription>testing-other</otherTreatmentAssignmentDescription>
+                 </course> 
             </saer:criteria>
-        <!-- <reportId>375407766</reportId>-->
+         <reportId>1500454154</reportId>
             <!--<withdrawReport>true</withdrawReport>-->
             <reporter>
                <aer:firstName>Reporter</aer:firstName>
