@@ -32,7 +32,7 @@ public class ConfigPropertyDaoTest extends DaoTestCase<ConfigPropertyDao> {
 	public void testGetByType() {
 		List<ConfigProperty> props = getDao().getByType(ConfigPropertyType.REPORT_GROUP);
 		assertEquals(2, props.size());
-		assertEquals("EXP1", props.get(0).getCode());
+		assertTrue("EXP1".equals(props.get(0).getCode()) || "TET1".equals(props.get(0).getCode()));
 		assertEquals(ConfigPropertyType.REPORT_GROUP, props.get(0).getConfigType());
 	}
 	

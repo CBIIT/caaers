@@ -219,8 +219,8 @@ public class DiseaseHistory extends AbstractExpeditedReportSingleChild {
      */
     @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "study_disease_id")
-    public AbstractStudyDisease getAbstractStudyDisease() {
-        return abstractStudyDisease;
+    public <D extends AbstractStudyDisease> D getAbstractStudyDisease() {
+        return (D)abstractStudyDisease;
     }
 
     /**
@@ -228,7 +228,7 @@ public class DiseaseHistory extends AbstractExpeditedReportSingleChild {
      *
      * @param abstractStudyDisease the new abstract study disease
      */
-    public void setAbstractStudyDisease(AbstractStudyDisease abstractStudyDisease) {
+    public <D extends  AbstractStudyDisease> void setAbstractStudyDisease(D abstractStudyDisease) {
         this.abstractStudyDisease = abstractStudyDisease;
     }
 
