@@ -56,6 +56,7 @@ public class ValidationErrors {
     }
     
     public void removeErrorsWithCode(String code){
+    	return;/*
     	if(code == null) {
     		return;
     	}
@@ -65,6 +66,6 @@ public class ValidationErrors {
 			if(code.equals(val.getCode())) {
 				it.remove();
 			}
-		}
+		}*/
     }
 }
