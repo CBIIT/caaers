@@ -25,6 +25,7 @@ import gov.nih.nci.security.dao.UserSearchCriteria;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
 import gov.nih.nci.security.exceptions.CSTransactionException;
 import gov.nih.nci.security.util.StringEncrypter;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -386,10 +387,12 @@ public class UserRepositoryImpl implements UserRepository {
      * @param user the user
      */
     protected void sendUpdateAccountEmail(User user){
-        String emailSubject = getMessageSource().getMessage("updateAccountEmail.subject",null, "Your updated caAERS account", Locale.getDefault());
-        String emailText = getMessageSource().getMessage("updateAccountEmail.subject", null, "Your caAERS account has been updated", Locale.getDefault());
-
     	if ("local".equals(getAuthenticationMode())) {
+	    	String userName = user.getCsmUser().getLoginName();
+	    	String sysName = Configuration.LAST_LOADED_CONFIGURATION.get(Configuration.SYSTEM_NAME);
+	        String emailSubject = getMessageSource().getMessage("updateAccountEmail.subject",null, "Your updated caAERS account", Locale.getDefault());
+	        String emailText = getMessageSource().getMessage("updateAccountEmail.text", new String[] {userName, sysName}, "Your caAERS account has been updated", Locale.getDefault());
+
     		sendUserEmail(user.getCsmUser().getEmailId(), emailSubject, emailText);  // annoying for development
     	}
     }
