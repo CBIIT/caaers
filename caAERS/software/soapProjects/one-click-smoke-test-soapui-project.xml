@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="6b912dee-a275-49bb-bd40-93f1037b4361" activeEnvironment="Default" name="one-click-smoke-test" resourceRoot="${projectDir}" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="b337da1a-e0e8-40ab-ad4b-d9376480b444" wadlVersion="http://wadl.dev.java.net/2009/02" name="https://dev.semanticbits.com" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>https://dev.semanticbits.com</con:endpoint></con:endpoints><con:resource name="ParticipantInitialization" path="/caaers/ParticipantInitialization" id="68aa89c4-98ef-4f14-9342-f07854f6856e"><con:settings/><con:parameters/><con:method name="ParticipantInitialization" id="e711e195-c362-4e4d-bcaa-898047c838d2" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>401 409</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/><con:element>ODM</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="create-participant" id="0ff0e227-5a78-4da0-a1e9-d1ffad13e339" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://dev.semanticbits.com</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6b912dee-a275-49bb-bd40-93f1037b4361" activeEnvironment="Default" name="one-click-smoke-test" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="b337da1a-e0e8-40ab-ad4b-d9376480b444" wadlVersion="http://wadl.dev.java.net/2009/02" name="https://dev.semanticbits.com" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>https://dev.semanticbits.com</con:endpoint></con:endpoints><con:resource name="ParticipantInitialization" path="/caaers/ParticipantInitialization" id="68aa89c4-98ef-4f14-9342-f07854f6856e"><con:settings/><con:parameters/><con:method name="ParticipantInitialization" id="e711e195-c362-4e4d-bcaa-898047c838d2" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>401 409</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/><con:element>ODM</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="create-participant" id="0ff0e227-5a78-4da0-a1e9-d1ffad13e339" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://dev.semanticbits.com</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <ODM CreationDateTime="2013-03-19T09:19:44" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3">
 	<ClinicalData MetaDataVersionOID="3629869" StudyOID="8875">
 		<SubjectData SubjectKey="az55442" TransactionType="Insert">
@@ -6549,14 +6549,14 @@
          </aer:AdverseEventReport>
       </aer:submitSafetyReport>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="registration-properties" id="6f8ef1f2-ffac-4dec-8fbf-32eb325df5e3"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>subjectKey</con:name><con:value>7_177_21</con:value></con:property><con:property><con:name>dob</con:name><con:value>23 Mar 2006</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>18_34_84</con:value></con:property><con:property><con:name>reportId</con:name><con:value>000000000</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>23 Mar 2006</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
 int y = 2000 + Math.random() * 10 
 int d = Math.random() * 28 + 1
 int m = Math.random() * 6
 String dd = d &lt; 10 ? "0" + d  : d
 String dob = "${dd} ${['Jan','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'][m]} ${y}"
-testRunner.testCase.testSteps["registration-properties"].setPropertyValue("subjectKey", subjectKey)
-testRunner.testCase.testSteps["registration-properties"].setPropertyValue("dob", dob)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("subjectKey", subjectKey)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("dob", dob)
 log.info("   User : ${context.ThreadIndex} , Run : ${context.RunCount} - subjectKey : ${subjectKey}, dob:${dob}")
 </script></con:config></con:testStep><con:testStep type="restrequest" name="registerPatient" id="2c573dc5-75ec-45d3-9eb1-69d445472c6f"><con:settings/><con:config service="https://dev.semanticbits.com" methodName="ParticipantInitialization" resourcePath="/caaers/ParticipantInitialization" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="registerPatient" id="a0538563-594d-49a9-9ec9-88d3e8b363e6" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.71:7700</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <ODM CreationDateTime="2013-03-19T09:19:44" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3">
@@ -6633,32 +6633,53 @@ log.info("   User : ${context.ThreadIndex} , Run : ${context.RunCount} - subject
 			</StudyEventData>
 		</SubjectData>
 	</ClinicalData>
-</ODM>]]></con:request><con:originalUri>https://dev.semanticbits.com/caaers/ParticipantInitialization</con:originalUri><con:assertion type="Simple Contains" id="29762f72-4a0a-4a60-b92a-b9af28017307" name="Contains"><con:configuration><token>IsTransactionSuccessful="1"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:username>registrar</con:username><con:password>rartsigermai-11</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="transfer" name="transfer-subject-key" id="92a07ef7-b0c9-4ed2-8a2c-17a103650f5b"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>grab-subjectkey</con:name><con:sourceType>RawRequest</con:sourceType><con:sourceStep>registerPatient</con:sourceStep><con:sourcePath>/ODM/ClinicalData/SubjectData/@SubjectKey</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>evaluateAndInitiate</con:targetStep><con:targetPath>//studySubjectIdentifier</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="course-sript" id="3d19348e-537f-4810-bb92-c0c309055606"><con:settings/><con:config><script>String subjectId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("subjectIdentifier")
-String firstCourseStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("firstCourseStartDate")
+</ODM>]]></con:request><con:originalUri>https://dev.semanticbits.com/caaers/ParticipantInitialization</con:originalUri><con:assertion type="Simple Contains" id="29762f72-4a0a-4a60-b92a-b9af28017307" name="Contains"><con:configuration><token>IsTransactionSuccessful="1"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:username>registrar</con:username><con:password>rartsigermai-11</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="groovy" name="course-sript" id="3d19348e-537f-4810-bb92-c0c309055606"><con:settings/><con:config><script>String firstCourseStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("firstCourseStartDate")
 Integer startCycleNumber = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("startCycleNumber"))
 Integer courseDurationInDays = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("courseDurationInDays"))
 Integer threadIndex = context.ThreadIndex
 Integer runIndex = 0//context.RunCount
-String subjectKey = "${subjectId}"
+String subjectKey = testRunner.testCase.testSteps["course-properties"].getPropertyValue("subjectKey")
 
 int factor = (courseDurationInDays * runIndex) + 1
+
+String now =  new Date().format("yyyy-MM-dd'T16:42:45.0Z'")
+
 def d = new Date().parse("yyyy-MM-dd", firstCourseStartDate)
+String drugStartDate = d.format("yyyyMMdd")
+
 String courseStartDate = d.plus(factor).format("yyyy-MM-dd")
+String drugEndDate = d.plus(factor).format("yyyyMMdd")
+
 String courseEndDate = d.plus(factor +  courseDurationInDays).format("yyyy-MM-dd")
 def cycleNumber = String.valueOf( startCycleNumber + runIndex)
 String aeStartDate = d.plus(factor + 2).format("yyyy-MM-dd'T16:42:45.0Z'")
 
+String messageNumber = "" + System.currentTimeMillis()
+
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("messageNumber", messageNumber)
+
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("cycleNumber", cycleNumber)
-testRunner.testCase.testSteps["course-properties"].setPropertyValue("aeStartDate", aeStartDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("now", now)
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("courseStartDate", courseStartDate)
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("courseEndDate", courseEndDate)
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("runIndex", String.valueOf(runIndex))
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("threadIndex", String.valueOf(threadIndex))
-testRunner.testCase.testSteps["course-properties"].setPropertyValue("subjectKey", subjectKey)
+
+String aeOneExternalId = "aeOne-${subjectKey}-${aeOneExternalId}-${runIndex}"
+String aeTwoExternalId = "aeTwo-${subjectKey}-${aeOneExternalId}-${runIndex}"
+
+String reactionStartDate = new Date().format("yyyyMMdd")
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("reactionStartDate", reactionStartDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("drugEndDate", drugEndDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("drugStartDate", drugStartDate)
+
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("aeOneExternalId", String.valueOf(aeOneExternalId))
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("aeTwoExternalId", String.valueOf(aeTwoExternalId))
+
 
 
 log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectKey}, courseStartDate:${courseStartDate}, courseEndDate:${courseEndDate}, cycleNumber: ${cycleNumber}, aeStartDate : ${aeStartDate}")
-</script></con:config></con:testStep><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>subjectIdentifier</con:name><con:value>18_34_84</con:value></con:property><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>18_34_84</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="evaluateAndInitiate" id="4d317ce3-ae20-4e2b-b5b0-90dab717f556"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate" id="1d132137-f047-4f88-96e4-89f1343e227f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.71:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+</script></con:config></con:testStep><con:testStep type="request" name="evaluateAndInitiate" id="4d317ce3-ae20-4e2b-b5b0-90dab717f556"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate" id="1d132137-f047-4f88-96e4-89f1343e227f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.71:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -6684,7 +6705,7 @@ log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectK
                   <outcome>
                      <outComeEnumType>HOSPITALIZATION</outComeEnumType>
                   </outcome>
-                  <externalId>reaction-1-${threadIndex}-${runIndex}</externalId>
+                  <externalId>${aeOneExternalId}</externalId>
                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
                </saer:adverseEvent>
                <saer:adverseEvent>
@@ -6699,144 +6720,23 @@ log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectK
                   <outcome>
                      <outComeEnumType>HOSPITALIZATION</outComeEnumType>
                   </outcome>
-                  <externalId>reaction-2-${threadIndex}-${runIndex}</externalId>
+                  <externalId>${aeTwoExternalId}</externalId>
                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
                </saer:adverseEvent>               
-               <saer:adverseEvent>
-                  <verbatim>Verbatim3</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10050457</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-3-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               <saer:adverseEvent>
-                  <verbatim>Verbatim4</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10034474</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-4-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
                
-               <saer:adverseEvent>
-                  <verbatim>Verbatim5</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10009998</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-5-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               <saer:adverseEvent>
-                  <verbatim>Verbatim6</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10065727</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-6-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               
-               <saer:adverseEvent>
-                  <verbatim>Verbatim7</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10065709</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                 <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-7-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               <saer:adverseEvent>
-                  <verbatim>Verbatim8</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10051341</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-8-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               
-               <saer:adverseEvent>
-                  <verbatim>Verbatim9</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10041569</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>3</grade>
-                  <hospitalization>YES</hospitalization>
-                 <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-9-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
-               <saer:adverseEvent>
-                  <verbatim>Verbatim10</verbatim>
-                  <adverseEventCtepTerm>
-                     <ctepCode>10055298</ctepCode>
-                  </adverseEventCtepTerm>
-                  <grade>4</grade>
-                  <hospitalization>YES</hospitalization>
-                 <dateFirstLearned>${aeStartDate}</dateFirstLearned>
-                  
-                  <outcome>
-                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
-                  </outcome>
-                  <externalId>reaction-10-${threadIndex}-${runIndex}</externalId>
-                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent>
             </saer:adverseEvents>
             <saer:criteria>
-            <studySubjectIdentifier>7_177_21</studySubjectIdentifier>
+            <studySubjectIdentifier>${subjectKey}</studySubjectIdentifier>
                <studyIdentifier>A071102</studyIdentifier>
                <course>
                  <startDateOfFirstCourse>${firstCourseStartDate}</startDateOfFirstCourse>
                   <startDateOfThisCourse>${courseStartDate}</startDateOfThisCourse> 
                   <endDateOfThisCourse>${courseEndDate}</endDateOfThisCourse>
                   <cycleNumber>${cycleNumber}</cycleNumber> 
-                 <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>
+                 <treatmentAssignmentCode>${tac}</treatmentAssignmentCode>
                   <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
                </course>
             </saer:criteria>
-           
-            <!--<reportId>0429078622</reportId>-->
-            <!--<withdrawReport>true</withdrawReport>-->
             <reporter>
                <aer:firstName>Reporter</aer:firstName>
                <aer:lastName>one</aer:lastName>
@@ -6866,240 +6766,290 @@ log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectK
          </saer:EvaluateAndInitiateInputMessage>
       </saer:EvaluateAndInitiate>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="d85fdcee-be86-4bab-8989-407ee405d00e"/><con:assertion type="Simple Contains" id="e5f6c262-e900-4eca-87ec-382a52079cf6" name="Contains"><con:configuration><token>&lt;recommendedActions></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="transfer-reportId" id="d5fa2725-beed-4af4-9a76-09c5c7d21cae"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>transfer-cyclenumber</con:name><con:sourceType>RawRequest</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//cycleNumber
-</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>E2B-submission</con:targetStep><con:targetPath>declare namespace ae="http://schema.integration.caaers.cabig.nci.nih.gov/aereport"
-//ae:cycleNumber
-</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>transfer-reportId</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//reportId
-</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>E2B-submission</con:targetStep><con:targetPath>declare namespace ae="http://schema.integration.caaers.cabig.nci.nih.gov/aereport"
-//ae:caseNumber
-</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>transfer-course-start-date</con:name><con:sourceType>RawRequest</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//startDateOfThisCourse
-</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>E2B-submission</con:targetStep><con:targetPath>declare namespace ae="http://schema.integration.caaers.cabig.nci.nih.gov/aereport"
-//ae:startDate
-</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="E2B-submission" id="d759596d-421f-42df-bc7e-19c42a94bd98"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SafetyReportManagementServiceSoapBinding</con:interface><con:operation>submitSafetyReport</con:operation><con:request name="E2B-submission" id="efc68c90-4457-4d6d-a494-7967abf96051"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://dev.semanticbits.com/caaers/services/SafetyReportService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ae="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:cct="http://schema.integration.caaers.cabig.nci.nih.gov/common">
-   <soapenv:Header>
-      <wsse:Security>
-         <wsse:UsernameToken wsu:Id="UsernameToken-2">
-            <wsse:Username>SYSTEM</wsse:Username>
-            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">system_admin</wsse:Password>
-         </wsse:UsernameToken>
-      </wsse:Security>
-   </soapenv:Header>
-   <soapenv:Body>
-      <ae:submitSafetyReport>
-         <ae:AdverseEventReport>
-            <ae:createdAt>2014-12-17T18:56:38</ae:createdAt>
-            <ae:adverseEventResponseDescription>
-               <ae:eventDescription>the description or narrative of the event</ae:eventDescription>
-               <ae:presentStatus>NOT_RECOVERED</ae:presentStatus>
-               <ae:retreated>false</ae:retreated>
-            </ae:adverseEventResponseDescription>
-            <ae:adverseEventReportingPeriod>
-               <ae:treatmentAssignmentDescription>testing</ae:treatmentAssignmentDescription>
-               <ae:cycleNumber>1</ae:cycleNumber>
-               <ae:startDate>2013-02-03</ae:startDate>
-               <ae:studyParticipantAssignmentRef>
-                  <ae:studySiteRef>
-                     <ae:studyRef>
-                        <ae:identifiers>
-                           <ae:identifier>
-                              <ae:type>Protocol Authority Identifier</ae:type>
-                              <ae:value>A071102</ae:value>
-                           </ae:identifier>
-                        </ae:identifiers>
-                     </ae:studyRef>
-                     <ae:nciInstituteCode>MN008</ae:nciInstituteCode>
-                  </ae:studySiteRef>
-                  <ae:studySubjectIdentifier>S46-A071102</ae:studySubjectIdentifier>
-               </ae:studyParticipantAssignmentRef>
-               <ae:treatmentAssignment>
-                  <ae:code>other</ae:code>
-               </ae:treatmentAssignment>
-            </ae:adverseEventReportingPeriod>
-            <ae:physician>
-               <ae:firstName>Physician_given_name</ae:firstName>
-               <ae:lastName>Phyfamilyname</ae:lastName>
-               <ae:middleName>Phymdlname</ae:middleName>
-               <ae:contactMechanism>
-                  <ae:type>e-mail</ae:type>
-                  <ae:value>physicianone3@email.com</ae:value>
-               </ae:contactMechanism>
-               <ae:contactMechanism>
-                  <ae:type>phone</ae:type>
-                  <ae:value>7037879658</ae:value>
-               </ae:contactMechanism>
-            </ae:physician>
-            <ae:submitter>
-               <ae:firstName>Alfred</ae:firstName>
-               <ae:lastName>Nobel</ae:lastName>
-               <ae:middleName>Dynamite</ae:middleName>
-               <ae:contactMechanism>
-                  <ae:type>e-mail</ae:type>
-                  <ae:value>vasudev.chatti@semanticbits.com</ae:value>
-               </ae:contactMechanism>
-               <ae:contactMechanism>
-                  <ae:type>phone</ae:type>
-                  <ae:value>703-787-9656</ae:value>
-               </ae:contactMechanism>
-               <ae:contactMechanism>
-                  <ae:type>fax</ae:type>
-                  <ae:value>703-787-9656</ae:value>
-               </ae:contactMechanism>
-            </ae:submitter>
-            <ae:diseaseHistory>
-               <ae:primaryDisease>Glioblastoma multiforme</ae:primaryDisease>
-               <ae:codedPrimaryDiseaseSite>APPENDIX</ae:codedPrimaryDiseaseSite>
-               <ae:metastaticDiseaseSite>
-                  <ae:otherSite>unknown</ae:otherSite>
-               </ae:metastaticDiseaseSite>
-               <ae:metastaticDiseaseSite>
-                  <ae:codedSite>
-                     <ae:name>Pancreas</ae:name>
-                  </ae:codedSite>
-               </ae:metastaticDiseaseSite>
-            </ae:diseaseHistory>
-            <ae:participantHistory>
-               <ae:weight>
-                  <ae:quantity>75</ae:quantity>
-                  <ae:unit>kilogram</ae:unit>
-               </ae:weight>
-               <ae:height>
-                  <ae:quantity>175</ae:quantity>
-                  <ae:unit>centimeter</ae:unit>
-               </ae:height>
-               <ae:baselinePerformanceStatus>4 = 100% bedridden</ae:baselinePerformanceStatus>
-            </ae:participantHistory>
-            <ae:concomitantMedication>
-               <ae:name>Advil</ae:name>
-            </ae:concomitantMedication>
-            <ae:adverseEvent>
-               <verbatim>Verbatim8</verbatim>
-               <startDate>2014-12-07</startDate>
-               <externalId>reaction-88</externalId>
-               <ae:isPrimary>true</ae:isPrimary>
-               <ae:concomitantMedicationAttribution>
-                  <ae:attribution>1</ae:attribution>
-                  <ae:cause>
-                     <ae:name>Advil</ae:name>
-                  </ae:cause>
-               </ae:concomitantMedicationAttribution>
-               <ae:otherCauseAttribution>
-                  <ae:attribution>1</ae:attribution>
-                  <ae:cause>
-                     <ae:text>Convulsions</ae:text>
-                  </ae:cause>
-               </ae:otherCauseAttribution>
-               <ae:courseAgentAttribution>
-                  <ae:attribution>5</ae:attribution>
-                  <ae:cause>
-                     <ae:studyAgentRef>
-                        <ae:Agent>
-                           <ae:nscNumber>737664</ae:nscNumber>
-                        </ae:Agent>
-                     </ae:studyAgentRef>
-                  </ae:cause>
-               </ae:courseAgentAttribution>
-               <ae:courseAgentAttribution>
-                  <ae:attribution>5</ae:attribution>
-                  <ae:cause>
-                     <ae:studyAgentRef>
-                        <ae:Agent>
-                           <ae:nscNumber>362856</ae:nscNumber>
-                        </ae:Agent>
-                     </ae:studyAgentRef>
-                  </ae:cause>
-               </ae:courseAgentAttribution>
-               <ae:diseaseAttribution>
-                  <ae:attribution>4</ae:attribution>
-                  <ae:cause>
-                     <ae:primaryDisease>Glioblastoma multiforme</ae:primaryDisease>
-                  </ae:cause>
-               </ae:diseaseAttribution>
-            </ae:adverseEvent>
-            <ae:lab>
-               <ae:labTerm>
-                  <ae:term>Bacterial Infection NOS</ae:term>
-               </ae:labTerm>
-               <ae:infectiousAgent>Streptococcus</ae:infectiousAgent>
-               <ae:site>APPENDIX</ae:site>
-               <ae:labDate>2013-02-01</ae:labDate>
-            </ae:lab>
-            <ae:sAEReportPriorTherapy>
-               <ae:priorTherapy>
-                  <ae:text>ANTISENSE</ae:text>
-               </ae:priorTherapy>
-               <ae:other/>
-            </ae:sAEReportPriorTherapy>
-            <ae:treatmentInformation>
-               <ae:firstCourseDate>2014-01-06</ae:firstCourseDate>
-               <ae:investigationalAgentAdministered>true</ae:investigationalAgentAdministered>
-               <ae:courseAgent>
-                  <ae:lastAdministeredDate>2014-07-10</ae:lastAdministeredDate>
-                  <ae:administrationDelayAmount>1</ae:administrationDelayAmount>
-                  <ae:administrationDelayUnits>DAYS</ae:administrationDelayUnits>
-                  <ae:dose>
-                     <ae:amount>600</ae:amount>
-                     <ae:units>BVP</ae:units>
-                  </ae:dose>
-                  <ae:studyAgent>
-                     <ae:Agent>
-                        <ae:nscNumber>737664</ae:nscNumber>
-                     </ae:Agent>
-                  </ae:studyAgent>
-                  <ae:lotNumber>111101</ae:lotNumber>
-                  <ae:comments>Agent</ae:comments>
-               </ae:courseAgent>
-               <ae:courseAgent>
-                  <ae:lastAdministeredDate>2014-07-10</ae:lastAdministeredDate>
-                  <ae:dose>
-                     <ae:amount>600</ae:amount>
-                     <ae:units>Ci</ae:units>
-                  </ae:dose>
-                  <ae:studyAgent>
-                     <ae:Agent>
-                        <ae:nscNumber>362856</ae:nscNumber>
-                     </ae:Agent>
-                  </ae:studyAgent>
-                  <ae:lotNumber>151111</ae:lotNumber>
-                  <ae:comments>Agent</ae:comments>
-               </ae:courseAgent>
-            </ae:treatmentInformation>
-            <ae:sAEReportPreExistingCondition>
-               <ae:preExistingCondition>
-                  <text>Convulsions</text>
-               </ae:preExistingCondition>
-            </ae:sAEReportPreExistingCondition>
-            <ae:otherCause>
-               <ae:text>Convulsions</ae:text>
-            </ae:otherCause>
-            <ae:additionalInformation>
-               <ae:autopsyReport>true</ae:autopsyReport>
-               <ae:consults>true</ae:consults>
-               <ae:dischargeSummary>true</ae:dischargeSummary>
-               <ae:flowCharts>true</ae:flowCharts>
-               <ae:labReports>true</ae:labReports>
-               <ae:obaForm>false</ae:obaForm>
-               <ae:other>false</ae:other>
-               <ae:pathologyReport>false</ae:pathologyReport>
-               <ae:progressNotes>true</ae:progressNotes>
-               <ae:radiologyReports>false</ae:radiologyReports>
-               <ae:referralLetters>false</ae:referralLetters>
-               <ae:irbReport>true</ae:irbReport>
-               <ae:otherInformation>this is the doc list</ae:otherInformation>
-            </ae:additionalInformation>
-            <ae:report>
-               <ae:caseNumber>2014125278</ae:caseNumber>
-               <ae:aeReportDefinition>
-                  <ae:name>CTEP 10 Calendar Day SAE Report</ae:name>
-               </ae:aeReportDefinition>
-               <ae:aeReportVersion>
-                  <ae:ccEmails>vasudev.chatti.semanticbits.com</ae:ccEmails>
-               </ae:aeReportVersion>
-               <ae:correlationId>1437508849239zVvCE</ae:correlationId>
-            </ae:report>
-         </ae:AdverseEventReport>
-      </ae:submitSafetyReport>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="adf198e2-ae45-4248-b402-6d4caf452192"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="d85fdcee-be86-4bab-8989-407ee405d00e"/><con:assertion type="Simple Contains" id="e5f6c262-e900-4eca-87ec-382a52079cf6" name="Contains"><con:configuration><token>&lt;recommendedActions></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="transfer-reportId" id="d5fa2725-beed-4af4-9a76-09c5c7d21cae"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>transfer-reportId</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//reportId
+</con:sourcePath><con:targetType>reportId</con:targetType><con:targetStep>course-properties</con:targetStep><con:targetPath>
+</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="submit10DayE2bFile" id="3162f6a0-f151-4382-a163-472ce85dc0e8"><con:settings/><con:config><script><![CDATA[String e2bXML = """<ichicsr lang="en">
+   <ichicsrmessageheader>
+      <messagetype>ichicsr</messagetype>
+      <messageformatversion>2.1</messageformatversion>
+      <messageformatrelease>2.0</messageformatrelease>
+      <messagenumb>${messageNumber}</messagenumb>
+      <messagesenderidentifier>2014.2.0 Sender</messagesenderidentifier>
+      <messagereceiveridentifier>2014.2.0 Receiver</messagereceiveridentifier>
+      <messagedateformat>204</messagedateformat>
+      <messagedate>20141217200315</messagedate>
+   </ichicsrmessageheader>
+   <safetyreport>
+      <safetyreportid>${reportId}</safetyreportid>
+      <companynumb>${reportId}</companynumb>
+      <primarysource>
+         <sponsorstudynumb>A071102</sponsorstudynumb>
+      </primarysource>
+      <physicianemail>physicianone3@email.com</physicianemail>
+      <physiciangivename>Physician_given_name</physiciangivename>
+      <physicianfamilyname>Phyfamilyname</physicianfamilyname>
+      <physicianmiddlename>Phymdlname</physicianmiddlename>
+      <physicianphone>7037879658</physicianphone>
+      <recipientemails>vasudev.chatti.semanticbits.com</recipientemails>
+      <patient>
+         <!--study site NCI id-->
+         <subjectstudysiteid>MN008</subjectstudysiteid>
+         <!--study subject id-->
+         <patientinvestigationnumb>${subjectKey}</patientinvestigationnumb>
+         <medicalhistoryepisode>
+            <baselineperformancescale>ECOG</baselineperformancescale>
+            <baselineperformancenumber>4</baselineperformancenumber>
+         </medicalhistoryepisode>
+         <!-- AE1 -->
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <primaryaeflag>1</primaryaeflag>
+            <primarysourcereaction>VerbatimOne</primarysourcereaction>
+            <reactionstartdateformat>102</reactionstartdateformat>
+            <reactionstartdate>${reactionStartDate}</reactionstartdate>
+            <reactionoutcome>3</reactionoutcome>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Glioblastoma multiforme</factor>
+            <factortype>primary disease</factortype>
+            <attribution>4</attribution>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Convulsions</factor>
+            <factortype>other cause</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>737664</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>362856</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>1</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Advil</factor>
+            <factortype>concomitant medication</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         
+         <!-- AE 2-->    
+           <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <primaryaeflag>2</primaryaeflag>
+            <primarysourcereaction>VerbatimTwo</primarysourcereaction>
+            <reactionstartdateformat>102</reactionstartdateformat>
+            <reactionstartdate>${reactionStartDate}</reactionstartdate>
+            <reactionoutcome>3</reactionoutcome>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>Glioblastoma multiforme</factor>
+            <factortype>primary disease</factortype>
+            <attribution>4</attribution>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>Convulsions</factor>
+            <factortype>other cause</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>737664</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>362856</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>1</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>Advil</factor>
+            <factortype>concomitant medication</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         
+         <medicalhistoryepisode>
+            <patientepisodename>Convulsions</patientepisodename>
+            <patientmedicalcomment>Pre-existing Condition</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>Pancreas</patientepisodename>
+            <patientmedicalcomment>Metastatic Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>unknown</patientepisodename>
+            <patientmedicalcomment>Other Metastatic Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <!--The following section identifies the reporting period-->
+          <drug>
+            <drugcharacterization>3</drugcharacterization>
+            <medicinalproduct>${tac}</medicinalproduct>
+      <!-- <drugindication>rc1-new</drugindication>-->
+            <drugstartdateformat>102</drugstartdateformat>
+            <drugstartdate>${drugStartDate}</drugstartdate>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>${drugEndDate}</drugenddate>
+            <drugstartperiod>${cycleNumber}</drugstartperiod>
+         </drug>
+         <!--Required. This is the prior therapy section. A single E2B file can contain multiple prior therapies.-->
+         <medicalhistoryepisode>
+            <!--Prior Therapy For Primary Disease-->
+            <patientepisodename>ANTISENSE</patientepisodename>
+            <patientmedicalcomment>Prior Therapy</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <!--This is the Study disease. It should be accompanied by an attribution (<medicalepisodeassess>).-->
+         <medicalhistoryepisode>
+            <patientepisodename>Glioblastoma multiforme</patientepisodename>
+            <patientmedicalcomment>Study Disease</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>APPENDIX</patientepisodename>
+            <patientmedicalcomment>Disease Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>Convulsions</patientepisodename>
+            <patientmedicalcomment>Other Cause</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <test>
+            <testdateformat>102</testdateformat>
+            <testdate>20130201</testdate>
+            <testname>Bacterial Infection NOS</testname>
+            <infectiousagent>Streptococcus</infectiousagent>
+            <infectionsite>APPENDIX</infectionsite>
+         </test>
+         <test>
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit>
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Baseline</testtype>
+			</test>	
+
+			<test>				
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit>
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Recovery</testtype>
+			</test> 
+			<test>				
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit> 
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Worst</testtype>
+			</test>
+      
+         <drug>
+            <drugcharacterization>1</drugcharacterization>
+            <medicinalproduct>737664</medicinalproduct>
+            <drugbatchnumb>111101</drugbatchnumb>
+            <drugcumulativedosagenumb>600</drugcumulativedosagenumb>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>20140710</drugenddate>
+            <drugtreatmentduration>1</drugtreatmentduration>
+            <drugtreatmentdurationunit>804</drugtreatmentdurationunit>
+            <drugadditional>Agent</drugadditional>
+            <drugcumulativedosageunitextended>Ci</drugcumulativedosageunitextended>
+         </drug>
+         <drug>
+            <drugcharacterization>1</drugcharacterization>
+            <medicinalproduct>362856</medicinalproduct>
+            <drugbatchnumb>151111</drugbatchnumb>
+            <drugcumulativedosagenumb>600</drugcumulativedosagenumb>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>20140710</drugenddate>
+            <drugadditional>Agent</drugadditional>
+            <drugcumulativedosageunitextended>Ci</drugcumulativedosageunitextended>
+         </drug>
+         <drug>
+            <drugcharacterization>2</drugcharacterization>
+            <medicinalproduct>Advil</medicinalproduct>
+         </drug>
+         <summary>
+            <nameofreport>CTEP 10 Calendar Day SAE Report</nameofreport>
+            <!--Submitter information-->
+            <senderfirstname>Alfred</senderfirstname>
+            <sendermidname>Dynamite</sendermidname>
+            <senderlastname>Nobel</senderlastname>
+            <senderphonenumber>703-787-9656</senderphonenumber>
+            <senderfaxnumber>703-787-9656</senderfaxnumber>
+            <senderemailid>vasudev.chatti@semanticbits.com</senderemailid>
+            <ptweight>50</ptweight>
+            <ptheight>100</ptheight>
+            <indadminflag>1</indadminflag>
+            <narrativeincludeclinical>the description or narrative of the event</narrativeincludeclinical>
+            <retreatedflag>2</retreatedflag>
+         </summary>
+      </patient>
+      <medicalhistoryepisode>
+         <autopsyreportflag>1</autopsyreportflag>
+         <consultsflag>1</consultsflag>
+         <dischargesummaryflag>1</dischargesummaryflag>
+         <flowsheetscrfsflag>1</flowsheetscrfsflag>
+         <labreportsflag>1</labreportsflag>
+         <obaformsflag>2</obaformsflag>
+         <pathologyreportflag>2</pathologyreportflag>
+         <progressnotesflag>1</progressnotesflag>
+         <radiologyreportflag>2</radiologyreportflag>
+         <referrallettersflag>2</referrallettersflag>
+         <irbsummaryreportflag>1</irbsummaryreportflag>
+         <otheradditionalflag>2</otheradditionalflag>
+         <doclist>this is the doc list</doclist>
+      </medicalhistoryepisode>
+   </safetyreport>
+</ichicsr>"""
+
+String homeFolder = new File(System.getProperty("user.home"))
+String e2bTestFolder = new File(homeFolder, "e2btest")
+e2bTestFolder.mkdir()
+String e2bFile = new File(e2bTestFolder, "e2b_${subjectKey}_input.xml")
+e2bFile.text = e2bXML
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("e2bInputFileName", e2bFile.absolutePath)
+log.info("   Generated E2B File: ${e2bFile.absolutePath}")
+
+
+
+//now upload the e2bFileToSubmit
+String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
+//call ftp client and put the file in e2bInPath
+
+]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script>//download the file from done folder 
+String e2bFileName = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInputFileName")
+
+String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
+String e2bDonePath = "${e2bInPath}/inprogress/done"
+//now download the done file
+
+
+String e2bOutPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bOutFolder")
+//now download all the file creatd after done file 
+
+//look for success or failures in the file.
+
+//log success or failure, then appropriately pass or fail testcase
+</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
