@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="6b912dee-a275-49bb-bd40-93f1037b4361" activeEnvironment="Default" name="one-click-smoke-test" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="b337da1a-e0e8-40ab-ad4b-d9376480b444" wadlVersion="http://wadl.dev.java.net/2009/02" name="https://dev.semanticbits.com" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>https://dev.semanticbits.com</con:endpoint></con:endpoints><con:resource name="ParticipantInitialization" path="/caaers/ParticipantInitialization" id="68aa89c4-98ef-4f14-9342-f07854f6856e"><con:settings/><con:parameters/><con:method name="ParticipantInitialization" id="e711e195-c362-4e4d-bcaa-898047c838d2" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>401 409</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/><con:element>ODM</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="create-participant" id="0ff0e227-5a78-4da0-a1e9-d1ffad13e339" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://dev.semanticbits.com</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6b912dee-a275-49bb-bd40-93f1037b4361" activeEnvironment="Default" name="one-click-smoke-test" resourceRoot="${projectDir}" soapui-version="5.1.3" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="b337da1a-e0e8-40ab-ad4b-d9376480b444" wadlVersion="http://wadl.dev.java.net/2009/02" name="https://dev.semanticbits.com" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>https://dev.semanticbits.com</con:endpoint></con:endpoints><con:resource name="ParticipantInitialization" path="/caaers/ParticipantInitialization" id="68aa89c4-98ef-4f14-9342-f07854f6856e"><con:settings/><con:parameters/><con:method name="ParticipantInitialization" id="e711e195-c362-4e4d-bcaa-898047c838d2" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>401 409</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/><con:element>ODM</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>text/plain; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="create-participant" id="0ff0e227-5a78-4da0-a1e9-d1ffad13e339" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://dev.semanticbits.com</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <ODM CreationDateTime="2013-03-19T09:19:44" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3">
 	<ClinicalData MetaDataVersionOID="3629869" StudyOID="8875">
 		<SubjectData SubjectKey="az55442" TransactionType="Insert">
@@ -6549,7 +6549,7 @@
          </aer:AdverseEventReport>
       </aer:submitSafetyReport>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>18_34_84</con:value></con:property><con:property><con:name>reportId</con:name><con:value>000000000</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>23 Mar 2006</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>18_34_84</con:value></con:property><con:property><con:name>reportId</con:name><con:value>000000000</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>23 Mar 2006</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
 int y = 2000 + Math.random() * 10 
 int d = Math.random() * 28 + 1
 int m = Math.random() * 6
@@ -6665,8 +6665,8 @@ testRunner.testCase.testSteps["course-properties"].setPropertyValue("courseEndDa
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("runIndex", String.valueOf(runIndex))
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("threadIndex", String.valueOf(threadIndex))
 
-String aeOneExternalId = "aeOne-${subjectKey}-${aeOneExternalId}-${runIndex}"
-String aeTwoExternalId = "aeTwo-${subjectKey}-${aeOneExternalId}-${runIndex}"
+String aeOneExternalId = "aeOne-${subjectKey}-${threadIndex}-${runIndex}"
+String aeTwoExternalId = "aeTwo-${subjectKey}-${threadIndex}-${runIndex}"
 
 String reactionStartDate = new Date().format("yyyyMMdd")
 testRunner.testCase.testSteps["course-properties"].setPropertyValue("reactionStartDate", reactionStartDate)
@@ -6768,7 +6768,29 @@ log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectK
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="d85fdcee-be86-4bab-8989-407ee405d00e"/><con:assertion type="Simple Contains" id="e5f6c262-e900-4eca-87ec-382a52079cf6" name="Contains"><con:configuration><token>&lt;recommendedActions></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="transfer-reportId" id="d5fa2725-beed-4af4-9a76-09c5c7d21cae"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>transfer-reportId</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//reportId
 </con:sourcePath><con:targetType>reportId</con:targetType><con:targetStep>course-properties</con:targetStep><con:targetPath>
-</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="submit10DayE2bFile" id="3162f6a0-f151-4382-a163-472ce85dc0e8"><con:settings/><con:config><script><![CDATA[String e2bXML = """<ichicsr lang="en">
+</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="submit10DayE2bFile" id="3162f6a0-f151-4382-a163-472ce85dc0e8"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.JSchException
+import com.jcraft.jsch.Session
+import com.jcraft.jsch.SftpATTRS
+import com.jcraft.jsch.SftpException
+import org.apache.commons.io.FileUtils
+
+String messageNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("messageNumber")
+String reportId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reportId")
+String subjectKey = testRunner.testCase.testSteps["course-properties"].getPropertyValue("subjectKey")
+String aeOneExternalId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("aeOneExternalId")
+String reactionStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reactionStartDate")
+String aeTwoExternalId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("aeTwoExternalId")
+String tac = testRunner.testCase.testSteps["course-properties"].getPropertyValue("tac")
+String drugStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugStartDate")
+String drugEndDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugEndDate")
+String cycleNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("cycleNumber")
+
+
+//construct an e2b file
+String e2bXML = """<ichicsr lang="en">
    <ichicsrmessageheader>
       <messagetype>ichicsr</messagetype>
       <messageformatversion>2.1</messageformatversion>
@@ -7022,34 +7044,143 @@ log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectK
 </ichicsr>"""
 
 String homeFolder = new File(System.getProperty("user.home"))
-String e2bTestFolder = new File(homeFolder, "e2btest")
+File e2bTestFolder = new File(homeFolder, "e2btest")
 e2bTestFolder.mkdir()
-String e2bFile = new File(e2bTestFolder, "e2b_${subjectKey}_input.xml")
+File e2bFile = new File(e2bTestFolder, "e2b_${subjectKey}_input.xml")
 e2bFile.text = e2bXML
-testRunner.testCase.testSteps["course-properties"].setPropertyValue("e2bInputFileName", e2bFile.absolutePath)
-log.info("   Generated E2B File: ${e2bFile.absolutePath}")
-
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("e2bInputFileName", e2bFile.getName())
+log.info("   Generated E2B File: ${e2bFile.getName()}")
 
 
 //now upload the e2bFileToSubmit
 String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
 //call ftp client and put the file in e2bInPath
+String server = testRunner.testCase.testSteps["course-properties"].getPropertyValue("server")
+String username = testRunner.testCase.testSteps["course-properties"].getPropertyValue("username")
+String password = testRunner.testCase.testSteps["course-properties"].getPropertyValue("password")
+int port = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("port"))
 
-]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script>//download the file from done folder 
+JSch jsch = new JSch();
+Session session = null;   
+try {
+   //Connect to sftp server
+   session = jsch.getSession(username, server, port)
+   session.setConfig("StrictHostKeyChecking", "no")
+   session.setPassword(password)
+   session.connect()
+   Channel channel = session.openChannel("sftp")
+   channel.connect();
+   ChannelSftp sftpChannel = (ChannelSftp) channel
+   //Go to e2b input folder     
+   sftpChannel.cd("${e2bInPath}/")
+   log.info("current directory after mkdir : ${sftpChannel.pwd()}")
+   FileInputStream inputStream = new FileInputStream(e2bFile)
+   //copy e2b file into e2binput folder
+   sftpChannel.put(inputStream, e2bFile.getName())
+   sftpChannel.exit();
+
+} catch (JSchException e) {
+   e.printStackTrace();
+} catch (SftpException e) {
+   e.printStackTrace();
+}
+finally {
+   session.disconnect();
+}
+
+]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.JSchException
+import com.jcraft.jsch.Session
+import com.jcraft.jsch.SftpATTRS
+import com.jcraft.jsch.SftpException
+import org.apache.commons.io.FileUtils
+
+//download the file from done folder 
 String e2bFileName = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInputFileName")
-
 String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
 String e2bDonePath = "${e2bInPath}/inprogress/done"
-//now download the done file
 
-
+//now download all the file created after done file 
 String e2bOutPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bOutFolder")
-//now download all the file creatd after done file 
+String server = testRunner.testCase.testSteps["course-properties"].getPropertyValue("server")
+String username = testRunner.testCase.testSteps["course-properties"].getPropertyValue("username")
+String password = testRunner.testCase.testSteps["course-properties"].getPropertyValue("password")
+int port = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("port"))
+String reportId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reportId")
+String messageNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("messageNumber")
 
-//look for success or failures in the file.
+JSch jsch = new JSch()
+Session session = null
+SftpATTRS attrs
+try {
+   
+   session = jsch.getSession(username, server, port)
+   session.setConfig("StrictHostKeyChecking", "no")
+   session.setPassword(password)
+   session.connect()
 
-//log success or failure, then appropriately pass or fail testcase
-</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+   Channel channel = session.openChannel("sftp")
+   channel.connect();
+   ChannelSftp sftpChannel = (ChannelSftp) channel
+  // String currentDirectory = sftpChannel.pwd()
+  // println("current directory : ${currentDirectory}")
+   sftpChannel.cd("${e2bDonePath}/")
+   log.info("current directory : ${sftpChannel.pwd()}")
+   try {
+   	attrs = sftpChannel.lstat(e2bFileName)
+   }
+   catch(Exception e) {
+   	  log.error("e2b file ${e2bFileName} not found in done folder")
+   	  testRunner.fail("e2b file ${e2bFileName} not found in done folder")
+   }
+   int lastUploadedModifiedDate = attrs.getMTime()
+   log.info("lastUploaded Mtime : ${attrs.getMTime()}")
+
+   //Create temp folder in local directory
+   File tempDirectory = new File("${System.getProperty('user.home')}/temp")
+   if(!tempDirectory.exists()){
+       tempDirectory.mkdir()
+   }
+   //Cleanup temp directory before copying files
+   FileUtils.cleanDirectory(tempDirectory)
+
+   sftpChannel.cd("${e2bOutPath}/")
+   log.info("current directory : ${sftpChannel.pwd()}")       
+   Vector<ChannelSftp.LsEntry> entries = sftpChannel.ls("*").findAll { it.getAttrs().getMTime() > lastUploadedModifiedDate || it.getAttrs().getMTime() == lastUploadedModifiedDate } 
+   for (ChannelSftp.LsEntry entry : entries) {
+       log.info("remote file Mtime ${entry.getFilename()} : ${entry.getAttrs().getMTime()}")
+       if(entry.getAttrs().getMTime() > lastUploadedModifiedDate || entry.getAttrs().getMTime() == lastUploadedModifiedDate) {
+           //get output stream
+           OutputStream output = new FileOutputStream("${tempDirectory.getPath()}/${entry.getFilename()}");
+           sftpChannel.get(entry.getFilename(), output)
+       }
+   }
+
+   sftpChannel.exit()
+   boolean status = false
+   //look for success or failures in the file.
+   log.info("find .act file which has messageNumber ${messageNumber} ")
+   File actFile = tempDirectory.listFiles().find {  it.text.contains("<messagenumb>${messageNumber}</messagenumb>") && it.text.contains("<reportacknowledgmentcode>") }
+   if(actFile) {
+   	 log.success("The e2b ${e2bFileName} submitted successfully ")		
+   }
+   else {
+   	  log.error("e2b ${e2bFileName} submission failed")
+   	  testRunner.fail("e2b ${e2bFileName} submission failed")
+   }  
+
+} catch (JSchException e) {
+   e.printStackTrace();
+} catch (SftpException e) {
+   e.printStackTrace();
+}
+finally {
+   session.disconnect();
+}
+
+]]></script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
