@@ -7,24 +7,16 @@
 package gov.nih.nci.cabig.caaers.api.impl;
 
 import gov.nih.nci.cabig.caaers.api.ProcessingOutcome;
-import gov.nih.nci.cabig.caaers.integration.schema.common.CaaersFaultInfo;
-import gov.nih.nci.cabig.caaers.integration.schema.common.CaaersServiceResponse;
-import gov.nih.nci.cabig.caaers.integration.schema.common.EntityProcessingOutcomeType;
-import gov.nih.nci.cabig.caaers.integration.schema.common.EntityProcessingOutcomes;
-import gov.nih.nci.cabig.caaers.integration.schema.common.Fault;
-import gov.nih.nci.cabig.caaers.integration.schema.common.ServiceResponse;
-import gov.nih.nci.cabig.caaers.integration.schema.common.Status;
-import gov.nih.nci.cabig.caaers.integration.schema.common.WsError;
+import gov.nih.nci.cabig.caaers.integration.schema.common.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome.Message;
 import gov.nih.nci.cabig.caaers.tools.configuration.Configuration;
 import gov.nih.nci.cabig.caaers.ws.faults.CaaersFault;
 import gov.nih.nci.cabig.ctms.domain.MutableDomainObject;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Biju Joseph
@@ -43,6 +35,10 @@ public class Helper {
         caaersServiceResponse.setServiceResponse(serviceResponse);
         
         return caaersServiceResponse;
+    }
+
+    public static CaaersServiceResponseWrapper createResponseWrapper() {
+        return new CaaersServiceResponseWrapper(createResponse());
     }
 
 
