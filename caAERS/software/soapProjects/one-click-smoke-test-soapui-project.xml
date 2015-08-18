@@ -7088,7 +7088,7 @@ finally {
    session.disconnect();
 }
 
-]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>180000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
 import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.JSchException
