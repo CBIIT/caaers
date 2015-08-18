@@ -6549,7 +6549,7 @@
          </aer:AdverseEventReport>
       </aer:submitSafetyReport>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>20_20_53</con:value></con:property><con:property><con:name>reportId</con:name><con:value>1382240409</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>20 Jul 2007</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property><con:property><con:name>messageNumber</con:name><con:value>1439903145613</con:value></con:property><con:property><con:name>now</con:name><con:value>2015-08-18T16:42:45.0Z</con:value></con:property><con:property><con:name>reactionStartDate</con:name><con:value>20150818</con:value></con:property><con:property><con:name>drugEndDate</con:name><con:value>20130203</con:value></con:property><con:property><con:name>drugStartDate</con:name><con:value>20130202</con:value></con:property><con:property><con:name>aeOneExternalId</con:name><con:value>aeOne-20_20_53-0-0</con:value></con:property><con:property><con:name>aeTwoExternalId</con:name><con:value>aeTwo-20_20_53-0-0</con:value></con:property><con:property><con:name>e2bInputFileName</con:name><con:value>e2b_20_20_53_input.xml</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>7_175_86</con:value></con:property><con:property><con:name>reportId</con:name><con:value>1118406872</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>05 Jan 2007</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property><con:property><con:name>messageNumber</con:name><con:value>1439924665882</con:value></con:property><con:property><con:name>now</con:name><con:value>2015-08-18T16:42:45.0Z</con:value></con:property><con:property><con:name>reactionStartDate</con:name><con:value>20150818</con:value></con:property><con:property><con:name>drugEndDate</con:name><con:value>20130203</con:value></con:property><con:property><con:name>drugStartDate</con:name><con:value>20130202</con:value></con:property><con:property><con:name>aeOneExternalId</con:name><con:value>aeOne-7_175_86-0-0</con:value></con:property><con:property><con:name>aeTwoExternalId</con:name><con:value>aeTwo-7_175_86-0-0</con:value></con:property><con:property><con:name>e2bInputFileName</con:name><con:value>e2b_7_175_86_input.xml</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
 int y = 2000 + Math.random() * 10 
 int d = Math.random() * 28 + 1
 int m = Math.random() * 6
@@ -6787,6 +6787,17 @@ String tac = testRunner.testCase.testSteps["course-properties"].getPropertyValue
 String drugStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugStartDate")
 String drugEndDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugEndDate")
 String cycleNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("cycleNumber")
+String Baselineperformancestatusscale = testRunner.testCase.getPropertyValue("Baselineperformancestatusscale")
+log.info("Baselineperformancestatusscale: ${Baselineperformancestatusscale}")
+String Baselineperformancenumber = testRunner.testCase.getPropertyValue("Baseline performance status at initiation of protocol")
+log.info("Baselineperformancenumber: ${Baselineperformancenumber}");
+String DiseaseName = testRunner.testCase.getPropertyValue("DiseaseName")
+log.info("DiseaseName: ${DiseaseName}");
+String OtherSiteofMetastaticDisease = testRunner.testCase.getPropertyValue("OtherSiteofMetastaticDisease")
+log.info("OtherSiteofMetastaticDisease: ${OtherSiteofMetastaticDisease}")
+String PriorTherapyAgents = testRunner.testCase.getPropertyValue("PriorTherapyAgents")
+log.info("PriorTherapyAgents: ${PriorTherapyAgents}")
+
 
 log.info("message number: ${messageNumber}");
 //construct an e2b file
@@ -6818,9 +6829,9 @@ String e2bXML = """<ichicsr lang="en">
          <subjectstudysiteid>MN008</subjectstudysiteid>
          <!--study subject id-->
          <patientinvestigationnumb>${subjectKey}</patientinvestigationnumb>
-         <medicalhistoryepisode>
-            <baselineperformancescale>ECOG</baselineperformancescale>
-            <baselineperformancenumber>4</baselineperformancenumber>
+        <medicalhistoryepisode>
+            <baselineperformancescale>${Baselineperformancestatusscale}</baselineperformancescale>
+            <baselineperformancenumber>${Baselineperformancenumber}</baselineperformancenumber>
          </medicalhistoryepisode>
          <!-- AE1 -->
          <reaction>
@@ -6876,7 +6887,7 @@ String e2bXML = """<ichicsr lang="en">
          </reaction>
          <reaction>
             <aeexternalid>${aeTwoExternalId}</aeexternalid>
-            <factor>Glioblastoma multiforme</factor>
+            <factor>${DiseaseName}</factor>
             <factortype>primary disease</factortype>
             <attribution>4</attribution>
          </reaction>
@@ -6917,7 +6928,7 @@ String e2bXML = """<ichicsr lang="en">
             <patientmedicalcomment>Metastatic Site</patientmedicalcomment>
          </medicalhistoryepisode>
          <medicalhistoryepisode>
-            <patientepisodename>unknown</patientepisodename>
+            <patientepisodename>${OtherSiteofMetastaticDisease}</patientepisodename>
             <patientmedicalcomment>Other Metastatic Site</patientmedicalcomment>
          </medicalhistoryepisode>
          <!--The following section identifies the reporting period-->
@@ -6930,13 +6941,16 @@ String e2bXML = """<ichicsr lang="en">
             <drugenddateformat>102</drugenddateformat>
             <drugenddate>${drugEndDate}</drugenddate>
             <drugstartperiod>${cycleNumber}</drugstartperiod>
-         </drug>
-         <!--Required. This is the prior therapy section. A single E2B file can contain multiple prior therapies.-->
+         </drug>	
+		 
+			 
+		 <!--Required. This is the prior therapy section. A single E2B file can contain multiple prior therapies.-->
          <medicalhistoryepisode>
             <!--Prior Therapy For Primary Disease-->
-            <patientepisodename>ANTISENSE</patientepisodename>
+            <patientepisodename>${PriorTherapyAgents}</patientepisodename>
             <patientmedicalcomment>Prior Therapy</patientmedicalcomment>
          </medicalhistoryepisode>
+		 
          <!--This is the Study disease. It should be accompanied by an attribution (<medicalepisodeassess>).-->
          <medicalhistoryepisode>
             <patientepisodename>Glioblastoma multiforme</patientepisodename>
@@ -7160,7 +7174,7 @@ try {
    boolean status = false
    //look for success or failures in the file.
    log.info("find .act file which has messageNumber ${messageNumber} ")
-   File actFile = tempDirectory.listFiles().find {  it.text.contains("<icsrmessagenumb>${messageNumber}</icsrmessagenumb>") && it.text.contains("<reportacknowledgmentcode>") }
+   File actFile = tempDirectory.listFiles().find { it.text.contains("<icsrmessagenumb>${messageNumber}</icsrmessagenumb>") && it.text.contains("<reportacknowledgmentcode>") }
    if(actFile) {
    	 log.info("The e2b ${e2bFileName} submitted successfully ")		
    }
@@ -7178,7 +7192,56 @@ finally {
    session.disconnect();
 }
 
-]]></script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+]]></script></con:config></con:testStep><con:testStep type="groovy" name="New Line" id="543dd394-7afc-443c-968d-b63f799bf4d7"><con:settings/><con:config><script>// ${#TestCase#ColHeader}
+testCase = testRunner.testCase;
+
+line = context.fileReader.readLine()
+log.info "Read line: " + line
+
+if (line != null) {
+	String[] props = line.split(",")
+	
+	for (int i = 0; i &lt; props.length &amp;&amp; i &lt; context.headers.length; i++) {
+		log.info "Found property: " + context.headers[i] + "=" + props[i]
+		testCase.setPropertyValue(context.headers[i],props[i])
+	}
+
+	// loop
+	testRunner.gotoStep(7)
+}
+</script></con:config></con:testStep><con:setupScript>testCase = testRunner.testCase;
+file = testCase.getPropertyValue("file")
+
+log.info "Data Driven: reading from " + file
+
+// open a file reader in context.filereader
+context.fileReader = new BufferedReader(new FileReader(file))
+
+// read headers into context.headers and trim them
+line = context.fileReader.readLine()
+if (line != null) {
+	context.headers = line.split(",")
+	
+	for (int i = 0; i &lt; context.headers.length; i++) {
+		context.headers[i] = context.headers[i].trim()
+		log.info "Found header: " + context.headers[i]
+	}
+}
+
+// read first line
+line = context.fileReader.readLine()
+log.info "Read line: " + line
+
+if (line != null) {
+	String[] props = line.split(",")
+
+	log.info "Found properties: " + props.length
+	log.info "Using headers: " + context.headers.length
+	for (int i = 0; i &lt; props.length &amp;&amp; i &lt; context.headers.length; i++) {
+		log.info "Found property: " + context.headers[i] + "=" + props[i]
+		testCase.setPropertyValue(context.headers[i],props[i])
+	}
+}</con:setupScript><con:tearDownScript>context.fileReader.close()</con:tearDownScript><con:properties><con:property><con:name>file</con:name><con:value>C:/Users/Janakiram_G/Downloads/SOAPUI-csv/E2B-data.csv</con:value></con:property><con:property><con:name>Study.studyIdentifier</con:name><con:value/></con:property><con:property><con:name>Report Name</con:name><con:value>CTEP 24 Hour SAE Notification</con:value></con:property><con:property><con:name>Report Transaction</con:name><con:value>DON'T consume this for data driven tests</con:value></con:property><con:property><con:name>Adverse event data</con:name><con:value/></con:property><con:property><con:name>Baseline performance status at initiation of protocol</con:name><con:value>100</con:value></con:property><con:property><con:name>Baselineperformancestatusscale</con:name><con:value>karnofsky</con:value></con:property><con:property><con:name>Height(cm)</con:name><con:value>189</con:value></con:property><con:property><con:name>Weight(kg)</con:name><con:value>79</con:value></con:property><con:property><con:name>Date of Initial Diagnosis(MM/YYYY) if known</con:name><con:value>201321</con:value></con:property><con:property><con:name>DiseaseName</con:name><con:value/></con:property><con:property><con:name>Other Disease Name</con:name><con:value/></con:property><con:property><con:name>Primary Site of Disease</con:name><con:value>Brainstem</con:value></con:property><con:property><con:name>Other Primary Site of Disease</con:name><con:value/></con:property><con:property><con:name>Site of Metastatic Disease</con:name><con:value/></con:property><con:property><con:name>OtherSiteofMetastaticDisease</con:name><con:value/></con:property><con:property><con:name/><con:value/></con:property><con:property><con:name>collection4</con:name><con:value/></con:property><con:property><con:name>Select Prior Therapy For Primary Disease</con:name><con:value/></con:property><con:property><con:name>Start Date</con:name><con:value>20130726</con:value></con:property><con:property><con:name>Stop Date</con:name><con:value>20140726</con:value></con:property><con:property><con:name>Comments</con:name><con:value/></con:property><con:property><con:name>PriorTherapyAgents</con:name><con:value>Surgery</con:value></con:property><con:property><con:name>collection5</con:name><con:value/></con:property><con:property><con:name>Concomitant Medication</con:name><con:value>Advil</con:value></con:property><con:property><con:name>collection6</con:name><con:value/></con:property><con:property><con:name>Pre-Existing Condition</con:name><con:value>Convulsions</con:value></con:property><con:property><con:name>Other Pre-Existing Condition</con:name><con:value/></con:property><con:property><con:name>collection7</con:name><con:value/></con:property><con:property><con:name>Treatment Assignment Code</con:name><con:value/></con:property><con:property><con:name>Other Treatment Assignment Description</con:name><con:value/></con:property><con:property><con:name>Start Date of first course (MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Start Date of course associated with this Expedited Report (MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Total number of courses to date</con:name><con:value/></con:property><con:property><con:name>Course number on which event occurred</con:name><con:value/></con:property><con:property><con:name>Reporting Period Type</con:name><con:value/></con:property><con:property><con:name>Was an investigational agent(s) administered on this protocol</con:name><con:value>1</con:value></con:property><con:property><con:name>Was an investigational device(s) administered on this protocol</con:name><con:value>1</con:value></con:property><con:property><con:name>collection8</con:name><con:value/></con:property><con:property><con:name>Agent NSC Number</con:name><con:value>737664</con:value></con:property><con:property><con:name>Lot #</con:name><con:value>"Lorem ipsum dolor sit amet</con:value></con:property><con:property><con:name>Date Last Administered(MM/DD/YYYY)</con:name><con:value> consecv"</con:value></con:property><con:property><con:name>Delayed</con:name><con:value>20130712</con:value></con:property><con:property><con:name>Duration Delay</con:name><con:value/></con:property><con:property><con:name>Delay Unit of Measure</con:name><con:value>12345</con:value></con:property><con:property><con:name>Dose Modifications</con:name><con:value>804</con:value></con:property><con:property><con:name>Total Dose Administered this Course</con:name><con:value>1</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="2df69ef2-fbe0-4327-a862-083d2e1dfe58" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2c8b3b32-c2f6-4023-bd5d-ad7a3d6e1da1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="4aa1728f-537e-4209-88ad-7128efc6d8f7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
