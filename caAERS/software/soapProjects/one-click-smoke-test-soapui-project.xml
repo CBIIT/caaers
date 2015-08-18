@@ -6549,7 +6549,7 @@
          </aer:AdverseEventReport>
       </aer:submitSafetyReport>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>18_34_84</con:value></con:property><con:property><con:name>reportId</con:name><con:value>000000000</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>23 Mar 2006</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/aereport/SafetyReportManagementServiceInterface/submitSafetyReport"/></con:call></con:operation></con:interface><con:testSuite id="749405a2-201e-4c1e-a663-632536ca3852" name="CreateSubjectAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="d0cd7a6d-87c8-4a20-8852-be3cb4227e59" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluate" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="1d8c2b4a-635c-46c9-9e8d-5d1662593eac"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>20_20_53</con:value></con:property><con:property><con:name>reportId</con:name><con:value>1382240409</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>dob</con:name><con:value>20 Jul 2007</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property><con:property><con:name>messageNumber</con:name><con:value>1439903145613</con:value></con:property><con:property><con:name>now</con:name><con:value>2015-08-18T16:42:45.0Z</con:value></con:property><con:property><con:name>reactionStartDate</con:name><con:value>20150818</con:value></con:property><con:property><con:name>drugEndDate</con:name><con:value>20130203</con:value></con:property><con:property><con:name>drugStartDate</con:name><con:value>20130202</con:value></con:property><con:property><con:name>aeOneExternalId</con:name><con:value>aeOne-20_20_53-0-0</con:value></con:property><con:property><con:name>aeTwoExternalId</con:name><con:value>aeTwo-20_20_53-0-0</con:value></con:property><con:property><con:name>e2bInputFileName</con:name><con:value>e2b_20_20_53_input.xml</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="7086413d-c9ff-4e1e-98c4-958ecd12928b"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
 int y = 2000 + Math.random() * 10 
 int d = Math.random() * 28 + 1
 int m = Math.random() * 6
@@ -6788,7 +6788,7 @@ String drugStartDate = testRunner.testCase.testSteps["course-properties"].getPro
 String drugEndDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugEndDate")
 String cycleNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("cycleNumber")
 
-
+log.info("message number: ${messageNumber}");
 //construct an e2b file
 String e2bXML = """<ichicsr lang="en">
    <ichicsrmessageheader>
@@ -7088,7 +7088,7 @@ finally {
    session.disconnect();
 }
 
-]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="a3bf2222-082e-4055-b682-d8e02ce26bbf"><con:settings/><con:config><delay>180000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="ca4c7a4a-b41b-4a2e-8b5a-24cb958fc5ce"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
 import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.JSchException
@@ -7149,22 +7149,20 @@ try {
    sftpChannel.cd("${e2bOutPath}/")
    log.info("current directory : ${sftpChannel.pwd()}")       
    Vector<ChannelSftp.LsEntry> entries = sftpChannel.ls("*").findAll { it.getAttrs().getMTime() > lastUploadedModifiedDate || it.getAttrs().getMTime() == lastUploadedModifiedDate } 
-   for (ChannelSftp.LsEntry entry : entries) {
-       log.info("remote file Mtime ${entry.getFilename()} : ${entry.getAttrs().getMTime()}")
-       if(entry.getAttrs().getMTime() > lastUploadedModifiedDate || entry.getAttrs().getMTime() == lastUploadedModifiedDate) {
+   log.info("entries : ${entries.size()}");
+   for (ChannelSftp.LsEntry entry : entries) {      
            //get output stream
            OutputStream output = new FileOutputStream("${tempDirectory.getPath()}/${entry.getFilename()}");
-           sftpChannel.get(entry.getFilename(), output)
-       }
+           sftpChannel.get(entry.getFilename(), output)     
    }
 
    sftpChannel.exit()
    boolean status = false
    //look for success or failures in the file.
    log.info("find .act file which has messageNumber ${messageNumber} ")
-   File actFile = tempDirectory.listFiles().find {  it.text.contains("<messagenumb>${messageNumber}</messagenumb>") && it.text.contains("<reportacknowledgmentcode>") }
+   File actFile = tempDirectory.listFiles().find {  it.text.contains("<icsrmessagenumb>${messageNumber}</icsrmessagenumb>") && it.text.contains("<reportacknowledgmentcode>") }
    if(actFile) {
-   	 log.success("The e2b ${e2bFileName} submitted successfully ")		
+   	 log.info("The e2b ${e2bFileName} submitted successfully ")		
    }
    else {
    	  log.error("e2b ${e2bFileName} submission failed")
