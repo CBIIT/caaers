@@ -296,6 +296,7 @@ public class Fixtures {
     
     public static ReportDefinition createReportDefinition(String name, Organization org, ConfigProperty reportType) {
         ReportDefinition def = new ReportDefinition();
+        def.setEnabled(true);
         def.setName(name);
         def.setOrganization(org);
         def.addPlannedNotification(createPlannedEmailNotification());

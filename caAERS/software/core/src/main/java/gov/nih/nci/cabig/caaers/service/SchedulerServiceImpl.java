@@ -12,18 +12,12 @@ import gov.nih.nci.cabig.caaers.domain.report.DeliveryStatus;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
 import gov.nih.nci.cabig.caaers.domain.report.ScheduledEmailNotification;
 import gov.nih.nci.cabig.caaers.domain.report.ScheduledNotification;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.*;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerUtils;
 
 /**
  * This service will schedule the ScheduledNotification objects present in the Report, using Quartz
@@ -115,6 +109,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             String jobName;
             String groupName = "JG-" + String.valueOf(report.getId());
             boolean status = false;
+            if(report.getScheduledNotifications() == null || report.getScheduledNotifications().isEmpty()) return;
             for (ScheduledNotification nf : report.getScheduledNotifications()) {
             	assert nf != null : "report must not contain invalid ScheduledNotificaiton objects";
             	assert nf.getId() != null : "report must contain ScheduledNotification object, that has valid id";

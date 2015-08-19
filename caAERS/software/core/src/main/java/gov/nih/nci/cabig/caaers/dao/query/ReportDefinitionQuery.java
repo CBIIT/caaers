@@ -39,4 +39,9 @@ public class ReportDefinitionQuery extends AbstractQuery {
 		andWhere(" rd.parent.id = :parentId");
 		setParameter("parentId" , id);
 	}
+	
+	public void filterByEnabled(){
+		andWhere(" rd.enabled = :enabled");
+		setParameter("enabled", Boolean.TRUE);
+	}
 }

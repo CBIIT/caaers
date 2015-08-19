@@ -90,6 +90,11 @@
 								<ae:code>
 									<xsl:value-of select="/ichicsr/safetyreport/patient/drug[drugcharacterization = '3']/medicinalproduct" />
 								</ae:code>
+                                <xsl:if test="translate(/ichicsr/safetyreport/patient/drug[drugcharacterization = '3']/medicinalproduct,$smallcase, $uppercase) = 'OTHER'">
+								<ae:description>
+									<xsl:value-of select="/ichicsr/safetyreport/patient/drug[drugcharacterization = '3']/drugindication" />
+								</ae:description>
+								</xsl:if>
 							</ae:treatmentAssignment>
 						</ae:adverseEventReportingPeriod>	
 						
