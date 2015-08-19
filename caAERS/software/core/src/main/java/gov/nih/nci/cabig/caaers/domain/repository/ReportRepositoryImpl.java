@@ -272,7 +272,8 @@ public class ReportRepositoryImpl implements ReportRepository {
     	List<Report> instantiatedReports = null;
     	//check if there is children
     	ReportDefinitionQuery query = new ReportDefinitionQuery();
-    	query.filterByParent(report.getReportDefinition().getId());
+    //	query.filterByParent(report.getReportDefinition().getId());
+   // 	query.filterByEnabled();
     	List<ReportDefinition> rdChildren = (List<ReportDefinition>) reportDefinitionDao.search(query);
     	if(CollectionUtils.isNotEmpty(rdChildren)){
     		if(BooleanUtils.isTrue(report.isAmendable())){
