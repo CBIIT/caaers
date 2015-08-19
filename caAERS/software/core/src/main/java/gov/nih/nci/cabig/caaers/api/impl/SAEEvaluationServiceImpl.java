@@ -6,30 +6,10 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.api.impl;
 
-import static gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.ActionType.AMEND;
-import static gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.ActionType.WITHDRAW;
 import gov.nih.nci.cabig.caaers.CaaersSystemException;
-import gov.nih.nci.cabig.caaers.dao.AdverseEventRecommendedReportDao;
-import gov.nih.nci.cabig.caaers.dao.AdverseEventReportingPeriodDao;
-import gov.nih.nci.cabig.caaers.dao.ParticipantDao;
-import gov.nih.nci.cabig.caaers.dao.StudyDao;
-import gov.nih.nci.cabig.caaers.dao.TreatmentAssignmentDao;
-import gov.nih.nci.cabig.caaers.domain.AdverseEvent;
-import gov.nih.nci.cabig.caaers.domain.AdverseEventCtcTerm;
-import gov.nih.nci.cabig.caaers.domain.AdverseEventMeddraLowLevelTerm;
-import gov.nih.nci.cabig.caaers.domain.AdverseEventRecommendedReport;
-import gov.nih.nci.cabig.caaers.domain.AdverseEventReportingPeriod;
-import gov.nih.nci.cabig.caaers.domain.AeTerminology;
-import gov.nih.nci.cabig.caaers.domain.Epoch;
-import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
-import gov.nih.nci.cabig.caaers.domain.Identifier;
-import gov.nih.nci.cabig.caaers.domain.LocalOrganization;
-import gov.nih.nci.cabig.caaers.domain.Organization;
-import gov.nih.nci.cabig.caaers.domain.ReportTableRow;
+import gov.nih.nci.cabig.caaers.dao.*;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.StudyParticipantAssignment;
-import gov.nih.nci.cabig.caaers.domain.StudySite;
-import gov.nih.nci.cabig.caaers.domain.TreatmentAssignment;
 import gov.nih.nci.cabig.caaers.domain.dto.ApplicableReportDefinitionsDTO;
 import gov.nih.nci.cabig.caaers.domain.dto.EvaluationResultDTO;
 import gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper;
@@ -37,18 +17,7 @@ import gov.nih.nci.cabig.caaers.domain.meddra.LowLevelTerm;
 import gov.nih.nci.cabig.caaers.domain.report.ReportDefinition;
 import gov.nih.nci.cabig.caaers.domain.repository.AdverseEventRoutingAndReviewRepository;
 import gov.nih.nci.cabig.caaers.integration.schema.adverseevent.AdverseEventType;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.AEsOutputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.AdverseEventResult;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.AdverseEvents;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluateAEsInputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluateAEsOutputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluateAndInitiateInputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluateAndInitiateOutputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluatedAdverseEventResults;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.RecommendedActions;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.SaveAndEvaluateAEsInputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.SaveAndEvaluateAEsOutputMessage;
-import gov.nih.nci.cabig.caaers.integration.schema.saerules.SaveAndEvaluateAEsOutputMessageType;
+import gov.nih.nci.cabig.caaers.integration.schema.saerules.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
 import gov.nih.nci.cabig.caaers.service.EvaluationService;
 import gov.nih.nci.cabig.caaers.service.RecommendedActionService;
@@ -64,27 +33,20 @@ import gov.nih.nci.cabig.caaers.validation.CourseCycleGroup;
 import gov.nih.nci.cabig.caaers.validation.ValidationErrors;
 import gov.nih.nci.cabig.caaers.validation.validator.AdverseEventValidatior;
 import gov.nih.nci.cabig.caaers.ws.faults.CaaersFault;
-
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.groups.Default;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
+import java.net.UnknownHostException;
+import java.util.*;
+
+import static gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.ActionType.AMEND;
+import static gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.ActionType.WITHDRAW;
 
 /**
  * EvaluationService evaluate rules on the given AE's submitted by Web service.
@@ -266,7 +228,7 @@ public class SAEEvaluationServiceImpl {
     	
     	EvaluateAndInitiateOutputMessage retVal = xmlConverter.EvaluateAndInitiateOutput(response);
     			
-    	if(response.getRecommendedActions() != null && response.getRecommendedActions().size() > 0 &&  data.getPeriod() != null) {
+    	if(response.getRecommendedActions() != null && data.getPeriod() != null) {
     		safetySvcImpl.initiateSafetyReportAction(evaluateInputMessage, response, retVal, data.getPeriod());
     	}
 		return retVal;

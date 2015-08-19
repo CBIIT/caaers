@@ -8,9 +8,6 @@ package gov.nih.nci.cabig.caaers2adeers.track;
 
 import gov.nih.nci.cabig.caaers2adeers.exchnage.ExchangePreProcessor;
 import gov.nih.nci.cabig.caaers2adeers.track.IntegrationLog.Stage;
-
-import java.util.Map;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.xml.XPathBuilder;
@@ -19,6 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.Map;
 
 /**
  * @author Biju Joseph (minor refactoring)
@@ -175,20 +174,12 @@ public class Tracker implements Processor{
         }
 	}
 	
-	private void captureLogMessage(Exchange exchange,
-			IntegrationLog integrationLog) {
-		if(messageComboIdPaths !=null && messageComboIdPaths.length>0){
-			StringBuffer mIdB = new StringBuffer();
-			for (String path : messageComboIdPaths) {
-				String value = XPathBuilder.xpath(path).evaluate(exchange, String.class);
-				if(StringUtils.isNotBlank(value)){
-	        		mIdB.append(value).append("::");
-	        	}
-			}
-			String msgId = mIdB.substring(0, mIdB.length()-2); //remove the last '::' char
-			String message = exchange.getIn().getBody(String.class);
-			integrationLog.addIntegrationLogMessage(new IntegrationLogMessage(msgId, message, stage));
-		}
+	private void captureLogMessage(Exchange exchange, IntegrationLog integrationLog) {
+        if(messageComboIdPaths !=null && messageComboIdPaths.length>0) {
+            String correlationId = (String) exchange.getProperty(ExchangePreProcessor.CORRELATION_ID);
+            String message = exchange.getIn().getBody(String.class);
+            integrationLog.addIntegrationLogMessage(new IntegrationLogMessage(correlationId, message, stage));
+        }
 	}
     
     
