@@ -22,6 +22,9 @@
               <xsl:apply-templates select="status" />
               <xsl:apply-templates select="due" />
               <xsl:apply-templates select="dueDate" />
+              <xsl:if test="count(amendmentNumber) = 1">
+                  <xsl:apply-templates select="amendmentNumber" />
+              </xsl:if>
             </xsl:if>
             <xsl:if test="$raCount = 2 and ($raOne/action/text() = 'Withdraw' or $raOne/action/text() = 'Amend')">
                     <xsl:if test="$raOne/action/text() = 'Withdraw'">
@@ -36,6 +39,9 @@
                     <status><xsl:value-of select="$raTwo/status"/></status>
                     <due><xsl:value-of select="$raTwo/due" /></due>
                     <dueDate><xsl:value-of select="$raTwo/dueDate" /></dueDate>
+                    <xsl:if test="count($raTwo/amendmentNumber)">
+                        <amendmentNumber><xsl:value-of select="$raTwo/amendmentNumber" /></amendmentNumber>
+                    </xsl:if>
             </xsl:if>
             <xsl:if test="$raCount = 2 and not($raOne/action/text() = 'Withdraw' or $raOne/action/text() = 'Amend')">
                 <xsl:if test="$raTwo/action/text() = 'Withdraw'">
@@ -50,6 +56,7 @@
                 <status><xsl:value-of select="$raOne/status"/></status>
                 <due><xsl:value-of select="$raOne/due" /></due>
                 <dueDate><xsl:value-of select="$raOne/dueDate" /></dueDate>
+                <amendmentNumber><xsl:value-of select="$raOne/amendmentNumber" /></amendmentNumber>
             </xsl:if>
         </recommendedActions>
 
