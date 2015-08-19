@@ -95,6 +95,8 @@ public class CaaersCSMAuthenticationProvider extends CSMAuthenticationProvider {
 			throw attemptsEx;
 		} catch (LockedException lockEx) {
 			// This exception is thrown when user tries to login while the account is locked.
+            newFailedDate = new Date();
+            newFailedLogins = previousFailedLogins;
 			throw lockEx;
 		}catch (CredentialsExpiredException oldEx) {
 			// This exception is thrown when the password is too old.

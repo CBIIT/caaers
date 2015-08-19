@@ -44,11 +44,13 @@ import gov.nih.nci.cabig.caaers.validation.ValidationError;
 import gov.nih.nci.cabig.caaers.validation.ValidationErrors;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -597,18 +599,10 @@ public class SafetyReportServiceImpl {
             create = createAction != null;
             replace = create && withdraw;
 
-			response.setRecommendedActions(new ArrayList<RecommendedActions>());
             if(replace) {
-                response.getRecommendedActions().add(withdrawAction);
-                response.getRecommendedActions().add(createAction);
-            }else if (withdraw) {
-				response.getRecommendedActions().add(withdrawAction);
-			} else if (amend) {
-				response.getRecommendedActions().add(amendAction);
-			} else if (create) {
-				response.getRecommendedActions().add(createAction);
-			} else {
-				response.setRecommendedActions(recActions);
+                aeSrcReport.removeReport(withdrawAction.getReport());
+			} else if (amend && create) {
+                aeSrcReport.removeReport(amendAction.getReport());
 			}
 		}
 
@@ -624,27 +618,36 @@ public class SafetyReportServiceImpl {
 
 
         //perform the recomended action
+        CaaersServiceResponseWrapper caaersServiceResponseWrapper = Helper.createResponseWrapper();
         if(!response.getRecommendedActions().isEmpty()) {
-            CaaersServiceResponseWrapper caaersServiceResponseWrapper = Helper.createResponseWrapper();
+
             initiateSafetyReportAction(aeSrcReport, caaersServiceResponseWrapper, errors);
             //are there errors ?
             if(errors.getErrorCount() > 0) {
                 throw new CaaersValidationException(errors.toString());
             }
-
-
-            if(createAction != null) {
-                createAction.setStatus("In process");
-                createAction.setDue((String)caaersServiceResponseWrapper.getAdditionalInfo(createAction.getReport() + "_displayDue"));
-                createAction.setDueDate((String)caaersServiceResponseWrapper.getAdditionalInfo(createAction.getReport() + "_due"));
-            }
-
         }
 
-        //set the original recommendation back when it is not explicit withdraw
-        if(!explicitWithdraw) response.setRecommendedActions(recActions);
 
-	}
+
+        //update the amendment number if the report is amendable.
+        for(RecommendedActions action : recActions) {
+            if(StringUtils.equalsIgnoreCase(action.getAction(), "Create")) {
+                action.setStatus("In process");
+            }
+            String due = (String)caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_displayDue");
+            String dueDate = (String)caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_due");
+            if(StringUtils.isNotEmpty(due)) action.setDue(due);
+            if(StringUtils.isNotEmpty(dueDate)) action.setDueDate(dueDate);
+            Boolean amendable = (Boolean) caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_amendable");
+            String strAmendmentNumber = (String) caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_amendmentNumber");
+            BigInteger amendmentNumber = NumberUtils.isNumber(strAmendmentNumber) ? new BigInteger(strAmendmentNumber) : null;
+            if(BooleanUtils.isTrue(amendable)) {
+                action.setAmendmentNumber(amendmentNumber);
+            }
+        }
+
+    }
     
     /**
      * Will initiate the safety reporting action
@@ -766,6 +769,7 @@ public class SafetyReportServiceImpl {
     		 baseReport.setAmendmentNumber(report.getLastVersion().getAmendmentNumber().toString());
              caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_amendmentNumber" , baseReport.getAmendmentNumber());
     	 }
+         caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_amendable" , report.getReportDefinition().getAmendable());
     	 baseReport.setReportName(report.getReportDefinition().getName());
     	 baseReport.setCaseNumber(report.getCaseNumber());
          caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_caseNumber", report.getCaseNumber());
