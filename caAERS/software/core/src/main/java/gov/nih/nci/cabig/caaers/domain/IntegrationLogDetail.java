@@ -12,6 +12,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="integration_log_details")
@@ -47,6 +48,8 @@ public class IntegrationLogDetail extends AbstractMutableDomainObject{
 		this.synchStatus = synchStatus;
 	}
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
 	public String getOutcome() {
 		return outcome;
 	}
