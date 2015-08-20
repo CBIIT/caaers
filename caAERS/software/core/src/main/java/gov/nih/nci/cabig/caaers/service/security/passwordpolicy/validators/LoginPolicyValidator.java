@@ -41,8 +41,11 @@ public class LoginPolicyValidator implements PasswordPolicyValidator {
      * @throws DisabledException - when number of failed login attempts is greater than the one set in login policy
      */
     public boolean validateAllowedFailedLoginAttempts(LoginPolicy policy, Credential credential) throws DisabledException {
-        if (credential.getUser().getFailedLoginAttempts() > policy.getAllowedFailedLoginAttempts()) {
-        	throw new DisabledException("Too many failed login attempts resulted in account lock out for "+policy.getLockOutDuration()+" seconds.");
+        User user = credential.getUser();
+
+        if (user.getFailedLoginAttempts() > policy.getAllowedFailedLoginAttempts()) {
+            if(user.getSecondsPastLastFailedLoginAttempt() < policy.getLockOutDuration() )
+        	    throw new DisabledException("Too many failed login attempts resulted in account lock out for "+policy.getLockOutDuration()+" seconds.");
         }
        	return true;
     }

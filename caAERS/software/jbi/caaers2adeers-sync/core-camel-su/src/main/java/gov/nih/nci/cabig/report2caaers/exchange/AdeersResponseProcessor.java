@@ -6,6 +6,7 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.report2caaers.exchange;
 
+import gov.nih.nci.cabig.caaers2adeers.exchnage.ExchangePreProcessor;
 import gov.nih.nci.cabig.caaers2adeers.track.IntegrationLog.Stage;
 import gov.nih.nci.cabig.caaers2adeers.track.IntegrationLogMessage;
 import gov.nih.nci.cabig.caaers2adeers.track.IntegrationLogMessageDao;
@@ -54,7 +55,7 @@ public class AdeersResponseProcessor implements Processor {
 		// set the properties in the exchange
 		Map<String, Object> properties = exchange.getProperties();
 		
-		String msgComboId = XPathBuilder.xpath("//MESSAGE_COMBO_ID/text()").evaluate(exchange, String.class);
+		String msgComboId = (String)properties.get(ExchangePreProcessor.CORRELATION_ID);
 		IntegrationLogMessageDao integrationLogMessageDao = (IntegrationLogMessageDao)exchange.getContext().getRegistry().lookup("integrationLogMessageDao");
 		log.info("MESSAGE_COMBO_ID is " + msgComboId);
 		IntegrationLogMessage integrationLogMessage = integrationLogMessageDao.findByComboId(msgComboId, Stage.E2B_SUBMISSION_REQUEST_RECEIVED);

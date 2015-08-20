@@ -9,7 +9,7 @@ public class ThreadScopeDataHolderService {
     private static ThreadScopeDataHolderService INSTANCE;
     private static final ThreadLocal<Boolean> SYNC_STUDY_INDICATOR = new ThreadLocal<Boolean>();
 
-    private ThreadScopeDataHolderService() {
+    public ThreadScopeDataHolderService() {
     }
 
     public static ThreadScopeDataHolderService getInstance() {
