@@ -42,14 +42,18 @@ public class ExpeditedAdverseEventSynchronizer implements Synchronizer<Expedited
             }else {
                 newlyFoundAEs.add(ae);
             }
-            synchronizeDiseaseAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeRadiationAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeSurgeryAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeCourseAgentAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeDeviceAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeConMedAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeOtherCauseAttributions(dbAeReport, aeFound != null ? aeFound : ae);
-            synchronizeOtherAeInterventionAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+
+            if(!StringUtils.equals(outcome.getContext(), "initiate")) {
+                synchronizeDiseaseAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeRadiationAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeSurgeryAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeCourseAgentAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeDeviceAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeConMedAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeOtherCauseAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+                synchronizeOtherAeInterventionAttributions(dbAeReport, aeFound != null ? aeFound : ae);
+            }
+
         }
 
         //delete the AE in destination, which are not present in source
