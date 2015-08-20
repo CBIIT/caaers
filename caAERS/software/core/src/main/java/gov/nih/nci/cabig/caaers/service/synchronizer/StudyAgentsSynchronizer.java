@@ -6,27 +6,28 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import edu.nwu.bioinformatics.commons.CollectionUtils;
 import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
 import gov.nih.nci.cabig.caaers.domain.Study;
 import gov.nih.nci.cabig.caaers.domain.StudyAgent;
 import gov.nih.nci.cabig.caaers.domain.StudyAgentINDAssociation;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.commons.collections.map.HashedMap;
 
 /**
  * @author Monish Domla
  * @author Biju Joseph (refactored)
  *
  */
-public class StudyAgentsSynchronizer  implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>{
-	
+public class StudyAgentsSynchronizer  implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>{
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy, DomainObjectImportOutcome<Study> outcome) {
 		
 		//Ignore if the section is empty- Update- This is no longer true since CTEP sync should remove and override the agents

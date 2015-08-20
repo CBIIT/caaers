@@ -345,6 +345,7 @@ public class SafetyReportServiceImpl {
         if(dbReport != null) {
              //update flow - synchronize the data-collections
             DomainObjectImportOutcome<ExpeditedAdverseEventReport> outCome = new DomainObjectImportOutcome<ExpeditedAdverseEventReport>();
+            outCome.setContext("initiate");
 	        aeReportSynchronizer.migrate(aeDestReport, dbReport, outCome);
 
 	        if(outCome.hasErrors()) errors.addValidationErrors(outCome.getValidationErrors().getErrors());

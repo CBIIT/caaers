@@ -7,13 +7,8 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import edu.nwu.bioinformatics.commons.CollectionUtils;
-import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
-import gov.nih.nci.cabig.caaers.domain.Arm;
-import gov.nih.nci.cabig.caaers.domain.Epoch;
-import gov.nih.nci.cabig.caaers.domain.SolicitedAdverseEvent;
-import gov.nih.nci.cabig.caaers.domain.Study;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +18,13 @@ import java.util.List;
  * @author Biju Joseph (refactored)
  *
  */
-public class StudyEvaluationPeriodsSynchronizer implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>{
+public class StudyEvaluationPeriodsSynchronizer implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>{
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy,DomainObjectImportOutcome<Study> outcome) {
 		
 		//ignore if epochs is empty in xmlStudy

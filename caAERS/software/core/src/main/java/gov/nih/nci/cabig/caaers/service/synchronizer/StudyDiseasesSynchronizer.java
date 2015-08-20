@@ -6,26 +6,26 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
-import gov.nih.nci.cabig.caaers.domain.AbstractStudyDisease;
-import gov.nih.nci.cabig.caaers.domain.CtepStudyDisease;
-import gov.nih.nci.cabig.caaers.domain.MeddraStudyDisease;
-import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.StudyCondition;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 import gov.nih.nci.cabig.ctms.domain.DomainObject;
-
-import java.util.HashMap;
-
 import org.apache.commons.collections.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 /**
  * @author Monish Domla
  * @author Biju Joseph (refactored)
  *
  */
-public class StudyDiseasesSynchronizer  implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>{
+public class StudyDiseasesSynchronizer  implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>{
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy,DomainObjectImportOutcome<Study> outcome) {
 		
 		//ignore if disease section is empty in xmlstudy

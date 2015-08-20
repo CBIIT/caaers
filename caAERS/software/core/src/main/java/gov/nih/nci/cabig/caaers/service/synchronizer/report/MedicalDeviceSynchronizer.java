@@ -1,21 +1,27 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
-import gov.nih.nci.cabig.caaers.domain.*;
+import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
+import gov.nih.nci.cabig.caaers.domain.MedicalDevice;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class MedicalDeviceSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class MedicalDeviceSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
 
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport src, ExpeditedAdverseEventReport dest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
         List<MedicalDevice> newlyAddedDevices = new ArrayList<MedicalDevice>();
         List<MedicalDevice> existingDevices = new ArrayList<MedicalDevice>();

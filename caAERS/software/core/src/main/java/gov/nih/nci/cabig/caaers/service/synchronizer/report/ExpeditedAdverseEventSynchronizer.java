@@ -3,9 +3,8 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.domain.attribution.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import gov.nih.nci.cabig.caaers.utils.DateUtils;
-
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -13,29 +12,26 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class ExpeditedAdverseEventSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class ExpeditedAdverseEventSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport xmlAeReport, ExpeditedAdverseEventReport dbAeReport, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
         List<AdverseEvent> newlyFoundAEs = new ArrayList<AdverseEvent>();
 
         //create an index of AEs
         HashMap<Integer, AdverseEvent> aeIndex = new HashMap<Integer, AdverseEvent>();
-        Iterator<AdverseEvent> it = dbAeReport.getAdverseEvents().iterator();
-        while(it.hasNext()) {
-        	AdverseEvent ae = it.next();
-        	if(ae == null) {
-        		it.remove();
-        	} else {
-        		aeIndex.put(ae.getId(), ae);
-        	}
-        }
+        for(AdverseEvent ae : dbAeReport.getAdverseEvents()){ aeIndex.put(ae.getId(), ae);}
 
         //try to find the AE in source , if found synchronize it.
         for(AdverseEvent ae : xmlAeReport.getAdverseEventsInternal()){

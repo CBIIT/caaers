@@ -2,13 +2,22 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.CompositeMigrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.CompositeSynchronizer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class ExpeditedAdverseEventReportSynchronizer extends CompositeMigrator<ExpeditedAdverseEventReport> {
+public class ExpeditedAdverseEventReportSynchronizer extends CompositeSynchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     
 	
 	public void preMigrate(ExpeditedAdverseEventReport src, ExpeditedAdverseEventReport dest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
