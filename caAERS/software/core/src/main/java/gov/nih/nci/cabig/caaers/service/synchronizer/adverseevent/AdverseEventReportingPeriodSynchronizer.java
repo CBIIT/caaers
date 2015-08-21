@@ -8,17 +8,24 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.adverseevent;
 
 import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import gov.nih.nci.logging.api.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: Biju Joseph
  * Date: 1/30/13
  */
-public class AdverseEventReportingPeriodSynchronizer implements Migrator<AdverseEventReportingPeriod> {
+public class AdverseEventReportingPeriodSynchronizer implements Synchronizer<AdverseEventReportingPeriod> {
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	/**
 	 * Migrates data from one AdverseEventReportingPeriod to the destination AdverseEventReportingPeriod.
 	 * @param src The source Object.

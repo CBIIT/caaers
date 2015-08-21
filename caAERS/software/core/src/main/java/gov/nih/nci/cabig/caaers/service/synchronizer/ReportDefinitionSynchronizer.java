@@ -7,25 +7,32 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import gov.nih.nci.cabig.caaers.dao.ConfigPropertyDao;
-import gov.nih.nci.cabig.caaers.dao.OrganizationDao;
 import gov.nih.nci.cabig.caaers.domain.ConfigPropertyType;
-import gov.nih.nci.cabig.caaers.domain.Organization;
 import gov.nih.nci.cabig.caaers.domain.report.ReportDefinition;
 import gov.nih.nci.cabig.caaers.domain.report.ReportType;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.CompositeMigrator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * @author Sameer Sawant
  */
-public class ReportDefinitionSynchronizer extends CompositeMigrator<ReportDefinition>{
-	
+public class ReportDefinitionSynchronizer extends CompositeSynchronizer<ReportDefinition>{
+
+
 	private ConfigPropertyDao configPropertyDao;
-	
+    private List<String> context = new ArrayList<String>();
+
 	public void setConfigPropertyDao(ConfigPropertyDao configPropertyDao) {
 		this.configPropertyDao = configPropertyDao;
 	}
+
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	
 	@Override
 	/**

@@ -10,11 +10,11 @@ import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
 import gov.nih.nci.cabig.caaers.domain.Study;
 import gov.nih.nci.cabig.caaers.domain.TreatmentAssignment;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
-
-import java.util.Hashtable;
-
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This Class synchronizes all TreatmentAssignments 
@@ -23,8 +23,13 @@ import org.apache.commons.lang.StringUtils;
  * @author Ion C. Olaru
  *
  */
-public class TreatmentAssignmentSynchronizer implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>  {
-	
+public class TreatmentAssignmentSynchronizer implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>  {
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy,DomainObjectImportOutcome<Study> outcome) {
         //create an Index of existing ones (available in DB)
         Hashtable<String, TreatmentAssignment> dbTacIndexMap = new Hashtable<String, TreatmentAssignment>();
