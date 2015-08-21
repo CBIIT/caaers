@@ -212,7 +212,7 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
                     .processRef("headerGeneratorProcessor")
                     .choice()
                     .when(header(INVALID_MESSAGE).isEqualTo("true"))
-                          .to("direct:soapfault")
+                    	.to("direct:soapfault")
                     .otherwise()
                     .to(fileTracker.fileURI(RAW_REQUEST_RECEIVED))
 		         	.process(track(REQUEST_RECEIVED))
@@ -314,11 +314,7 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
                 .to(fileTracker.fileURI(REQUST_PROCESSING_ERROR));
         
         
-        //checking XML wellformedness and basic XSD valiation.
-        from("direct:xmlFault")
-        .process(track(REQUST_PROCESSING_ERROR, "Invlaid Payload Error"))
-		.to(fileTracker.fileURI(REQUST_PROCESSING_ERROR))
-  	    .stop().end();
+        
 
     }
 
