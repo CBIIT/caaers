@@ -624,7 +624,6 @@
 				<fileset dir="${test.classes.dir}" excludes="${test.exclude.pattern}">
 					<include name="${testPattern}" />
 					<exclude name="**/coppa/**/*.*"/>
-					<exclude name="*MedicalInfoBusinessRulesTest*"/>
 				</fileset>
 			</batchtest>
 		</junit>
