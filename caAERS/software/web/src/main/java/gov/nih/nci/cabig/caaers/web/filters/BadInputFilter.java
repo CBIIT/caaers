@@ -21,32 +21,19 @@
 
 package gov.nih.nci.cabig.caaers.web.filters;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import edu.emory.mathcs.backport.java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 
 /**
@@ -55,10 +42,11 @@ import edu.emory.mathcs.backport.java.util.Arrays;
  * HTML Injection vulnerabilities, among others.
  *
  * @author Jason Brittain
+ * @author John Moore (filterable request)
  */
 public class BadInputFilter implements Filter {
-	
-	protected static final Log logger = LogFactory.getLog(BadInputFilter.class);
+
+    protected static final Log logger = LogFactory.getLog(BadInputFilter.class);
 
     // --------------------------------------------- Static Variables
 
@@ -66,7 +54,7 @@ public class BadInputFilter implements Filter {
      * Descriptive information about this implementation.
      */
     protected static String info =
-        "com.oreilly.tomcat.filter.BadInputFilter/2.0";
+            "com.oreilly.tomcat.filter.BadInputFilter/2.0";
 
     /**
      * An empty String array to re-use as a type indicator for toArray().
@@ -74,12 +62,12 @@ public class BadInputFilter implements Filter {
     private static final String[] STRING_ARRAY = new String[0];
 
     // ------------------------------------------- Instance Variables
-    
+
     /**
      * The attribute that determines whether or not to skip a url for filtering.
      */
     private List<String> allowURIs = new ArrayList<String>();
-    
+
     /**
      * The attribute that determines whether or not to skip a parameter for filtering.
      */
@@ -98,6 +86,12 @@ public class BadInputFilter implements Filter {
     protected boolean escapeAngleBrackets = false;
 
     /**
+     * The flag that determines whether or not to escape html form elements
+     * that are part of the request.
+     */
+    protected boolean escapeHtmlFormTags = false;
+
+    /**
      * The flag that determines whether or not to escape JavaScript
      * function and object names that are part of the request.
      */
@@ -108,16 +102,14 @@ public class BadInputFilter implements Filter {
      * that is used to replace single quotes (') and double quotes (")
      * with escaped equivalents that can't be used for malicious purposes.
      */
-    protected HashMap<Pattern, String> quotesHashMap =
-        new HashMap<Pattern, String>();
+    protected LinkedHashMap<Pattern, String> quotesLinkedHashMap = new LinkedHashMap<Pattern, String>();
 
     /**
      * A substitution mapping (regular expression to match, replacement)
      * that is used to replace angle brackets (<>) with escaped
      * equivalents that can't be used for malicious purposes.
      */
-    protected HashMap<Pattern, String> angleBracketsHashMap =
-        new HashMap<Pattern, String>();
+    protected LinkedHashMap<Pattern, String> angleBracketsLinkedHashMap = new LinkedHashMap<Pattern, String>();
 
     /**
      * A substitution mapping (regular expression to match, replacement)
@@ -125,8 +117,25 @@ public class BadInputFilter implements Filter {
      * calls with escaped equivalents that can't be used for malicious
      * purposes.
      */
-    protected HashMap<Pattern, String> javaScriptHashMap =
-        new HashMap<Pattern, String>();
+    protected LinkedHashMap<Pattern, String> javaScriptLinkedHashMap = new LinkedHashMap<Pattern, String>();
+
+    /**
+     * Will store the HTML form tags that we need to escape in parameter names and values
+     */
+    protected LinkedHashMap<Pattern, String> newlinesLinkedHashMap = new LinkedHashMap<Pattern, String>();
+
+
+    /**
+     * Will store the patterns for new line related changes
+     */
+    protected LinkedHashMap<Pattern, String> htmlLinkedHashMap = new LinkedHashMap<Pattern, String>();
+
+
+    /**
+     * The flag that determines whether or not to escape newlines that are part
+     * of the request.
+     */
+    protected boolean escapeNewlines = false;
 
     /**
      * The comma-delimited set of <code>allow</code> expressions.
@@ -147,20 +156,19 @@ public class BadInputFilter implements Filter {
      * The comma-delimited set of <code>deny</code> expressions.
      */
     protected String deny = null;
+    /**
+     * A Map of regular expressions used to filter the parameters. The key is
+     * the regular expression String to search for, and the value is the regular
+     * expression String used to modify the parameter if the search String is found.
+     */
+    protected Map<Pattern, String> parameterEscapes = new LinkedHashMap<Pattern, String>();
+
 
     /**
      * The ServletContext under which this Filter runs.  Used for logging.
      */
     protected ServletContext servletContext;
 
-    /**
-     * On Tomcat, the parameterMap must be unlocked, modified, then
-     * unlocked.  But, the class that has the method to do that is part
-     * of Tomcat, not part of the servlet API, so that class shouldn't
-     * be visible to webapps, although it is, by default, on Tomcat 6.0.
-     * This Filter uses reflection to invoke it, if it's there.
-     */
-    protected Method setLockedMethod;
 
     // ------------------------------------------------- Constructors
 
@@ -173,46 +181,65 @@ public class BadInputFilter implements Filter {
 
         //commented follwing 2 lines to fix  -
         // CAAERS-6005 - Apostrophe (') in course description is being rendered html character codes in it
-        //quotesHashMap.put(Pattern.compile("\""), "&quot;");
-        //quotesHashMap.put(Pattern.compile("\'"), "&#39;");
+        quotesLinkedHashMap.put(Pattern.compile("\""), "&quot;");
+        quotesLinkedHashMap.put(Pattern.compile("\'"), "&#39;");
+        quotesLinkedHashMap.put(Pattern.compile("`"), "&#96;");
 
-       // quotesHashMap.put(Pattern.compile("`"), "&#96;");
-        angleBracketsHashMap.put(Pattern.compile("<"), "&lt;");
-        angleBracketsHashMap.put(Pattern.compile(">"), "&gt;");
-    	javaScriptHashMap.put(Pattern.compile("<(\\s*)(/\\s*)?script(\\s*)>"), "<$2script-disabled>");
-    	javaScriptHashMap.put(Pattern.compile("%3Cscript%3E"), "%3Cscript-disabled%3E");
-    	javaScriptHashMap.put(Pattern.compile("<(\\s*)(/\\s*)?iframe(\\s*)>"), "<$2iframe-disabled>");
-    	javaScriptHashMap.put(Pattern.compile("%3Ciframe%3E"), "%3Ciframe-disabled%3E");
-    	javaScriptHashMap.put(Pattern.compile("alert(\\s*)\\("), "alert[");
-    	javaScriptHashMap.put(Pattern.compile("alert%28"), "alert%5B");
-    	javaScriptHashMap.put(Pattern.compile("document(.*)\\.(.*)cookie"), "document cookie");
-    	javaScriptHashMap.put(Pattern.compile("eval(\\s*)\\("), "eval[");
-    	javaScriptHashMap.put(Pattern.compile("setTimeout(\\s*)\\("), "setTimeout$1[");
-    	javaScriptHashMap.put(Pattern.compile("setInterval(\\s*)\\("), "setInterval$1[");
-    	javaScriptHashMap.put(Pattern.compile("execScript(\\s*)\\("), "execScript$1[");
-    	javaScriptHashMap.put(Pattern.compile("(?i)javascript(?-i):"), "javascript ");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onclick(?-i)"), "oncl1ck");
-    	javaScriptHashMap.put(Pattern.compile("(?i)ondblclick(?-i)"), "ondblcl1ck");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onmouseover(?-i)"), "onm0useover");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onmousedown(?-i)"), "onm0usedown");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onmouseup(?-i)"), "onm0useup");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onmousemove(?-i)"), "onm0usemove");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onmouseout(?-i)"), "onm0useout");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onchange(?-i)"), "onchahge");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onfocus(?-i)"), "onf0cus");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onblur(?-i)"), "onb1ur");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onkeypress(?-i)"), "onkeyqress");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onkeyup(?-i)"), "onkeyuq");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onkeydown(?-i)"), "onkeyd0wn");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onload(?-i)"), "onl0ad");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onreset(?-i)"), "onrezet");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onselect(?-i)"), "onzelect");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onsubmit(?-i)"), "onsubm1t");
-    	javaScriptHashMap.put(Pattern.compile("(?i)onunload(?-i)"), "onunl0ad");
-    	javaScriptHashMap.put(Pattern.compile("&#x61;&#x6C;&#x65;&#x72;&#x74;"), "a1ert");
+        angleBracketsLinkedHashMap.put(Pattern.compile("<"), "&lt;");
+        angleBracketsLinkedHashMap.put(Pattern.compile(">"), "&gt;");
+
+        String[] formTags = "form,textarea,input,button,select,optgroup,label,fieldset".split(",");
+        for (String tag : formTags) {
+            htmlLinkedHashMap.put(Pattern.compile("<" + tag + "(\\s*)", Pattern.CASE_INSENSITIVE), tag + "$1");
+        }
+
+        javaScriptLinkedHashMap.put(Pattern.compile("<(\\s*)(/\\s*)?script(\\s*)>"), "<$2script-disabled>");
+        javaScriptLinkedHashMap.put(Pattern.compile("%3Cscript%3E"), "%3Cscript-disabled%3E");
+        javaScriptLinkedHashMap.put(Pattern.compile("<(\\s*)(/\\s*)?iframe(\\s*)>"), "<$2iframe-disabled>");
+        javaScriptLinkedHashMap.put(Pattern.compile("%3Ciframe%3E"), "%3Ciframe-disabled%3E");
+        javaScriptLinkedHashMap.put(Pattern.compile("alert(\\s*)\\("), "alert[");
+        javaScriptLinkedHashMap.put(Pattern.compile("alert%28"), "alert%5B");
+        javaScriptLinkedHashMap.put(Pattern.compile("document(.*)\\.(.*)cookie"), "document cookie");
+        javaScriptLinkedHashMap.put(Pattern.compile("eval(\\s*)\\("), "eval[");
+        javaScriptLinkedHashMap.put(Pattern.compile("setTimeout(\\s*)\\("), "setTimeout$1[");
+        javaScriptLinkedHashMap.put(Pattern.compile("setInterval(\\s*)\\("), "setInterval$1[");
+        javaScriptLinkedHashMap.put(Pattern.compile("execScript(\\s*)\\("), "execScript$1[");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)javascript(?-i):"), "javascript ");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onclick(?-i)"), "oncl1ck");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)ondblclick(?-i)"), "ondblcl1ck");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onmouseover(?-i)"), "onm0useover");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onmousedown(?-i)"), "onm0usedown");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onmouseup(?-i)"), "onm0useup");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onmousemove(?-i)"), "onm0usemove");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onmouseout(?-i)"), "onm0useout");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onchange(?-i)"), "onchahge");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onfocus(?-i)"), "onf0cus");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)autofocus(?-i)"), "aut0f0cus");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onblur(?-i)"), "onb1ur");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onkeypress(?-i)"), "onkeyqress");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onkeyup(?-i)"), "onkeyuq");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onkeydown(?-i)"), "onkeyd0wn");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onload(?-i)"), "onl0ad");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onreset(?-i)"), "onrezet");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onselect(?-i)"), "onzelect");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onsubmit(?-i)"), "onsubm1t");
+        javaScriptLinkedHashMap.put(Pattern.compile("(?i)onunload(?-i)"), "onunl0ad");
+        javaScriptLinkedHashMap.put(Pattern.compile("&#x61;&#x6C;&#x65;&#x72;&#x74;"), "a1ert");
+
+        newlinesLinkedHashMap.put(Pattern.compile("\r"), " ");
+        newlinesLinkedHashMap.put(Pattern.compile("\n"), "<br/>");
     }
 
     // --------------------------------------------------- Properties
+
+    public boolean getEscapeHtmlFormTags() {
+        return escapeHtmlFormTags;
+    }
+
+    public void setEscapeHtmlFormTags(boolean escapeHtmlFormTags) {
+        if(escapeHtmlFormTags) parameterEscapes.putAll(htmlLinkedHashMap);
+        this.escapeHtmlFormTags = escapeHtmlFormTags;
+    }
 
     /**
      * Gets the flag which determines whether this Filter will escape
@@ -233,7 +260,7 @@ public class BadInputFilter implements Filter {
      * @param escapeQuotes
      */
     public void setEscapeQuotes(boolean escapeQuotes) {
-
+        if(escapeQuotes) parameterEscapes.putAll(quotesLinkedHashMap);
         this.escapeQuotes = escapeQuotes;
     }
 
@@ -256,8 +283,32 @@ public class BadInputFilter implements Filter {
      * @param escapeAngleBrackets
      */
     public void setEscapeAngleBrackets(boolean escapeAngleBrackets) {
+        if(escapeAngleBrackets) parameterEscapes.putAll(angleBracketsLinkedHashMap);
         this.escapeAngleBrackets = escapeAngleBrackets;
     }
+
+
+    /**
+     * Gets the flag which determines whether this Filter will escape newlines
+     * that are part of the request, before the request is performed.
+     */
+    public boolean getEscapeNewlines() {
+        return escapeNewlines;
+    }
+
+
+    /**
+     * Sets the flag which determines whether this Filter will escape newlines
+     * that are part of the request, before the request is performed.
+     *
+     * @param escapeNewlines
+     */
+    public void setEscapeNewlines(boolean escapeNewlines) {
+        if(escapeNewlines) parameterEscapes.putAll(newlinesLinkedHashMap);
+        this.escapeNewlines = escapeNewlines;
+
+    }
+
 
     /**
      * Gets the flag which determines whether this Filter will escape
@@ -278,9 +329,10 @@ public class BadInputFilter implements Filter {
      * @param escapeJavaScript
      */
     public void setEscapeJavaScript(boolean escapeJavaScript) {
+        if(escapeJavaScript) parameterEscapes.putAll(javaScriptLinkedHashMap);
         this.escapeJavaScript = escapeJavaScript;
     }
-    
+
     /**
      * Return a comma-delimited set of the <code>allow</code> expressions
      * configured for this Filter, if any; otherwise, return <code>null</code>.
@@ -338,16 +390,16 @@ public class BadInputFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
         servletContext = filterConfig.getServletContext();
-        
+
         // Parse the Filter's init parameters.
         String allowString = filterConfig.getInitParameter("allowURIs");
-    	if(!StringUtils.isBlank(allowString)){
-    		this.allowURIs = Arrays.asList(allowString.split(",\\s*"));
-    	}
-    	String allowParams = filterConfig.getInitParameter("allowParams");
-    	if(!StringUtils.isBlank(allowParams)){
-    		this.allowParams = Arrays.asList(allowParams.split(",\\s*"));
-    	}
+        if (!StringUtils.isBlank(allowString)) {
+            this.allowURIs = Arrays.asList(allowString.split(",\\s*"));
+        }
+        String allowParams = filterConfig.getInitParameter("allowParams");
+        if (!StringUtils.isBlank(allowParams)) {
+            this.allowParams = Arrays.asList(allowParams.split(",\\s*"));
+        }
         setAllow(filterConfig.getInitParameter("allow"));
         setDeny(filterConfig.getInitParameter("deny"));
         String initParam = filterConfig.getInitParameter("escapeQuotes");
@@ -360,6 +412,17 @@ public class BadInputFilter implements Filter {
             boolean flag = Boolean.parseBoolean(initParam);
             setEscapeAngleBrackets(flag);
         }
+        initParam = filterConfig.getInitParameter("escapeHtmlFormTags");
+        if (initParam != null) {
+            boolean flag = Boolean.parseBoolean(initParam);
+            setEscapeHtmlFormTags(flag);
+        }
+        initParam = filterConfig.getInitParameter("escapeNewlines");
+        if (initParam != null) {
+            boolean flag = Boolean.parseBoolean(initParam);
+            setEscapeNewlines(flag);
+        }
+
         initParam = filterConfig.getInitParameter("escapeJavaScript");
         if (initParam != null) {
             boolean flag = Boolean.parseBoolean(initParam);
@@ -370,30 +433,29 @@ public class BadInputFilter implements Filter {
         logger.debug(toString() + " initialized.");
 
     }
-    
+
     /**
      * Sanitizes request parameters before bad user input gets into the
      * web application.
      *
-     * @param request The servlet request to be processed
+     * @param request  The servlet request to be processed
      * @param response The servlet response to be created
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     public void doFilter(ServletRequest request, ServletResponse response,
-                             FilterChain filterChain)
-        throws IOException, ServletException {
+                         FilterChain filterChain)
+            throws IOException, ServletException {
 
         // Skip filtering for non-HTTP requests and responses.
         if (!(request instanceof HttpServletRequest) ||
-            !(response instanceof HttpServletResponse)) {
+                !(response instanceof HttpServletResponse)) {
             filterChain.doFilter(request, response);
             return;
         }
-        
-        if (isAllowedURI(((HttpServletRequest)request).getRequestURI())) {
-        	logger.debug("Skip filtering: '"+((HttpServletRequest)request).getRequestURI()+"'");
+
+        if (isAllowedURI(((HttpServletRequest) request).getRequestURI())) {
+            logger.debug("Skip filtering: '" + ((HttpServletRequest) request).getRequestURI() + "'");
             filterChain.doFilter(request, response);
             return;
         }
@@ -404,32 +466,31 @@ public class BadInputFilter implements Filter {
             // Filter the input for potentially dangerous JavaScript
             // code so that bad user input is cleaned out of the request
             // by the time Tomcat begins to perform the request.
-            filterParameters(request);
+            FilterableRequest filterableRequest = new FilterableRequest((HttpServletRequest) request);
+            filterParameters(filterableRequest);
 
             // Perform the request.
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(filterableRequest, response);
         }
-        
+
     }
 
     /**
      * Stops requests that contain forbidden string patterns in parameter
      * names and parameter values.
      *
-     * @param request The servlet request to be processed
+     * @param request  The servlet request to be processed
      * @param response The servlet response to be created
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
-     *
      * @return false if the request is forbidden, true otherwise.
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     public boolean processAllowsAndDenies(ServletRequest request,
                                           ServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         @SuppressWarnings("unchecked")
-		Map<String, String[]> paramMap = request.getParameterMap();
+        Map<String, String[]> paramMap = request.getParameterMap();
         // Loop through the list of parameters.
         Iterator<String> y = paramMap.keySet().iterator();
         while (y.hasNext()) {
@@ -454,7 +515,7 @@ public class BadInputFilter implements Filter {
 
         // No parameter caused a deny.  The request should continue.
         return true;
-        
+
     }
 
     /**
@@ -463,35 +524,33 @@ public class BadInputFilter implements Filter {
      * is allowed to proceed, this method returns true.  Otherwise,
      * this method sends a Forbidden error response page, and returns
      * false.
-     *
+     * <p/>
      * <br><br>
-     *
+     * <p/>
      * This method borrows heavily from RequestFilterValve.process().
      *
      * @param property The request property on which to filter
      * @param response The servlet response to be processed
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
-     *
      * @return true if the request is still allowed to proceed.
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     public boolean checkAllowsAndDenies(String property,
                                         ServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         // If there were no denies and no allows, process the request.
         if (denies.length == 0 && allows.length == 0) {
             return true;
         }
-        
+
         // Check the deny patterns, if any
         for (int i = 0; i < denies.length; i++) {
             Matcher m = denies[i].matcher(property);
             if (m.find()) {
                 if (response instanceof HttpServletResponse) {
                     HttpServletResponse hres =
-                        (HttpServletResponse) response;
+                            (HttpServletResponse) response;
                     hres.sendError(HttpServletResponse.SC_FORBIDDEN);
                     return false;
                 }
@@ -510,126 +569,64 @@ public class BadInputFilter implements Filter {
         if (denies.length > 0 && allows.length == 0) {
             return true;
         }
-        
+
         // Otherwise, deny the request.
         if (response instanceof HttpServletResponse) {
             HttpServletResponse hres = (HttpServletResponse) response;
             hres.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
         return false;
-        
+
     }
 
     /**
      * Filters all existing parameters for potentially dangerous content,
      * and escapes any if they are found.
      *
-     * @param request The ServletRequest that contains the parameters. Must be of type HttpServletRequest.
+     * @param request The FilterableRequest that contains the parameters.
      */
-    @SuppressWarnings("unchecked")
-    public void filterParameters(ServletRequest request) {
+    public void filterParameters(FilterableRequest request) {
+        Map<String, String[]> paramMap = request.getModifiableParameterMap();
 
-        Map<String, String[]> paramMap = ((HttpServletRequest) request).getParameterMap();
-        // Try to unlock the parameters map so we can modify the parameters.
-        try {
-            if (setLockedMethod == null) {
-                setLockedMethod = paramMap.getClass().getMethod(
-                    "setLocked", new Class[] { Boolean.TYPE });
-            }
-            setLockedMethod.invoke(paramMap, new Object[] { Boolean.FALSE });
-        } catch (Exception e) {
-            // Unable to unlock the parameters, and if this occurs while
-            // running on Tomcat, we cannot filter the parameters.
-            logger.debug("BadInputFilter: Cannot filter parameters!");
-        }
-        
-        
-        // Loop through the list of parameters.
-        String[] paramNames =
-                paramMap.keySet().toArray(STRING_ARRAY);
-        for (int i = 0; i < paramNames.length; i++) {
-        	String name = paramNames[i];
-        	HashMap<Pattern, String> parameterEscapes =
-        	        new HashMap<Pattern, String>();
-        	// Loop through each of the substitution patterns.
-        	if (escapeAngleBrackets) {
-                // Escape all angle brackets.
-                parameterEscapes.putAll(angleBracketsHashMap);
-            }
-            if (escapeQuotes && !isAllowedParam(name)) {
-                // Escape all angle brackets.
-                parameterEscapes.putAll(quotesHashMap);
-            }
-            if (escapeJavaScript) {
-                // Escape all angle brackets.
-                parameterEscapes.putAll(javaScriptHashMap);
-            }
+        // Loop through each of the substitution patterns.
+        for (Pattern pattern : parameterEscapes.keySet()) {
+            // Loop through the list of parameter names.
+            for (String name : paramMap.keySet()) {
+                String[] values = request.getParameterValues(name);
 
-            Iterator<Pattern> escapesIterator = parameterEscapes.keySet().iterator();
-            while (escapesIterator.hasNext()) {
-                Pattern pattern = escapesIterator.next();
-                String[] values = ((HttpServletRequest)
-                    request).getParameterValues(name);
                 // See if the name contains the pattern.
-                boolean nameMatch;
                 Matcher matcher = pattern.matcher(name);
-                nameMatch = matcher.find();
-                if (nameMatch) {
+                if (matcher.find()) {
                     // The parameter's name matched a pattern, so we
                     // fix it by modifying the name, adding the parameter
                     // back as the new name, and removing the old one.
-                    String newName = matcher.replaceAll(
-                        parameterEscapes.get(pattern));
+                    String newName = matcher.replaceAll((String) parameterEscapes.get(pattern));
                     paramMap.remove(name);
                     paramMap.put(newName, values);
-                    //logger.debug("Parameter name " + name +
-                    //    " matched pattern \"" + pattern +
-                    //    "\".  Remote addr: " +
-                    //    ((HttpServletRequest) request).getRemoteAddr());
                 }
+            }
+
+            // Loop through the list of parameter values for each name.
+            for (String name : paramMap.keySet()) {
+                String[] values = request.getParameterValues(name);
                 // Check the parameter's values for the pattern.
                 if (values != null) {
-                    for (int j = 0; j < values.length; j++) {
-                        String value = values[j];
-                        boolean valueMatch;
-                        matcher = pattern.matcher(value);
-                        valueMatch = matcher.find();
-                        if (valueMatch) {
+                    for (int i = 0; i < values.length; ++i) {
+                        String value = values[i];
+                        Matcher matcher = pattern.matcher(value);
+                        if (matcher.find()) {
                             // The value matched, so we modify the value
                             // and then set it back into the array.
                             String newValue;
-                            newValue = matcher.replaceAll(parameterEscapes.get(pattern));
-                            values[j] = newValue;
-                            //logger.debug("Parameter \"" + name +
-                            //    "\"'s value \"" + value +
-                            //    "\" matched pattern \"" +
-                            //    pattern + "\".  Remote addr: " +
-                            //    ((HttpServletRequest)
-                            //    request).getRemoteAddr());
-                            logger.debug("Parameter \"" + name +
-                                "\"'s value \"" + value +
-                                "\" matched pattern \"" +
-                                pattern + "\".  Remote addr: " +
-                                ((HttpServletRequest)
-                                request).getRemoteAddr());
+                            newValue = matcher.replaceAll((String) parameterEscapes.get(pattern));
+                            values[i] = newValue;
                         }
                     }
                 }
             }
         }
-
-        // Try to lock the parameters map again when we're done.
-        try {
-            if (setLockedMethod == null) {
-                setLockedMethod = paramMap.getClass().getMethod(
-                    "setLocked", new Class[] { Boolean.TYPE });
-            }
-            setLockedMethod.invoke(paramMap, new Object[] { Boolean.TRUE });
-        } catch (Exception e) {
-            // We already logged about this, so do nothing here.
-        }
-        
     }
+
 
     /**
      * Return a text representation of this object.
@@ -645,9 +642,9 @@ public class BadInputFilter implements Filter {
      * {@inheritDoc}
      */
     public void destroy() {
-                
+
     }
-        
+
     // -------------------------------------------- Protected Methods
 
     /**
@@ -656,9 +653,8 @@ public class BadInputFilter implements Filter {
      * comma-delimited list of regular expression patterns.
      *
      * @param list The comma-separated list of patterns
-     *
-     * @exception IllegalArgumentException if one of the patterns has
-     *  invalid syntax
+     * @throws IllegalArgumentException if one of the patterns has
+     *                                  invalid syntax
      */
     protected Pattern[] precalculate(String list) {
 
@@ -679,7 +675,7 @@ public class BadInputFilter implements Filter {
                 reList.add(Pattern.compile(pattern));
             } catch (PatternSyntaxException e) {
                 IllegalArgumentException iae = new IllegalArgumentException(
-                    "Syntax error in request filter pattern" + pattern);
+                        "Syntax error in request filter pattern" + pattern);
                 iae.initCause(e);
                 throw iae;
             }
@@ -690,24 +686,24 @@ public class BadInputFilter implements Filter {
         return reList.toArray(reArray);
 
     }
-    
-    private boolean isAllowedURI(String url){
-    	for(String allowed : this.allowURIs){
-    		//if(StringUtils.containsIgnoreCase(url, allowed)){
-    		if(url.endsWith(allowed)){
-    			return true;
-    		}
-    	}
-    	return false;
+
+    private boolean isAllowedURI(String url) {
+        for (String allowed : this.allowURIs) {
+            //if(StringUtils.containsIgnoreCase(url, allowed)){
+            if (url.endsWith(allowed)) {
+                return true;
+            }
+        }
+        return false;
     }
-    
-    private boolean isAllowedParam(String param){
-    	for(String allowed : this.allowParams){
-    		//if(StringUtils.containsIgnoreCase(url, allowed)){
-    		if(param.equals(allowed)){
-    			return true;
-    		}
-    	}
-    	return false;
+
+    private boolean isAllowedParam(String param) {
+        for (String allowed : this.allowParams) {
+            //if(StringUtils.containsIgnoreCase(url, allowed)){
+            if (param.equals(allowed)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

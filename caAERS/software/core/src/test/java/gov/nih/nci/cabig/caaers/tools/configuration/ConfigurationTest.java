@@ -29,8 +29,8 @@ public class ConfigurationTest extends CaaersTestCase {
 
     public void testLoad_WillReflectChange() {
 
-        configuration.set(Configuration.AUTO_COMPLETER_CHARS, "33");
-        assertEquals("33", Configuration.LAST_LOADED_CONFIGURATION.get(Configuration.AUTO_COMPLETER_CHARS));
+        configuration.set(Configuration.AUTO_COMPLETER_CHARS, 33);
+        assertEquals(new Integer(33), Configuration.LAST_LOADED_CONFIGURATION.get(Configuration.AUTO_COMPLETER_CHARS));
     }
 
     public void testAEAttachmentLocation_WillReflectChange() {

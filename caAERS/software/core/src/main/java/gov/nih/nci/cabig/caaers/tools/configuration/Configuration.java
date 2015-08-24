@@ -6,12 +6,7 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.tools.configuration;
 
-import gov.nih.nci.cabig.ctms.tools.configuration.ConfigurationProperties;
-import gov.nih.nci.cabig.ctms.tools.configuration.ConfigurationProperty;
-import gov.nih.nci.cabig.ctms.tools.configuration.DatabaseBackedConfiguration;
-import gov.nih.nci.cabig.ctms.tools.configuration.DefaultConfigurationProperties;
-import gov.nih.nci.cabig.ctms.tools.configuration.DefaultConfigurationProperty;
-
+import gov.nih.nci.cabig.ctms.tools.configuration.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.ClassPathResource;
@@ -48,10 +43,10 @@ public class Configuration extends DatabaseBackedConfiguration implements Initia
     public static final ConfigurationProperty<Boolean> ENABLE_WORKFLOW = PROPERTIES.add(new DefaultConfigurationProperty.Bool("enableWorkflow"));
     public static final ConfigurationProperty<Boolean> UNIDENTIFIED_MODE = PROPERTIES.add(new DefaultConfigurationProperty.Bool("unidentifiedMode"));
     public static final ConfigurationProperty<Integer> STUDY_SYNC_DELAY = PROPERTIES.add(new DefaultConfigurationProperty.Int("studySyncDelay"));
-    public static final ConfigurationProperty<String> AUTO_COMPLETER_DELAY = PROPERTIES.add(new DefaultConfigurationProperty.Text("autoCompleterDelay"));
-    public static final ConfigurationProperty<String> AUTO_COMPLETER_CHARS = PROPERTIES.add(new DefaultConfigurationProperty.Text("autoCompleterChars"));
-    public static final ConfigurationProperty<String> HTTP_SESSION_TIMEOUT_WARNING = PROPERTIES.add(new DefaultConfigurationProperty.Text("httpSessionWarning"));
-    public static final ConfigurationProperty<String> HTTP_SESSION_TIMEOUT_WAIT = PROPERTIES.add(new DefaultConfigurationProperty.Text("httpSessionWarningWait"));
+    public static final ConfigurationProperty<Integer> AUTO_COMPLETER_DELAY = PROPERTIES.add(new DefaultConfigurationProperty.Int("autoCompleterDelay"));
+    public static final ConfigurationProperty<Integer> AUTO_COMPLETER_CHARS = PROPERTIES.add(new DefaultConfigurationProperty.Int("autoCompleterChars"));
+    public static final ConfigurationProperty<Integer> HTTP_SESSION_TIMEOUT_WARNING = PROPERTIES.add(new DefaultConfigurationProperty.Int("httpSessionWarning"));
+    public static final ConfigurationProperty<Integer> HTTP_SESSION_TIMEOUT_WAIT = PROPERTIES.add(new DefaultConfigurationProperty.Int("httpSessionWarningWait"));
     public static final ConfigurationProperty<Integer> PA_SEARCH_LIMIT = PROPERTIES.add(new DefaultConfigurationProperty.Int("paLimit"));
     public static final ConfigurationProperty<Integer> PO_SEARCH_LIMIT = PROPERTIES.add(new DefaultConfigurationProperty.Int("poLimit"));
     public static final ConfigurationProperty<Boolean> SYNCHRONOUS_EVENTS = PROPERTIES.add(new DefaultConfigurationProperty.Bool("synchronousSpringEvents"));
