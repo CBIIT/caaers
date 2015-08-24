@@ -16,7 +16,6 @@ import gov.nih.nci.cabig.report2caaers.ToCaaersReportWSRouteBuilder;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.model.ProcessorDefinition;
@@ -211,15 +210,19 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
 		        .when(header("CamelHttpMethod").isEqualTo("POST"))
                     .processRef("participantODMMessageProcessor")
                     .processRef("headerGeneratorProcessor")
+                    .choice()
+                    .when(header(INVALID_MESSAGE).isEqualTo("true"))
+                    	.to("direct:soapfault")
+                    .otherwise()
                     .to(fileTracker.fileURI(RAW_REQUEST_RECEIVED))
 		         	.process(track(REQUEST_RECEIVED))
 			        .processRef("crlfFixProcessor")
 			        .to(fileTracker.fileURI(REQUEST_RECEIVED))
 			        .to("xslt:" + "xslt/caaers/request/strip_namespaces.xsl")
-			        .process(track(PRE_PROCESS_OPEN_ODM_MSG))
-                    .to(fileTracker.fileURI(CLEANSED_REQUEST_RECEIVED))
-			        .to("direct:processedOpenOdmMessageSink")
-		         .otherwise().end();
+                    	.process(track(PRE_PROCESS_OPEN_ODM_MSG))
+                    	.to(fileTracker.fileURI(CLEANSED_REQUEST_RECEIVED))
+                    	.to("direct:processedOpenOdmMessageSink")
+                    .otherwise().end();
 
         //configure route towards caAERS Webservices
     	toCaaersParticipantWSRouteBuilder.configure(this);
@@ -309,6 +312,9 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
                 .to("xslt:xslt/caaers/response/soapfault.xsl")
                 //.process(track(REQUST_PROCESSING_ERROR, "Invalid SOAP request"))
                 .to(fileTracker.fileURI(REQUST_PROCESSING_ERROR));
+        
+        
+        
 
     }
 
