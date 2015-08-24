@@ -35,5 +35,6 @@
         </c:choose>
         <p class="description">${entry.description}</p>
         <c:if test="${not empty entry['default']}"><p class="description">(Default: ${entry['default']})</p></c:if>
+        <tags:errors path="${beanPath}"/>
     </div>
 </div>

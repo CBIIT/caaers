@@ -70,6 +70,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
             <c:if test="${param.updated}">
                 <div class="success-box message"><p>Settings saved</p></div>
             </c:if>
+            <tags:hasErrorsMessage hideErrorDetails="false"/>
             <p><tags:instructions code="configurecaares" /></p>
             <div id="ctabs">
                 <ul>
@@ -92,14 +93,14 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                             </div>
                         </div>
                     </csmauthz:accesscontrol>
-                    <admin:oneConfigEntry entry="${command.conf['autoCompleterChars'].property}"/>
-                    <admin:oneConfigEntry entry="${command.conf['autoCompleterDelay'].property}"/>
+                    <admin:oneConfigEntry entry="${command.conf['autoCompleterChars'].property}" cssClass="validate-WHOLENUMBER"/>
+                    <admin:oneConfigEntry entry="${command.conf['autoCompleterDelay'].property}" cssClass="validate-WHOLENUMBER"/>
                     <admin:oneConfigEntry entry="${command.conf['caaersBaseHelpUrl'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['caaersBaseUrl'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['aeAttachmentsLocation'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['enableWorkflow'].property}"/>
-                    <admin:oneConfigEntry entry="${command.conf['httpSessionWarning'].property}"/>
-                    <admin:oneConfigEntry entry="${command.conf['httpSessionWarningWait'].property}"/>
+                    <admin:oneConfigEntry entry="${command.conf['httpSessionWarning'].property}" cssClass="validate-WHOLENUMBER"/>
+                    <admin:oneConfigEntry entry="${command.conf['httpSessionWarningWait'].property}" cssClass="validate-WHOLENUMBER"/>
                     <admin:oneConfigEntry entry="${command.conf['unidentifiedMode'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['synchronousSpringEvents'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['showDebugInformation'].property}"/>
@@ -118,8 +119,8 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                 </div>
                 <c:if test="${configuration.authenticationMode ne 'local'}">
                     <div id="tabs-3">
-                        <admin:oneConfigEntry entry="${command.conf['paLimit'].property}"/>
-                        <admin:oneConfigEntry entry="${command.conf['poLimit'].property}"/>
+                        <admin:oneConfigEntry entry="${command.conf['paLimit'].property}" cssClass="validate-WHOLENUMBER"/>
+                        <admin:oneConfigEntry entry="${command.conf['poLimit'].property}" cssClass="validate-WHOLENUMBER"/>
                         <admin:oneConfigEntry entry="${command.conf['labViewerBaseUrl'].property}"/>
                         <admin:oneConfigEntry entry="${command.conf['pscBaseUrl'].property}"/>
                         <admin:oneConfigEntry entry="${command.conf['caExchangeNonGridUrl'].property}"/>
@@ -132,7 +133,7 @@ See http://ncip.github.com/caaers/LICENSE.txt for details.
                 </c:if>
                 <div id="tabs-4">
                     <admin:oneConfigEntry entry="${command.conf['smtpAddress'].property}"/>
-                    <admin:oneConfigEntry entry="${command.conf['smtpPort'].property}"/>
+                    <admin:oneConfigEntry entry="${command.conf['smtpPort'].property}" cssClass="validate-WHOLENUMBER"/>
                     <admin:oneConfigEntry entry="${command.conf['smtpTimeout'].property}"/>
                     <admin:oneConfigEntry entry="${command.conf['smtpProtocol'].property}" options="${command.emailProtocols}"/>
                     <admin:oneConfigEntry entry="${command.conf['smtpSSLEnabled'].property}"/>

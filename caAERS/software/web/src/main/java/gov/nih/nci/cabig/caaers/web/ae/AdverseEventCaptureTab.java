@@ -17,11 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Biju Joseph
@@ -213,6 +209,9 @@ public class AdverseEventCaptureTab extends AdverseEventTab {
 
     @Override
     public void postProcess(HttpServletRequest request, CaptureAdverseEventInputCommand command, Errors errors) {
+        //eager load the outcomes.
+        command.eagerLoadAdverseEventOutcomes();
+
         if (findInRequest(request, CaptureAdverseEventController.AJAX_SUBVIEW_PARAMETER) != null || errors.hasErrors()) {
             // init the meddra terms.
             return; 
