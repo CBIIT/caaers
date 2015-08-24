@@ -7,21 +7,10 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import gov.nih.nci.cabig.caaers.AbstractNoSecurityTestCase;
-import gov.nih.nci.cabig.caaers.domain.DateValue;
-import gov.nih.nci.cabig.caaers.domain.Fixtures;
-import gov.nih.nci.cabig.caaers.domain.Identifier;
-import gov.nih.nci.cabig.caaers.domain.Organization;
-import gov.nih.nci.cabig.caaers.domain.OrganizationAssignedIdentifier;
-import gov.nih.nci.cabig.caaers.domain.Participant;
-import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.StudyParticipantAssignment;
-import gov.nih.nci.cabig.caaers.domain.StudySite;
-import gov.nih.nci.cabig.caaers.domain.workflow.WorkflowConfig;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ParticipantSynchronizerIntegrationTest extends AbstractNoSecurityTestCase {
@@ -45,7 +34,7 @@ public class ParticipantSynchronizerIntegrationTest extends AbstractNoSecurityTe
 		super.setUp();
 		studyParticipantAssignmentSynchronizer = new StudyParticipantAssignmentSynchronizer();
 		identifierSynchronizer = new IdentifierSynchronizer<Participant>();
-		List<Migrator<Participant>> syncronizers = new ArrayList<Migrator<Participant>>();
+		List<Synchronizer<Participant>> syncronizers = new ArrayList<Synchronizer<Participant>>();
 		syncronizers.add(identifierSynchronizer);
 		syncronizers.add(studyParticipantAssignmentSynchronizer);
 		participantSynchronizer = new ParticipantSynchronizer();

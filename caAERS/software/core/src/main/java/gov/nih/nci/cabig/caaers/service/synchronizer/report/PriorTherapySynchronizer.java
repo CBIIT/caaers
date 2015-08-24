@@ -4,21 +4,26 @@ import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.PriorTherapyAgent;
 import gov.nih.nci.cabig.caaers.domain.SAEReportPriorTherapy;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class PriorTherapySynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class PriorTherapySynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
 
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport xmlAeReport, ExpeditedAdverseEventReport dbAeReport, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
 

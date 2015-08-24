@@ -2136,8 +2136,7 @@ public class ExpeditedAdverseEventReport extends AbstractMutableDomainObject imp
     public void removeReport(String reportName) {
         List<Report> reportsToRemove = new ArrayList<Report>();
         for(Report r  : getReports())  {
-            if(StringUtils.equals(r.getName(), reportName))
-                reportsToRemove.add(r);
+            if(reportsToRemove.isEmpty() && StringUtils.equals(r.getName(), reportName)) reportsToRemove.add(r);
         }
         getReports().removeAll(reportsToRemove);
     }

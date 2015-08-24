@@ -6,15 +6,21 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
+import gov.nih.nci.cabig.caaers.domain.ReportFormat;
+import gov.nih.nci.cabig.caaers.domain.Study;
+import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
 import org.apache.commons.collections.CollectionUtils;
 
-import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.ReportFormat;
-import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StudyReportTypeSynchronizer implements Migrator<Study>{
+public class StudyReportTypeSynchronizer implements Synchronizer<Study>{
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy,DomainObjectImportOutcome<Study> outcome) {
 		
 		/**

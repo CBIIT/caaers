@@ -8,30 +8,31 @@ package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import gov.nih.nci.cabig.caaers.dao.CtcDao;
 import gov.nih.nci.cabig.caaers.dao.MeddraVersionDao;
-import gov.nih.nci.cabig.caaers.domain.Ctc;
-import gov.nih.nci.cabig.caaers.domain.DiseaseCodeTerm;
-import gov.nih.nci.cabig.caaers.domain.DiseaseTerminology;
-import gov.nih.nci.cabig.caaers.domain.MeddraVersion;
-import gov.nih.nci.cabig.caaers.domain.Study;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.integration.schema.study.DiseaseCodeType;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.CompositeMigrator;
+import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * 
  * @author Monish Dombla
  *
  */
-public class StudySynchronizer extends CompositeMigrator<Study>{
-	
+public class StudySynchronizer extends CompositeSynchronizer<Study>{
+
 	private CtcDao ctcDao;
 	private MeddraVersionDao meddraVersionDao;
-	
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
+
 	public void setCtcDao(CtcDao ctcDao) {
 		this.ctcDao = ctcDao;
 	}

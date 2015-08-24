@@ -9,21 +9,27 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.SAEReportPreExistingCondition;
-import gov.nih.nci.cabig.caaers.domain.SAEReportPriorTherapy;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class PreExistingConditionSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class PreExistingConditionSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport src, ExpeditedAdverseEventReport dest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
         List<SAEReportPreExistingCondition> newPreConditions = new ArrayList<SAEReportPreExistingCondition>();
         List<SAEReportPreExistingCondition> existingConditions = new ArrayList<SAEReportPreExistingCondition>();

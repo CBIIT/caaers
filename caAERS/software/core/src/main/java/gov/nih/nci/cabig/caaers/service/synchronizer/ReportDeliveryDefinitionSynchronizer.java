@@ -6,18 +6,23 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import java.util.List;
-
 import gov.nih.nci.cabig.caaers.domain.report.ReportDefinition;
 import gov.nih.nci.cabig.caaers.domain.report.ReportDeliveryDefinition;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author chandrasekaravr
  */
-public class ReportDeliveryDefinitionSynchronizer implements Migrator<gov.nih.nci.cabig.caaers.domain.report.ReportDefinition>{
-	
+public class ReportDeliveryDefinitionSynchronizer implements Synchronizer<gov.nih.nci.cabig.caaers.domain.report.ReportDefinition>{
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(ReportDefinition xmlReportDefinition, ReportDefinition dbReportDefinition, DomainObjectImportOutcome<ReportDefinition> outcome) {
 		List<ReportDeliveryDefinition> dbRepDeliveryDefs = dbReportDefinition.getDeliveryDefinitionsInternal();
 		List<ReportDeliveryDefinition> xmlRepDeliveryDefs = xmlReportDefinition.getDeliveryDefinitions();

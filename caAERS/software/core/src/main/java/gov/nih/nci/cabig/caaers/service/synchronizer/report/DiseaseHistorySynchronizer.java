@@ -4,20 +4,26 @@ import gov.nih.nci.cabig.caaers.domain.DiseaseHistory;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.MetastaticDiseaseSite;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.lang.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class DiseaseHistorySynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class DiseaseHistorySynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 
     public void migrate(ExpeditedAdverseEventReport aeReportSrc, ExpeditedAdverseEventReport aeReportDest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
         DiseaseHistory src = aeReportSrc.getDiseaseHistory();

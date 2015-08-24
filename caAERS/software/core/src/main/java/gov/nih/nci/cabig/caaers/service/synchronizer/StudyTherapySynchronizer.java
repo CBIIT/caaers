@@ -6,15 +6,21 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import gov.nih.nci.cabig.caaers.domain.Study;
 import gov.nih.nci.cabig.caaers.domain.StudyTherapy;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import org.apache.commons.collections.CollectionUtils;
 
-public class StudyTherapySynchronizer implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>{
-	
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudyTherapySynchronizer implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>{
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	/**
 	 *	If none of the below given elements are provided in the XML, then StudyTherapies list will be null.
 		In this case do not do anything.

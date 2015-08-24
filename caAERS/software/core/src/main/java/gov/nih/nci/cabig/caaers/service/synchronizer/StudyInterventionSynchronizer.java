@@ -9,24 +9,23 @@ package gov.nih.nci.cabig.caaers.service.synchronizer;
 import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
 import gov.nih.nci.cabig.caaers.domain.OtherIntervention;
 import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.StudyAgent;
-import gov.nih.nci.cabig.caaers.domain.StudyAgentINDAssociation;
-import gov.nih.nci.cabig.caaers.domain.StudyDevice;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
-import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Ion C. Olaru
  *         Date: 5/3/12 -4:48 PM
  */
-public class StudyInterventionSynchronizer implements Migrator<Study> {
+public class StudyInterventionSynchronizer implements Synchronizer<Study> {
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(Study dest, Study src, DomainObjectImportOutcome<Study> studyDomainObjectImportOutcome) {
     	HashMap<String, OtherIntervention> map = new HashMap<String, OtherIntervention>();
 		for(OtherIntervention otherIntervention : dest.getActiveOtherInterventions()) {

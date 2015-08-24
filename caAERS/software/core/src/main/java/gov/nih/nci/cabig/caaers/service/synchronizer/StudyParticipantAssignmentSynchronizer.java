@@ -10,13 +10,17 @@ import gov.nih.nci.cabig.caaers.domain.Identifier;
 import gov.nih.nci.cabig.caaers.domain.Participant;
 import gov.nih.nci.cabig.caaers.domain.StudyParticipantAssignment;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyParticipantAssignmentSynchronizer implements Migrator<Participant>{
+public class StudyParticipantAssignmentSynchronizer implements Synchronizer<Participant>{
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Participant dbParticipant, Participant xmlParticipant,
 			DomainObjectImportOutcome<Participant> outcome) {
 		

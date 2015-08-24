@@ -6,22 +6,27 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import edu.nwu.bioinformatics.commons.CollectionUtils;
 import gov.nih.nci.cabig.caaers.domain.AbstractMutableRetireableDomainObject;
 import gov.nih.nci.cabig.caaers.domain.Study;
 import gov.nih.nci.cabig.caaers.domain.StudyDevice;
 import gov.nih.nci.cabig.caaers.domain.StudyDeviceINDAssociation;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Ion C. Olaru
  *         Date: 4/10/12 -4:37 PM
  */
-public class StudyDeviceSynchronizer implements Migrator<Study> {
+public class StudyDeviceSynchronizer implements Synchronizer<Study> {
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     /**
      * I know I know the parameters order is not the same as in the interface(1-src, 2-dest) which is very confusing, but I
      * could not refactor it since all the implementing classes ate following the same pattern, destination first,

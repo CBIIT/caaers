@@ -6,18 +6,26 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
-import gov.nih.nci.cabig.caaers.domain.*;
+import gov.nih.nci.cabig.caaers.domain.AdditionalInformation;
+import gov.nih.nci.cabig.caaers.domain.AdditionalInformationDocument;
+import gov.nih.nci.cabig.caaers.domain.AdditionalInformationDocumentType;
+import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author medaV
  */
-public class AdditionalInformationSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class AdditionalInformationSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport xmlAeReport, ExpeditedAdverseEventReport dbAeReport, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
         AdditionalInformation src = xmlAeReport.getAdditionalInformation();

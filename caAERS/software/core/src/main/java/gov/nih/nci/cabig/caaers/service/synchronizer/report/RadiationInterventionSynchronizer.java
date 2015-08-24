@@ -9,22 +9,29 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.RadiationIntervention;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author Ramakrishna Gundala
  */
-public class RadiationInterventionSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class RadiationInterventionSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     public void migrate(ExpeditedAdverseEventReport xmlAeReport, ExpeditedAdverseEventReport dbAeReport, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
         List<RadiationIntervention> newlyFoundRIs = new ArrayList<RadiationIntervention>();
 
         if (xmlAeReport.getRadiationInterventions() == null) {
-            outcome.addWarning("LS-RI-1", "The input for Radiation Interventions is null, so not performing any operation.");
+            outcome.addWarning("RS-RI-1", "The input for Radiation Interventions is null, so not performing any operation.");
             return;
         }
 

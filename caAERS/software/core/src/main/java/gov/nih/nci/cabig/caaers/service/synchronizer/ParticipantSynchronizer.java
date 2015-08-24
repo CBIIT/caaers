@@ -8,17 +8,19 @@ package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import gov.nih.nci.cabig.caaers.domain.Participant;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.CompositeMigrator;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+public class ParticipantSynchronizer extends CompositeSynchronizer<Participant>{
 
-public class ParticipantSynchronizer extends CompositeMigrator<Participant>{
-	
-	
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	@Override
 	public void preMigrate(Participant dbParticipant, Participant xmlParticipant,
 			DomainObjectImportOutcome<Participant> outcome) {
