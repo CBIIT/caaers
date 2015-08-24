@@ -48,33 +48,33 @@ public class IntegrationLogDetailDaoTest extends DaoNoSecurityTestCase<Integrati
 
 		queriedLogs.get(0).addIntegrationLogDetails(intDetailLog);
 		assertEquals(2,queriedLogs.get(0).getIntegrationLogDetails().size());
-		
-		
+
+
 		integrationLogDao.save(queriedLogs.get(0));
-		
+
 		interruptSession();
-		
+
 		IntegrationLogQuery query = new IntegrationLogQuery();
 		query.filterByCorrelationId("-1");
 		List<IntegrationLog> queriedIntLogs = integrationLogDao.searchIntegrationLogs(query);
-		
+
 		assertEquals(2,queriedIntLogs.get(0).getIntegrationLogDetails().size());
 
 	}
-	
+
 	public void testQueryByDate() throws Exception {
 		IntegrationLogQuery query1 = new IntegrationLogQuery();
 		Date queryDate1 = DateUtils.parseDate("04/23/2012");
 		query1.filterByLoggedOn(queryDate1, "<");
 		List<IntegrationLog> queriedIntLogs = integrationLogDao.searchIntegrationLogs(query1);
 		assertEquals(6,queriedIntLogs.size());
-		
+
 		IntegrationLogQuery query2 = new IntegrationLogQuery();
 		Date queryDate2 = DateUtils.parseDate("04/22/2012");
 		query2.filterByLoggedOn(queryDate2, "<");
 		queriedIntLogs = integrationLogDao.searchIntegrationLogs(query2);
 		assertEquals(3,queriedIntLogs.size());
-		
+
 		IntegrationLogQuery query3 = new IntegrationLogQuery();
 		Date queryDate3 = DateUtils.parseDate("04/22/2012");
 		query3.filterByLoggedOn(queryDate3, "<=");
@@ -82,21 +82,34 @@ public class IntegrationLogDetailDaoTest extends DaoNoSecurityTestCase<Integrati
 		assertEquals(6,queriedIntLogs.size());
 	}
 
-    //Commented to verify web test cases
-	/*public void testByCorrelationId() throws Exception{
-		IntegrationLogDetailQuery query1 = new IntegrationLogDetailQuery();
+    public void testByCorrelationId() throws Exception{
+        IntegrationLogDetailQuery query1 = new IntegrationLogDetailQuery();
+        {
+
 		query1.filterByCorrelationId("-8");
 		List<IntegrationLogDetail> queriedIntLogDetails = dao.searchIntegrationLogDetails(query1);
 		assertEquals(1,queriedIntLogDetails.size());
 		assertEquals(SynchStatus.CAAERS_WS_IN_TRANSFORMATION,queriedIntLogDetails.get(0).getSynchStatus());
-		assertEquals("failure",queriedIntLogDetails.get(0).getOutcome());
-		
-		IntegrationLogDetailQuery query2 = new IntegrationLogDetailQuery();
-		query2.filterByCorrelationId("-4");
-		queriedIntLogDetails = dao.searchIntegrationLogDetails(query2);
-		assertEquals(2,queriedIntLogDetails.size());
-	}*/
-	
+		IntegrationLogDetail foundIntegrationLogDetail = (IntegrationLogDetail)queriedIntLogDetails.get(0);
+        foundIntegrationLogDetail.setOutcome("failure");
+        dao.save(foundIntegrationLogDetail);
+        }
+           interruptSession();
+        {
+            IntegrationLogDetailQuery query2 = new IntegrationLogDetailQuery();
+            query2.filterByCorrelationId("-8");
+            List<IntegrationLogDetail> queriedIntLogDetails2 = dao.searchIntegrationLogDetails(query1);
+            assertEquals(1,queriedIntLogDetails2.size());
+            assertEquals(SynchStatus.CAAERS_WS_IN_TRANSFORMATION,queriedIntLogDetails2.get(0).getSynchStatus());
+            assertEquals("failure",queriedIntLogDetails2.get(0).getOutcome());
+        }
+
+		IntegrationLogDetailQuery query3 = new IntegrationLogDetailQuery();
+		query3.filterByCorrelationId("-4");
+        List<IntegrationLogDetail> queriedIntLogDetails3 = dao.searchIntegrationLogDetails(query3);
+		assertEquals(2,queriedIntLogDetails3.size());
+	}
+
 	public void testGetByIntegrationLog() throws Exception {
 		IntegrationLog intLog1 = integrationLogDao.getById(1002);
 		assertTrue(integrationLogDao.hasLogDetails(intLog1));
@@ -105,5 +118,4 @@ public class IntegrationLogDetailDaoTest extends DaoNoSecurityTestCase<Integrati
 		assertTrue(integrationLogDao.hasLogDetails(intLog2));
 		
 	}
-
 }
