@@ -11,7 +11,14 @@ import gov.nih.nci.cabig.caaers.dao.ExpeditedAdverseEventReportDao;
 import gov.nih.nci.cabig.caaers.dao.ParticipantDao;
 import gov.nih.nci.cabig.caaers.dao.StudyDao;
 import gov.nih.nci.cabig.caaers.dao.StudyParticipantAssignmentDao;
-import gov.nih.nci.cabig.caaers.domain.*;
+import gov.nih.nci.cabig.caaers.domain.AdverseEvent;
+import gov.nih.nci.cabig.caaers.domain.AdverseEventReportingPeriod;
+import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
+import gov.nih.nci.cabig.caaers.domain.Organization;
+import gov.nih.nci.cabig.caaers.domain.Participant;
+import gov.nih.nci.cabig.caaers.domain.ReportStatus;
+import gov.nih.nci.cabig.caaers.domain.Study;
+import gov.nih.nci.cabig.caaers.domain.StudySite;
 import gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.ActionType;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
 import gov.nih.nci.cabig.caaers.domain.report.ReportDefinition;
@@ -42,6 +49,14 @@ import gov.nih.nci.cabig.caaers.utils.DateUtils;
 import gov.nih.nci.cabig.caaers.validation.CaaersValidationException;
 import gov.nih.nci.cabig.caaers.validation.ValidationError;
 import gov.nih.nci.cabig.caaers.validation.ValidationErrors;
+import gov.nih.nci.cabig.caaers.ws.faults.CaaersFault;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -49,12 +64,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class SafetyReportServiceImpl {
 	private static Log logger = LogFactory.getLog(SafetyReportServiceImpl.class);
@@ -70,9 +79,8 @@ public class SafetyReportServiceImpl {
     private ParticipantDao participantDao;
 
     private StudyDao studyDao;
-    
 
-    private MessageSource messageSource;
+	private MessageSource messageSource;
     
     private ExpeditedAdverseEventReportDao expeditedAdverseEventReportDao;
     private StudyParticipantAssignmentDao studyParticipantAssignmentDao;
@@ -737,6 +745,32 @@ public class SafetyReportServiceImpl {
         }
         return response;
     }
+    
+    // CAAERS-7414 validate if reportId is consistent with reporting period attributes
+    public void validateReportIdAndAdverseEventReportingPeriodAttributes(ExpeditedAdverseEventReport aeReport, ValidationErrors errors)
+			throws CaaersFault {
+    	
+    	if(StringUtils.isBlank(aeReport.getExternalId())){
+    		return;
+    	}
+
+    	// find reporting period attributes from input
+		Date startDateSrc = aeReport.getReportingPeriod().getStartDate();
+		Integer cycleNumberSrc = aeReport.getReportingPeriod().getCycleNumber();
+		String  tAC = null;
+		if(aeReport.getReportingPeriod().getTreatmentAssignment() != null){
+			tAC = aeReport.getReportingPeriod().getTreatmentAssignment().getCode();
+		}
+
+		ExpeditedAdverseEventReport dbReport = expeditedAdverseEventReportDao
+				.getByExternalId(aeReport.getExternalId());
+		if (dbReport != null) {
+			if (!dbReport.getReportingPeriod().hasSameCoreAttributes(cycleNumberSrc, 
+					startDateSrc,tAC)) {
+				errors.addValidationError("WS_GEN_SRS1", "Reporting Period with given attributes is not found in the report with id " +  dbReport.getExternalId() + ".");
+			}
+		}
+	}
 
     /**
      * Will save the ExpeditedAdverseEventReport
@@ -778,7 +812,7 @@ public class SafetyReportServiceImpl {
         		 report.getStatus() == ReportStatus.INPROCESS) && report.getDueOn() != null){
         	baseReport.setDueDate(DateUtils.formatToWSResponseDateWithTimeZone(report.getDueOn()));
             caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_due" , baseReport.getDueDate());
-            caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_displayDue" , report.getReportDefinition().getExpectedDisplayDueDate(report.getDueOn()));
+            caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_displayDue" , report.getReportDefinition().getDueInGivenDueDate(report.getDueOn()));
          }
 
          // set action text https://tracker.nci.nih.gov/browse/CAAERS-6962
@@ -818,7 +852,7 @@ public class SafetyReportServiceImpl {
      */
     public ValidationErrors createOrUpdateSafetyReport(AdverseEventReport adverseEventReport, List<Report> reportsAffected) throws Exception {
        ValidationErrors errors = new ValidationErrors();
-        ExpeditedAdverseEventReport aeSrcReport = null;
+       ExpeditedAdverseEventReport aeSrcReport = null;
 
         try {
 
@@ -835,6 +869,7 @@ public class SafetyReportServiceImpl {
 		   
 
            //2. Do some basic validations (if needed)
+        	validateReportIdAndAdverseEventReportingPeriodAttributes(aeSrcReport, errors);
            //3. Determine the flow, create vs update
            String externalId = aeSrcReport.getExternalId();
            ExpeditedAdverseEventReport dbAeReport = externalId != null ? expeditedAdverseEventReportDao.getByExternalId(externalId) : null;

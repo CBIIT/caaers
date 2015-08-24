@@ -1093,5 +1093,32 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
 				getTreatmentAssignmentDescription(),
 				otherReportingPeriod.getTreatmentAssignmentDescription());
 	}
+	
+	 /**
+     * verifies whether the reporting period has same core attributes
+     * related to CAAERS-7414
+     *
+     * @param otherCycleNumber, reporting period cycle number
+     * @param otherStartDate, reporting start date
+     * @param treatmentAssignment, treatment assignment
+     * @return true, if successful
+     */
+	public boolean hasSameCoreAttributes(Integer otherCycleNumber, Date otherStartDate, String otherTAC) {
+
+		if (DateUtils.compareDate(this.startDate, otherStartDate) != 0)
+			return false;
+		if (!this.cycleNumber.equals(otherCycleNumber))
+			return false;
+		if ((this.getTreatmentAssignment() != null && getTreatmentAssignment().getCode() !=null && otherTAC == null)
+				|| (this.getTreatmentAssignment() == null && otherTAC != null)) {
+			return false;
+		}
+
+		if (this.getTreatmentAssignment() != null && otherTAC != null	&& 
+				!this.getTreatmentAssignment().getCode().equalsIgnoreCase(otherTAC))
+			return false;
+
+		return true;
+	}
     
 }
