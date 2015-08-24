@@ -60,7 +60,7 @@ public class ParticipantODMMessageProcessor implements Processor {
 		// just get the body as a string
 		String body = exchange.getIn().getBody(String.class);
 		// check authentication
-		//checkAuthentication(exchange);
+		checkAuthentication(exchange);
 		
 		// set the properties in the exchange
 		Map<String, Object> properties = exchange.getProperties();
@@ -78,9 +78,10 @@ public class ParticipantODMMessageProcessor implements Processor {
 		if (log.isDebugEnabled())
 			log.debug("Exchange properties :" + String.valueOf(properties));
 		exchange.getOut().setBody(body);
+		
 		if(!isValidOdmXml(exchange)) {
 			exchange.setProperty(INVALID_MESSAGE, "true");
-		}
+		}else exchange.setProperty(INVALID_MESSAGE, "false");
 		
 	}
 
@@ -127,9 +128,11 @@ public class ParticipantODMMessageProcessor implements Processor {
 	}
 
 	public boolean isValidOdmXml(Exchange exchange) {
+		
 		boolean retVal = true;
 		try {
-			//Integer odm = xpath("/ODM").evaluate(exchange, Integer.class);
+			//String odm = xpath("/ODM").evaluate(exchange, String.class);
+			//Integer odm=xpath("/ODM").evaluate(exchange, Integer.class);
 			Boolean retValObj=xpath("/ODM").matches(exchange);
 			retVal=retValObj.booleanValue();
 			

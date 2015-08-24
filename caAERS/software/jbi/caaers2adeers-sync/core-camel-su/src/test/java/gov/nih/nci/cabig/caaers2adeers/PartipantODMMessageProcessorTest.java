@@ -8,12 +8,10 @@ package gov.nih.nci.cabig.caaers2adeers;
 
 
 import gov.nih.nci.cabig.open2caaers.exchange.ParticipantODMMessageProcessor;
-import gov.nih.nci.cabig.rave2caaers.exchange.RaveIntegrationHeaderProcessor;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 import org.apache.camel.Exchange;
 
@@ -23,20 +21,36 @@ import org.apache.camel.Exchange;
 public class PartipantODMMessageProcessorTest extends TestCase {
 	
 	
-    public void testProcess() throws Exception {
-    	ExchangeAdapter exchange = new ExchangeAdapter();
+    public void testProcess_positivScenario() throws Exception {
+    	
     	ParticipantODMMessageProcessor newProcessor=new ParticipantODMMessageProcessor();
-    	newProcessor.setCaaersWSUser("SYSTEM");
-    	newProcessor.setCaaersWSPassword("system_admin");
     	
     	String body = "<ODM><ClinicalData></ClinicalData></ODM>";
-    	String body1="This is only JUNK";
     	
-        exchange.getIn().setBody(body1); 
-        
-    	//new ParticipantODMMessageProcessor().process(exchange);
+    	Exchange exchange = new ExchangeAdapter();
+        exchange.getIn().setBody(body);         
+    	//newProcessor.process(exchange);
+    	
     	Assert.assertEquals(true, newProcessor.isValidOdmXml(exchange));
-    	 //Assert.assertEquals("true", exchange.getProperties().get(ParticipantODMMessageProcessor.INVALID_MESSAGE));
+    	
+    	//If the below needs to be tested  checkAuthentication() needs to be commented
+    	//Assert.assertEquals("false", exchange.getProperties().get(ParticipantODMMessageProcessor.INVALID_MESSAGE));
+
+    }
+    
+public void testProcess_negetiveScenario() throws Exception {
+    	
+    	ParticipantODMMessageProcessor newProcessor1=new ParticipantODMMessageProcessor();
+    	
+    	String body1="This is Junk";
+    	
+    	Exchange exchange1 = new ExchangeAdapter();
+        exchange1.getIn().setBody(body1);         
+    	//newProcessor1.process(exchange1);
+    	
+    	Assert.assertEquals(false, newProcessor1.isValidOdmXml(exchange1));
+    	//If the below needs to be tested  checkAuthentication() needs to be commented
+    	//Assert.assertEquals("true", exchange1.getProperties().get(ParticipantODMMessageProcessor.INVALID_MESSAGE));
         
     }
 
