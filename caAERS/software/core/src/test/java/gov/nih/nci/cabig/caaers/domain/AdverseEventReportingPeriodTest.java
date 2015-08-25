@@ -578,4 +578,17 @@ public class AdverseEventReportingPeriodTest extends AbstractTestCase {
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(cycleNumber, startDate, "TAC1"));
     }
     
+    public void testHasSameCoreAttributesWithOtherDescription(){
+    	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	// test with other treatmetn assignment description
+    	rp1WithNoAttributes.setTreatmentAssignmentDescription("description");
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "other"));
+    	
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "OTHER"));
+    	
+    }
+    
+    
 }

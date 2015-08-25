@@ -1107,7 +1107,7 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
 		
 		// if thisTAC or otherTAC are null assign them the value 'OTHER'
 		String thisTAC = this.getTreatmentAssignment() != null ? this.getTreatmentAssignment().getCode() : "OTHER";
-		String thatTAC = otherTAC != null ? otherTAC : "OTHER";
+		String thatTAC = otherTAC != null ? StringUtils.upperCase(otherTAC) : "OTHER";
 		
 		if(!ObjectUtils.equals(thisTAC, thatTAC)){
 			return false;
