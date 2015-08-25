@@ -323,8 +323,8 @@ public class SAEEvaluationServiceImpl {
 		
 		ExpeditedAdverseEventReport dbReport = expeditedAdverseEventReportDao
 				.getByExternalId(reportId);
-		String tac = dbReport.getReportingPeriod().getTreatmentAssignment() != null? dbReport.getReportingPeriod().getTreatmentAssignment().getCode():null;
 		if (dbReport != null) {
+			String tac = dbReport.getReportingPeriod().getTreatmentAssignment() != null? dbReport.getReportingPeriod().getTreatmentAssignment().getCode():null;
 			if (!rpDest.hasSameCoreAttributes(dbReport.getReportingPeriod().getCycleNumber(), 
 					dbReport.getReportingPeriod().getStartDate(),tac)) {
 				throw Helper.createCaaersFault(DEF_ERR_MSG, "WS_SAE_008",
