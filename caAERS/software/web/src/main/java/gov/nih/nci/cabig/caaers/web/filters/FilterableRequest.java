@@ -54,8 +54,13 @@ public class FilterableRequest extends HttpServletRequestWrapper
     @Override
     public String getParameter(final String name)
     {
-        String[] values = parameters.get(name);
-        return values != null ? values[0] : null;
+        if(parameters.containsKey(name)) {
+            String[] values = parameters.get(name);
+            return values != null ? values[0] : null;
+        }
+
+        //handling CAAERS-7446 - DWR set query string is not getting applied on the parameters again.
+        return super.getParameter(name);
     }
 
     @Override
@@ -81,7 +86,11 @@ public class FilterableRequest extends HttpServletRequestWrapper
     @Override
     public String[] getParameterValues(final String name)
     {
-        return parameters.get(name);
+        if(parameters.containsKey(name))    {
+            return parameters.get(name);
+        }else {
+            return super.getParameterValues(name);
+        }
     }
 
     @Override
