@@ -497,7 +497,7 @@ public class AdverseEventReportingPeriodTest extends AbstractTestCase {
     	assertFalse(reportingPeriodWithTac1.hasNoCommonTacOrOtherTreatmentAssignmentDescription(reportingPeriodWithTac2));
     }
     
-public void testHasNoCommonTacOrOtherTreatmentAssignmentDescriptionHavingSameOtherDescription() {
+    public void testHasNoCommonTacOrOtherTreatmentAssignmentDescriptionHavingSameOtherDescription() {
     	
     	AdverseEventReportingPeriod reportingPeriodWithOtherDescription1 = Fixtures.createReportingPeriod();
     	final String OTHER_TREATMENT_ASSIGNMENT_DESCRIPTION = "treatment assignment descirption";
@@ -508,4 +508,74 @@ public void testHasNoCommonTacOrOtherTreatmentAssignmentDescriptionHavingSameOth
     	
     	assertFalse(reportingPeriodWithOtherDescription1.hasNoCommonTacOrOtherTreatmentAssignmentDescription(reportingPeriodWithOtherDescription2));
     }
+    
+    public void testHasSameCoreAttributesNullChecks(){
+    	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	// all attributes of this reporting period or null and all other attributes are non-null
+    	Integer cycleNumber = 2;
+    	Date startDate = new Date();
+    	String tAC = "TAC1";
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(cycleNumber, startDate, tAC));
+    	
+    	// all attributes of this reporting period or non-null and are passed in values are null
+    	TreatmentAssignment ta = new TreatmentAssignment();
+    	rp1WithNoAttributes.setTreatmentAssignment(ta);
+    	ta.setCode(tAC);
+    	rp1WithNoAttributes.setCycleNumber(cycleNumber);
+    	rp1WithNoAttributes.setStartDate(startDate);
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    }
+
+
+    public void testHasSameCoreAttributes1(){
+    	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	// add new treatment assignment but no TAC
+    	TreatmentAssignment ta = new TreatmentAssignment();
+    	rp1WithNoAttributes.setTreatmentAssignment(ta);
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	// add new treatment assignment but no TAC, set TAC
+    	ta.setCode("TAC1");
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "TAC1"));
+    	
+    }
+    
+    
+    public void testHasSameCoreAttributes2(){
+    	
+    	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
+    	
+    	// add new treatment assignment but no TAC
+    	TreatmentAssignment ta = new TreatmentAssignment();
+    	rp1WithNoAttributes.setTreatmentAssignment(ta);
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	
+    	// add new treatment assignment but no TAC, set TAC
+    	ta.setCode("TAC1");
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "TAC1"));
+    	
+    	Date startDate = new Date();
+    	
+    	// compare same TAC different start dates
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, startDate, "TAC1"));
+    	
+    	// compare same TAC same start dates
+    	rp1WithNoAttributes.setStartDate(startDate);
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, startDate, "TAC1"));
+    	
+    	// compare same TAC and same start date different cycle numbers
+    	Integer cycleNumber = 11;
+    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(cycleNumber, startDate, "TAC1"));
+    	
+    	// compare same TAC and same start date same cycle numbers
+    	rp1WithNoAttributes.setCycleNumber(cycleNumber);
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(cycleNumber, startDate, "TAC1"));
+    }
+    
 }

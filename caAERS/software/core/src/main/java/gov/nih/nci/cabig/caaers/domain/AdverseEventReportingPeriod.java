@@ -1104,18 +1104,22 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
      * @return true, if successful
      */
 	public boolean hasSameCoreAttributes(Integer otherCycleNumber, Date otherStartDate, String otherTAC) {
-
-		if (DateUtils.compareDate(this.startDate, otherStartDate) != 0)
-			return false;
-		if (!this.cycleNumber.equals(otherCycleNumber))
-			return false;
-		if ((this.getTreatmentAssignment() != null && getTreatmentAssignment().getCode() !=null && otherTAC == null)
-				|| (this.getTreatmentAssignment() == null && otherTAC != null)) {
+		
+		// if thisTAC or otherTAC are null assign them the value 'OTHER'
+		String thisTAC = this.getTreatmentAssignment() != null ? this.getTreatmentAssignment().getCode() : "OTHER";
+		String thatTAC = otherTAC != null ? otherTAC : "OTHER";
+		
+		if(!ObjectUtils.equals(thisTAC, thatTAC)){
 			return false;
 		}
-
-		if (this.getTreatmentAssignment() != null && otherTAC != null	&& 
-				!this.getTreatmentAssignment().getCode().equalsIgnoreCase(otherTAC))
+		
+		// if at least one of the start dates is not null, compare them
+			
+		if((this.getStartDate() != null || otherStartDate != null) && (DateUtils.compareDate(this.startDate, otherStartDate) != 0))
+			return false;
+		
+		 // if at least one of the cycle numbers is not null, compare them
+		if((this.getCycleNumber() != null || otherCycleNumber != null) && (!ObjectUtils.equals(this.getCycleNumber(), otherCycleNumber)))
 			return false;
 
 		return true;
