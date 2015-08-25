@@ -11,6 +11,7 @@ import gov.nih.nci.cabig.caaers.AbstractTestCase;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
 import gov.nih.nci.cabig.caaers.security.SecurityTestUtils;
 import gov.nih.nci.cabig.caaers.utils.DateUtils;
+import gov.nih.nci.cabig.caaers.utils.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -533,13 +534,10 @@ public class AdverseEventReportingPeriodTest extends AbstractTestCase {
     	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
     	
-    	// add new treatment assignment but no TAC
+    	// add new treatment assignment with TAC
     	TreatmentAssignment ta = new TreatmentAssignment();
-    	rp1WithNoAttributes.setTreatmentAssignment(ta);
-    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
-    	
-    	// add new treatment assignment but no TAC, set TAC
     	ta.setCode("TAC1");
+    	rp1WithNoAttributes.setTreatmentAssignment(ta);
     	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
     	
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "TAC1"));
@@ -551,13 +549,11 @@ public class AdverseEventReportingPeriodTest extends AbstractTestCase {
     	
     	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
     	
-    	// add new treatment assignment but no TAC
+    	// add new treatment assignment with TAC
     	TreatmentAssignment ta = new TreatmentAssignment();
-    	rp1WithNoAttributes.setTreatmentAssignment(ta);
-    	assertFalse(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
-    	
-    	// add new treatment assignment but no TAC, set TAC
     	ta.setCode("TAC1");
+    	rp1WithNoAttributes.setTreatmentAssignment(ta);
+    	
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "TAC1"));
     	
     	Date startDate = new Date();
@@ -580,13 +576,17 @@ public class AdverseEventReportingPeriodTest extends AbstractTestCase {
     
     public void testHasSameCoreAttributesWithOtherDescription(){
     	AdverseEventReportingPeriod rp1WithNoAttributes = Fixtures.createReportingPeriod();
+    	rp1WithNoAttributes.setTreatmentAssignmentDescription("description");
+    	assertNull(rp1WithNoAttributes.getTreatmentAssignment());
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
     	
-    	// test with other treatmetn assignment description
-    	rp1WithNoAttributes.setTreatmentAssignmentDescription("description");
-    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "other"));
+    	// test with other treatment assignment description
     	
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "other"));
     	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, "OTHER"));
+    	
+    	assertTrue(rp1WithNoAttributes.hasSameCoreAttributes(null, null, null));
+    	assertTrue(ObjectUtils.equals("OTHER", "OTHER"));
     	
     }
     

@@ -1106,7 +1106,8 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
 	public boolean hasSameCoreAttributes(Integer otherCycleNumber, Date otherStartDate, String otherTAC) {
 		
 		// if thisTAC or otherTAC are null assign them the value 'OTHER'
-		String thisTAC = this.getTreatmentAssignment() != null ? this.getTreatmentAssignment().getCode() : "OTHER";
+		String thisTAC = this.getTreatmentAssignment() != null && this.getTreatmentAssignment().getCode() != null ? 
+				StringUtils.upperCase(this.getTreatmentAssignment().getCode()) : "OTHER";
 		String thatTAC = otherTAC != null ? StringUtils.upperCase(otherTAC) : "OTHER";
 		
 		if(!ObjectUtils.equals(thisTAC, thatTAC)){
