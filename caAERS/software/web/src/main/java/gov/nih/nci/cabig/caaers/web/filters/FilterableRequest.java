@@ -86,7 +86,7 @@ public class FilterableRequest extends HttpServletRequestWrapper
 
     @Override
     public String getHeader(String name) {
-        return sanitizeHeader(name);
+        return sanitizeHeader(super.getHeader(name));
     }
 
     private String sanitizeHeader(String value) {
