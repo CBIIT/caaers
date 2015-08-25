@@ -86,12 +86,16 @@
 		</init-param>
 	  <init-param>
           <param-name>escapeQuotes</param-name>
-          <param-value>true</param-value>
+          <param-value>false</param-value>
       </init-param>
-      <init-param>
-          <param-name>escapeJavaScript</param-name>
-          <param-value>true</param-value>
-      </init-param>
+        <init-param>
+            <param-name>escapeJavaScript</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+        <param-name>escapeHtmlFormTags</param-name>
+        <param-value>true</param-value>
+    </init-param>
 	</filter>
 	<filter-mapping>
 	  <filter-name>XSSFilter</filter-name>

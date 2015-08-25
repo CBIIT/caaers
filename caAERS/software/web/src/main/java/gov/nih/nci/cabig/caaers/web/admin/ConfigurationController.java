@@ -10,14 +10,13 @@ import gov.nih.nci.cabig.caaers.tools.configuration.Configuration;
 import gov.nih.nci.cabig.caaers.tools.mail.CaaersJavaMailSender;
 import gov.nih.nci.cabig.ctms.tools.configuration.ConfigurationProperty;
 import gov.nih.nci.cabig.ctms.tools.configuration.ConfigurationPropertyEditor;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Rhett Sutphin
@@ -49,7 +48,8 @@ public class ConfigurationController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(Object command, BindException errors) throws Exception {
         if(caaersJavaMailSender != null) caaersJavaMailSender.afterPropertiesSet();           //SUITE-626
-        return new ModelAndView("redirectToConfiguration", "updated", true);
+        boolean hasErrors = errors.hasErrors();
+        return new ModelAndView("redirectToConfiguration", "updated", !hasErrors);
     }
 
     public void setConfiguration(Configuration configuration) {
