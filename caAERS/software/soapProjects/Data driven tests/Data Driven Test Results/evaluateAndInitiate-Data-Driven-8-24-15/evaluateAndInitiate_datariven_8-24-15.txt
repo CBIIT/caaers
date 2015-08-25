@@ -1,0 +1,84 @@
+Test started at 2015-08-24 09:49:29.675
+Step 1 [evaluateAndInitiate] OK: took 2169 ms
+Step 2 [Next Line] OK: took 1 ms
+Step 3 [evaluateAndInitiate] OK: took 405 ms
+Step 4 [Next Line] OK: took 1 ms
+Step 5 [evaluateAndInitiate] OK: took 1947 ms
+Step 6 [Next Line] OK: took 0 ms
+Step 7 [evaluateAndInitiate] OK: took 1961 ms
+Step 8 [Next Line] OK: took 0 ms
+Step 9 [evaluateAndInitiate] OK: took 2747 ms
+Step 10 [Next Line] OK: took 2 ms
+Step 11 [evaluateAndInitiate] OK: took 2145 ms
+Step 12 [Next Line] OK: took 1 ms
+Step 13 [evaluateAndInitiate] OK: took 510 ms
+Step 14 [Next Line] OK: took 1 ms
+Step 15 [evaluateAndInitiate] OK: took 509 ms
+Step 16 [Next Line] OK: took 1 ms
+Step 17 [evaluateAndInitiate] OK: took 2067 ms
+Step 18 [Next Line] OK: took 1 ms
+Step 19 [evaluateAndInitiate] OK: took 594 ms
+Step 20 [Next Line] OK: took 1 ms
+Step 21 [evaluateAndInitiate] OK: took 608 ms
+Step 22 [Next Line] OK: took 0 ms
+Step 23 [evaluateAndInitiate] OK: took 718 ms
+Step 24 [Next Line] OK: took 1 ms
+Step 25 [evaluateAndInitiate] OK: took 4503 ms
+Step 26 [Next Line] OK: took 1 ms
+Step 27 [evaluateAndInitiate] OK: took 509 ms
+Step 28 [Next Line] OK: took 1 ms
+Step 29 [evaluateAndInitiate] OK: took 465 ms
+Step 30 [Next Line] OK: took 1 ms
+Step 31 [evaluateAndInitiate] OK: took 401 ms
+Step 32 [Next Line] OK: took 1 ms
+Step 33 [evaluateAndInitiate] OK: took 461 ms
+Step 34 [Next Line] OK: took 1 ms
+Step 35 [evaluateAndInitiate] OK: took 613 ms
+Step 36 [Next Line] OK: took 1 ms
+Step 37 [evaluateAndInitiate] OK: took 2661 ms
+Step 38 [Next Line] OK: took 1 ms
+Step 39 [evaluateAndInitiate] OK: took 5220 ms
+Step 40 [Next Line] OK: took 3 ms
+Step 41 [evaluateAndInitiate] OK: took 405 ms
+Step 42 [Next Line] OK: took 1 ms
+Step 43 [evaluateAndInitiate] OK: took 409 ms
+Step 44 [Next Line] OK: took 1 ms
+Step 45 [evaluateAndInitiate] OK: took 715 ms
+Step 46 [Next Line] OK: took 1 ms
+Step 47 [evaluateAndInitiate] OK: took 2459 ms
+Step 48 [Next Line] OK: took 1 ms
+Step 49 [evaluateAndInitiate] OK: took 507 ms
+Step 50 [Next Line] OK: took 2 ms
+Step 51 [evaluateAndInitiate] OK: took 508 ms
+Step 52 [Next Line] OK: took 1 ms
+Step 53 [evaluateAndInitiate] OK: took 614 ms
+Step 54 [Next Line] OK: took 1 ms
+Step 55 [evaluateAndInitiate] OK: took 2351 ms
+Step 56 [Next Line] OK: took 1 ms
+Step 57 [evaluateAndInitiate] OK: took 409 ms
+Step 58 [Next Line] OK: took 1 ms
+Step 59 [evaluateAndInitiate] OK: took 411 ms
+Step 60 [Next Line] OK: took 1 ms
+Step 61 [evaluateAndInitiate] OK: took 2657 ms
+Step 62 [Next Line] OK: took 1 ms
+Step 63 [evaluateAndInitiate] OK: took 410 ms
+Step 64 [Next Line] OK: took 1 ms
+Step 65 [evaluateAndInitiate] OK: took 406 ms
+Step 66 [Next Line] OK: took 0 ms
+Step 67 [evaluateAndInitiate] OK: took 407 ms
+Step 68 [Next Line] OK: took 1 ms
+Step 69 [evaluateAndInitiate] OK: took 1736 ms
+Step 70 [Next Line] OK: took 1 ms
+Step 71 [evaluateAndInitiate] OK: took 2157 ms
+Step 72 [Next Line] OK: took 1 ms
+Step 73 [evaluateAndInitiate] OK: took 2077 ms
+Step 74 [Next Line] OK: took 1 ms
+Step 75 [evaluateAndInitiate] OK: took 881 ms
+Step 76 [Next Line] OK: took 1 ms
+Step 77 [evaluateAndInitiate] OK: took 716 ms
+Step 78 [Next Line] OK: took 0 ms
+Step 79 [evaluateAndInitiate] OK: took 2152 ms
+Step 80 [Next Line] OK: took 1 ms
+TestCase finished with status [FINISHED], time taken = 55684
+Step 81 [evaluateAndInitiate] OK: took 2045 ms
+Step 82 [Next Line] OK: took 0 ms
