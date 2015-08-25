@@ -156,7 +156,7 @@
 				     <xs:restriction base="xs:string">
 				     	<xs:maxLength value="4000"/>
 				     </xs:restriction>
-				    </xs:simpleType>
+				</xs:simpleType>
 		  	</xs:element>
             <xs:element minOccurs="0" name="externalId" type="xs:string"/>
         </xs:sequence>
