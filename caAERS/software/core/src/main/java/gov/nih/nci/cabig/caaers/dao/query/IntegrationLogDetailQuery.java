@@ -10,7 +10,7 @@ import gov.nih.nci.cabig.caaers.domain.SynchStatus;
 
 public class IntegrationLogDetailQuery extends AbstractQuery {
 
-    private static final String queryString = "SELECT distinct ild from IntegrationLogDetail ild ";
+    private static final String queryString = "SELECT ild from IntegrationLogDetail ild ";
     
     public void joinIntegrationLog(){
     	join("ild.integrationLog il");

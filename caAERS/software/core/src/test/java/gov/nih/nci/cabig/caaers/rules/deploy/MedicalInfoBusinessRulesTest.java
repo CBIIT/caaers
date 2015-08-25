@@ -30,7 +30,7 @@ public class MedicalInfoBusinessRulesTest extends AbstractBusinessRulesExecution
         return "rules_reporting_medical_info.xml";
     }
 
-    /**
+   /**
      * RuleName : PAT_BR2A_CHK Rule : Disease Name Not Listed must not be null if Disease Name is
      * 'Solid tumor, NOS' or 'Hematopoietic malignancy, NOS'. Error Code : PAT_BR2A_ERR Error
      * Message : DISEASE_NAME_NOT_LISTED must be provided if DISEASE_NAME is "Solid tumor, NOS" or
