@@ -42,6 +42,7 @@ public class BadInputFilterTest extends AbstractTestCase{
         request.addParameter("l", "some junk <inPUT/autofocus onfocus=\"alert(263)\"");
         request.addParameter("m", "some junk <input name=\"x\" />");
         request.addParameter("n", "<div><input name=\"x\" /></div>");
+
         filter.doFilter(request, response, filterChain);
         assertEquals(request.getParameter("p"), "abcd onkeyuq=\"alert[hello)\"") ;
         assertEquals(request.getParameter("j"), "some junk < input/aut0f0cus onf0cus=\"alert[263)\"");
@@ -49,5 +50,15 @@ public class BadInputFilterTest extends AbstractTestCase{
         assertEquals(request.getParameter("l"), "some junk input/aut0f0cus onf0cus=\"alert[263)\"");
         assertEquals(request.getParameter("m"), "some junk input name=\"x\" />");
         assertEquals(request.getParameter("n"), "<div>input name=\"x\" /></div>");
+
+
+    }
+
+    public void testHeaderFitlering() {
+        FilterableRequest request1 = new FilterableRequest(request);
+        request.addHeader("hello", "hai");
+        request.addHeader("below" ,  "bad's");
+        assertEquals(request1.getHeader("hello"), "hai");
+        assertEquals(request1.getHeader("below"), "bad&#39;s");
     }
 }
