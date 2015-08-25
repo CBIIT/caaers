@@ -82,7 +82,7 @@ public abstract class CompositeSynchronizer<E extends AbstractMutableDomainObjec
         String context = outcome.getContext();
         boolean retVal = true;
         if(StringUtils.isNotEmpty(context)) {
-            retVal = synchronizer.contexts().contains(context);
+            retVal = synchronizer.contexts().isEmpty() || synchronizer.contexts().contains(context);
         }
 
         if(!retVal) {
