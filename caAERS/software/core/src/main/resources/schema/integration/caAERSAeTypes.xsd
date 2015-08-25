@@ -151,7 +151,13 @@
             <xs:element minOccurs="0" name="treatmentType" type="xs:string"/>
             <xs:element minOccurs="0" name="cycleNumber" type="xs:integer"/>
             <xs:element minOccurs="1" name="treatmentAssignmentCode" type="xs:string"/>
-            <xs:element minOccurs="1" name="otherTreatmentAssignmentDescription" type="xs:string"/>
+			<xs:element name="otherTreatmentAssignmentDescription" minOccurs="1">
+			    <xs:simpleType>
+				     <xs:restriction base="xs:string">
+				     	<xs:maxLength value="4000"/>
+				     </xs:restriction>
+				    </xs:simpleType>
+		  	</xs:element>
             <xs:element minOccurs="0" name="externalId" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
