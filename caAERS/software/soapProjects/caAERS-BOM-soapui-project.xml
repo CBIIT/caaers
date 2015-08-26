@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="ba9e9bfb-58eb-46a1-a8f9-4b55f42411fd" activeEnvironment="Default" name="caAERS BOM" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="ba9e9bfb-58eb-46a1-a8f9-4b55f42411fd" activeEnvironment="Default" name="caAERS BOM" resourceRoot="" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Environment" value="Default"/>
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="BOM"/>
@@ -2147,7 +2147,7 @@
       <soap:address location="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://dev.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="f235f692-374a-4af2-b705-f607f26be5ba" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="8df6f296-0fe7-4d08-9fa3-abd8592948af" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="ab8a6617-959a-4a3f-985a-e9693f694e09" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite id="a68abf0e-019d-4246-9798-0fef645938d6" name="BOM For SaveAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="12d13d68-0af9-42a1-9626-7b4977accbb3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="1ef48970-7e46-41ea-b9cc-c7e69b2ec0b0"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.71:8080/caaers/services/SAEEvaluationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.10.10.71:8080/caaers/services/SAEEvaluationService</con:endpoint><con:endpoint>https://dev.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="f235f692-374a-4af2-b705-f607f26be5ba" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="8df6f296-0fe7-4d08-9fa3-abd8592948af" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="ab8a6617-959a-4a3f-985a-e9693f694e09" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite id="a68abf0e-019d-4246-9798-0fef645938d6" name="BOM For SaveAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="12d13d68-0af9-42a1-9626-7b4977accbb3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="1ef48970-7e46-41ea-b9cc-c7e69b2ec0b0"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -2192,7 +2192,7 @@
          </saer:SaveAndEvaluateAEsInputMessage>
       </saer:saveAndEvaluateAEs>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/saerules/SAEEvaluationServiceInterface/saveAndEvaluateAEs"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="BOM" id="91e24472-976e-491c-9ce3-9bbd9b29ccab"><con:settings/><con:config><script>// pass: https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="707657e8-db7b-4cff-9945-f3ff6230a42f" name="Not SOAP Fault"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/saerules/SAEEvaluationServiceInterface/saveAndEvaluateAEs"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="BOM" id="91e24472-976e-491c-9ce3-9bbd9b29ccab"><con:settings/><con:config><script>// pass: https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices
 
 testCase = testRunner.testCase;
 testStep = testCase.getTestStepAt(0)
@@ -2201,8 +2201,6 @@ testStep = testCase.getTestStepAt(0)
 sendBOM = "true".equals(testCase.getPropertyValue("sendBOM"))
 socketTimeout = testCase.getPropertyValue("socketTimeout").toInteger() // 10000
 endpoint = testStep.getPropertyValue("endpoint");
-post = new String(testStep.testRequest.messageExchange.rawRequestData)
-xml = testStep.testRequest.messageExchange.requestContent
 
 url = new URL(endpoint)
 host = url.getHost()
@@ -2215,27 +2213,34 @@ if (port &lt;= 0) {
 	else port = 80
 }
 
+
+post = new String(testStep.testRequest.messageExchange.rawRequestData)
+xml = testStep.testRequest.messageExchange.requestContent
+
+int msgIndex = post.indexOf(xml)
+post = post.substring(0, msgIndex)
+log.info "post headers : " + post
+
 // build soap payload
 xmlBytes = xml.getBytes(charset)
-bomBytes = new String("\uFEFF").getBytes()
+bomBytes = new String("\uFEFF").getBytes(charset)
 if (! sendBOM) bomBytes = new byte[0]
 message = new byte[xmlBytes.length + bomBytes.length]
 System.arraycopy(bomBytes, 0, message, 0, bomBytes.length);
 System.arraycopy(xmlBytes, 0, message, bomBytes.length, xmlBytes.length);
 
 // modify the content-length to include bom
-//If we change Content-Length request will fail. So we commented below block
-//if (sendBOM) {
-//	post = post.replaceFirst(/Content-Length\: (\d+)/) { all, length -> 
-//		"Content-Length: " + message.length
-//	}
-//}
+if (sendBOM) {
+	post = post.replaceFirst(/Content-Length\: (\d+)/) { all, length -> 
+		"Content-Length: " + message.length
+	}
+}
 
 
 // pront out some debug info
 log.info "BOM Host: " + host
 log.info "BOM Port: " + port
-log.info "BOM Post: " + post
+log.info "BOM Post Headers: " + post
 log.info "BOM XML: " + xml
 log.info "BOM Message length: " + message.length
 
@@ -2252,10 +2257,6 @@ if (socketTimeout) {
 	log.info "BOM Timeout: " + socketTimeout
 }
 
-// if you need to debug the payload, uncomment the two lines below and change the file path
-//new File("/Users/mccon012",'message.xml').withOutputStream { out ->
-//	out.write(message)
-//}
 
 // send the http details then the soap payload
 // read the response
@@ -2283,11 +2284,34 @@ try {
 // print debug message
 log.info "BOM Response: " + resp
 
+
+
+// if you need to debug the payload, uncomment the two lines below and change the file path
+//def messageLogFile = new File("c:/temp",'actual_message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(testStep.testRequest.messageExchange.rawRequestData)
+//}
+//
+//messageLogFile = new File("c:/temp",'message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(post.getBytes(charset))
+//	out.write(message)
+//}
+//
+//
+//messageLogFile = new File("c:/temp",'response.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(resp.getBytes())
+//}
+
 // assert that we get 200 response code
 assert resp.startsWith("HTTP/1.1 200 OK") == true : "BOM failed - didn't return  200"
 log.info("Response: ${resp}")
 // assert that the payload contains some real stuff
-assert resp.contains("saveAndEvaluateAEsResponse") || resp.contains("CaaersFault")  : "BOM failed - couldn't find saveAndEvaluateAEs in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="e4e34f73-bb84-4178-a385-553491501458" name="BOM For EvaluateAndInitiateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b72b1d9f-09fb-4f18-a1ed-02d530970a40" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="evaluateAndInitiate - A071102 - TAC" id="17376833-b5f7-451e-a0d6-eee03c07ab6c"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+assert resp.contains("saveAndEvaluateAEsResponse") == true : "BOM failed - couldn't find saveAndEvaluateAEs in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="e4e34f73-bb84-4178-a385-553491501458" name="BOM For EvaluateAndInitiateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b72b1d9f-09fb-4f18-a1ed-02d530970a40" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="evaluateAndInitiate - A071102 - TAC" id="17376833-b5f7-451e-a0d6-eee03c07ab6c"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1">
          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -2410,8 +2434,6 @@ testStep = testCase.getTestStepAt(0)
 sendBOM = "true".equals(testCase.getPropertyValue("sendBOM"))
 socketTimeout = testCase.getPropertyValue("socketTimeout").toInteger() // 10000
 endpoint = testStep.getPropertyValue("endpoint");
-post = new String(testStep.testRequest.messageExchange.rawRequestData)
-xml = testStep.testRequest.messageExchange.requestContent
 
 url = new URL(endpoint)
 host = url.getHost()
@@ -2424,27 +2446,34 @@ if (port &lt;= 0) {
 	else port = 80
 }
 
+
+post = new String(testStep.testRequest.messageExchange.rawRequestData)
+xml = testStep.testRequest.messageExchange.requestContent
+
+int msgIndex = post.indexOf(xml)
+post = post.substring(0, msgIndex)
+log.info "post headers : " + post
+
 // build soap payload
 xmlBytes = xml.getBytes(charset)
-bomBytes = new String("\uFEFF").getBytes()
+bomBytes = new String("\uFEFF").getBytes(charset)
 if (! sendBOM) bomBytes = new byte[0]
 message = new byte[xmlBytes.length + bomBytes.length]
 System.arraycopy(bomBytes, 0, message, 0, bomBytes.length);
 System.arraycopy(xmlBytes, 0, message, bomBytes.length, xmlBytes.length);
 
 // modify the content-length to include bom
-//If we change Content-Length request will fail. So we commented below block
-//if (sendBOM) {
-//	post = post.replaceFirst(/Content-Length\: (\d+)/) { all, length -> 
-//		"Content-Length: " + message.length
-//	}
-//}
+if (sendBOM) {
+	post = post.replaceFirst(/Content-Length\: (\d+)/) { all, length -> 
+		"Content-Length: " + message.length
+	}
+}
 
 
 // pront out some debug info
 log.info "BOM Host: " + host
 log.info "BOM Port: " + port
-log.info "BOM Post: " + post
+log.info "BOM Post Headers: " + post
 log.info "BOM XML: " + xml
 log.info "BOM Message length: " + message.length
 
@@ -2461,10 +2490,6 @@ if (socketTimeout) {
 	log.info "BOM Timeout: " + socketTimeout
 }
 
-// if you need to debug the payload, uncomment the two lines below and change the file path
-//new File("/Users/mccon012",'message.xml').withOutputStream { out ->
-//	out.write(message)
-//}
 
 // send the http details then the soap payload
 // read the response
@@ -2492,8 +2517,32 @@ try {
 // print debug message
 log.info "BOM Response: " + resp
 
+
+
+// if you need to debug the payload, uncomment the two lines below and change the file path
+//def messageLogFile = new File("c:/temp",'actual_message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(testStep.testRequest.messageExchange.rawRequestData)
+//}
+//
+//messageLogFile = new File("c:/temp",'message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(post.getBytes(charset))
+//	out.write(message)
+//}
+//
+//
+//messageLogFile = new File("c:/temp",'response.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(resp.getBytes())
+//}
+
 // assert that we get 200 response code
 assert resp.startsWith("HTTP/1.1 200 OK") == true : "BOM failed - didn't return  200"
 log.info("Response: ${resp}")
+
 // assert that the payload contains some real stuff
 assert resp.contains("EvaluateAndInitiateResponse") == true : "BOM failed - couldn't find EvaluateAndInitiateResponse in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
