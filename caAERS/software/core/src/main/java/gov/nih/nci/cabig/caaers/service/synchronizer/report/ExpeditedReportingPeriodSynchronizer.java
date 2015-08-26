@@ -8,6 +8,8 @@ import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author Biju Joseph
  * @since 1.5
@@ -37,5 +39,8 @@ public class ExpeditedReportingPeriodSynchronizer implements Synchronizer<Expedi
         }
         
         dest.setEndDate(src.getEndDate());
+        if(!StringUtils.isBlank(src.getTreatmentAssignmentDescription())){
+        	dest.setTreatmentAssignmentDescription(src.getTreatmentAssignmentDescription());
+        }
      }
 }
