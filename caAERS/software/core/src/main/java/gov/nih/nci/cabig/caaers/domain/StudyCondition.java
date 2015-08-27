@@ -46,6 +46,17 @@ public class StudyCondition extends AbstractStudyDisease<Condition> {
         if(getTerm() == null) return null;
         return getTerm().getConditionName();
     }
+    
+    /**
+     * Sets the term name.
+     *
+     * @param name the new term name
+     */
+    @Override
+    @Transient
+    public void setTermName(String name) {
+    	super.setTermName(name);
+    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)

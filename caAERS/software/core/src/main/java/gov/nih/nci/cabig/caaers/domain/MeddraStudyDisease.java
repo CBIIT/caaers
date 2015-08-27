@@ -48,6 +48,17 @@ public class MeddraStudyDisease extends AbstractStudyDisease<LowLevelTerm> {
         return getTerm().getFullName();
     }
     
+    /**
+     * Sets the term name.
+     *
+     * @param name the new term name
+     */
+    @Override
+    @Transient
+    public void setTermName(String name) {
+    	super.setTermName(name);
+    }
+    
     /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
