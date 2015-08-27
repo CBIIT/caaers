@@ -122,7 +122,13 @@
 	</xs:complexType>
 	<xs:complexType name="AdverseEventReportingPeriodType">
 		<xs:sequence>
-			<xs:element type="xs:string" name="treatmentAssignmentDescription" minOccurs="0"/>
+			<xs:element name="treatmentAssignmentDescription" minOccurs="0">
+			    <xs:simpleType>
+				     <xs:restriction base="xs:string">
+				     	<xs:maxLength value="4000"/>
+				     </xs:restriction>
+				</xs:simpleType>
+		  	</xs:element>
 			<xs:element type="xs:int" name="cycleNumber" minOccurs="0" />
 			<xs:element type="xs:date" name="startDate" minOccurs="0" />
 			<xs:element type="StudyParticipantAssignmentRefType" name="studyParticipantAssignmentRef" minOccurs="0" />

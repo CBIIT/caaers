@@ -76,7 +76,7 @@
          </StudyEventData>
       </SubjectData>
    </ClinicalData>
-</ODM>]]></con:request><con:originalUri>https://dev.semanticbits.com/caaers/ParticipantInitialization</con:originalUri><con:credentials><con:username>registrar</con:username><con:password>rartsigermai-11</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:interface xsi:type="con:WsdlInterface" id="98bf23d3-8614-424c-ab6c-daa05b5caeba" wsaVersion="NONE" name="SAEEvaluationWebServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://schema.integration.caaers.cabig.nci.nih.gov/saerules}SAEEvaluationWebServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl"><con:part><con:url>https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SAEEvaluationWebServiceImplService" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:ns1="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+</ODM>]]></con:request><con:originalUri>https://dev.semanticbits.com/caaers/ParticipantInitialization</con:originalUri><con:credentials><con:username>registrar</con:username><con:password>rartsigermai-11</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:interface xsi:type="con:WsdlInterface" id="98bf23d3-8614-424c-ab6c-daa05b5caeba" wsaVersion="NONE" name="SAEEvaluationWebServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://schema.integration.caaers.cabig.nci.nih.gov/saerules}SAEEvaluationWebServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl"><con:part><con:url>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SAEEvaluationWebServiceImplService" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:ns1="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
     <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="treatmentAssignment" type="TreatmentAssignmentType"/>
@@ -848,7 +848,13 @@
           <xs:element minOccurs="0" name="treatmentType" type="xs:string"/>
           <xs:element minOccurs="0" name="cycleNumber" type="xs:integer"/>
           <xs:element minOccurs="1" name="treatmentAssignmentCode" type="xs:string"/>
-          <xs:element minOccurs="1" name="otherTreatmentAssignmentDescription" type="xs:string"/>
+          <xs:element minOccurs="1" name="otherTreatmentAssignmentDescription">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:maxLength value="4000"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
           <xs:element minOccurs="0" name="externalId" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
@@ -995,6 +1001,7 @@
           <xs:element name="status" type="xs:string"/>
           <xs:element name="due" type="xs:string"/>
           <xs:element minOccurs="0" name="dueDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="amendmentNumber" type="xs:integer"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="SaveAndEvaluateAEsInputMessage">
@@ -1097,16 +1104,16 @@
           </xs:complexContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="saveAndEvaluateAEs" type="saveAndEvaluateAEs"/>
-      <xs:complexType name="saveAndEvaluateAEs">
+      <xs:element name="EvaluateAndInitiate" type="EvaluateAndInitiate"/>
+      <xs:complexType name="EvaluateAndInitiate">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsInputMessage"/>
+          <xs:element minOccurs="0" ref="EvaluateAndInitiateInputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="saveAndEvaluateAEsResponse" type="saveAndEvaluateAEsResponse"/>
-      <xs:complexType name="saveAndEvaluateAEsResponse">
+      <xs:element name="EvaluateAndInitiateResponse" type="EvaluateAndInitiateResponse"/>
+      <xs:complexType name="EvaluateAndInitiateResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsOutputMessage"/>
+          <xs:element minOccurs="0" ref="EvaluateAndInitiateOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="evaluateAEs" type="evaluateAEs"/>
@@ -1121,16 +1128,16 @@
           <xs:element minOccurs="0" ref="EvaluateAEsOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="EvaluateAndInitiate" type="EvaluateAndInitiate"/>
-      <xs:complexType name="EvaluateAndInitiate">
+      <xs:element name="saveAndEvaluateAEs" type="saveAndEvaluateAEs"/>
+      <xs:complexType name="saveAndEvaluateAEs">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="EvaluateAndInitiateInputMessage"/>
+          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsInputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="EvaluateAndInitiateResponse" type="EvaluateAndInitiateResponse"/>
-      <xs:complexType name="EvaluateAndInitiateResponse">
+      <xs:element name="saveAndEvaluateAEsResponse" type="saveAndEvaluateAEsResponse"/>
+      <xs:complexType name="saveAndEvaluateAEsResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="EvaluateAndInitiateOutputMessage"/>
+          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
@@ -1262,8 +1269,8 @@
       </xs:complexType>
       <xs:complexType name="PhysicianType">
         <xs:sequence>
-          <xs:element name="firstName" type="xs:string"/>
-          <xs:element name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="middleName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
           <xs:element minOccurs="0" name="street" type="xs:string"/>
@@ -1276,8 +1283,8 @@
       </xs:complexType>
       <xs:complexType name="ReporterType">
         <xs:sequence>
-          <xs:element name="firstName" type="xs:string"/>
-          <xs:element name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="middleName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
           <xs:element minOccurs="0" name="street" type="xs:string"/>
@@ -2112,11 +2119,14 @@
       </xs:simpleType>
     </xs:schema>
   </wsdl:types>
-  <wsdl:message name="evaluateAEs">
-    <wsdl:part element="tns:evaluateAEs" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="evaluateAEsResponse">
     <wsdl:part element="tns:evaluateAEsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveAndEvaluateAEsResponse">
+    <wsdl:part element="tns:saveAndEvaluateAEsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveAndEvaluateAEs">
+    <wsdl:part element="tns:saveAndEvaluateAEs" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="EvaluateAndInitiate">
     <wsdl:part element="tns:EvaluateAndInitiate" name="parameters"></wsdl:part>
@@ -2124,19 +2134,16 @@
   <wsdl:message name="CaaersFault">
     <wsdl:part element="ns1:CaaersFault" name="CaaersFault"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="saveAndEvaluateAEs">
-    <wsdl:part element="tns:saveAndEvaluateAEs" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="EvaluateAndInitiateResponse">
     <wsdl:part element="tns:EvaluateAndInitiateResponse" name="parameters"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="saveAndEvaluateAEsResponse">
-    <wsdl:part element="tns:saveAndEvaluateAEsResponse" name="parameters"></wsdl:part>
+  <wsdl:message name="evaluateAEs">
+    <wsdl:part element="tns:evaluateAEs" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:portType name="SAEEvaluationServiceInterface">
-    <wsdl:operation name="saveAndEvaluateAEs">
-      <wsdl:input message="tns:saveAndEvaluateAEs" name="saveAndEvaluateAEs"></wsdl:input>
-      <wsdl:output message="tns:saveAndEvaluateAEsResponse" name="saveAndEvaluateAEsResponse"></wsdl:output>
+    <wsdl:operation name="EvaluateAndInitiate">
+      <wsdl:input message="tns:EvaluateAndInitiate" name="EvaluateAndInitiate"></wsdl:input>
+      <wsdl:output message="tns:EvaluateAndInitiateResponse" name="EvaluateAndInitiateResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="evaluateAEs">
@@ -2144,20 +2151,20 @@
       <wsdl:output message="tns:evaluateAEsResponse" name="evaluateAEsResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="EvaluateAndInitiate">
-      <wsdl:input message="tns:EvaluateAndInitiate" name="EvaluateAndInitiate"></wsdl:input>
-      <wsdl:output message="tns:EvaluateAndInitiateResponse" name="EvaluateAndInitiateResponse"></wsdl:output>
+    <wsdl:operation name="saveAndEvaluateAEs">
+      <wsdl:input message="tns:saveAndEvaluateAEs" name="saveAndEvaluateAEs"></wsdl:input>
+      <wsdl:output message="tns:saveAndEvaluateAEsResponse" name="saveAndEvaluateAEsResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SAEEvaluationWebServiceImplServiceSoapBinding" type="tns:SAEEvaluationServiceInterface">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="saveAndEvaluateAEs">
+    <wsdl:operation name="EvaluateAndInitiate">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="saveAndEvaluateAEs">
+      <wsdl:input name="EvaluateAndInitiate">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="saveAndEvaluateAEsResponse">
+      <wsdl:output name="EvaluateAndInitiateResponse">
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="CaaersFault">
@@ -2176,12 +2183,12 @@
         <soap:fault name="CaaersFault" use="literal"/>
       </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="EvaluateAndInitiate">
+    <wsdl:operation name="saveAndEvaluateAEs">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="EvaluateAndInitiate">
+      <wsdl:input name="saveAndEvaluateAEs">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="EvaluateAndInitiateResponse">
+      <wsdl:output name="saveAndEvaluateAEsResponse">
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="CaaersFault">
@@ -2191,10 +2198,10 @@
   </wsdl:binding>
   <wsdl:service name="SAEEvaluationWebServiceImplService">
     <wsdl:port binding="tns:SAEEvaluationWebServiceImplServiceSoapBinding" name="SAEEvaluationServiceInterfacePort">
-      <soap:address location="https://dev.semanticbits.com/caaers/services/SAEEvaluationService"/>
+      <soap:address location="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://dev.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="84ad796e-b209-4e41-afaf-4b63747094ae" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="a462da94-1c7b-46f5-a516-bc46aede56f0" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="abf1ec86-ff4f-4c89-97d1-08c2e42d5e34" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="Participant" id="ff7aab02-d58b-4ccf-a91a-3a04629553c8"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Participant Data Driven" searchProperties="true" id="9824c379-6c54-435e-85d8-51c7868e2415" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword=""><con:settings/><con:testStep type="restrequest" name="Create Participant" id="ec762846-2cbc-4235-9385-c1264214df52"><con:settings/><con:config service="https://dev.semanticbits.com" methodName="ParticipantInitialization" resourcePath="/caaers/ParticipantInitialization" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Create Participant" id="eb427498-b9fa-4b27-acea-b7e4bfdd48d3" mediaType="text/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">/Users/semanticbits/Desktop/caAERS/</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com</con:endpoint><con:request><![CDATA[<ODM CreationDateTime="2013-04-17T13:06:03" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3" xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:mdsol="http://www.mdsol.com/ns/odm/metadata">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://dev.semahttps://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="84ad796e-b209-4e41-afaf-4b63747094ae" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="a462da94-1c7b-46f5-a516-bc46aede56f0" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="abf1ec86-ff4f-4c89-97d1-08c2e42d5e34" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="Participant" id="ff7aab02-d58b-4ccf-a91a-3a04629553c8"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Participant Data Driven" searchProperties="true" id="9824c379-6c54-435e-85d8-51c7868e2415" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword=""><con:settings/><con:testStep type="restrequest" name="Create Participant" id="ec762846-2cbc-4235-9385-c1264214df52"><con:settings/><con:config service="https://dev.semanticbits.com" methodName="ParticipantInitialization" resourcePath="/caaers/ParticipantInitialization" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Create Participant" id="eb427498-b9fa-4b27-acea-b7e4bfdd48d3" mediaType="text/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">/Users/semanticbits/Desktop/caAERS/</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com</con:endpoint><con:request><![CDATA[<ODM CreationDateTime="2013-04-17T13:06:03" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3" xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:mdsol="http://www.mdsol.com/ns/odm/metadata">
    <ClinicalData MetaDataVersionOID="3629771" StudyOID="${#TestCase#Study}">
       <SubjectData SubjectKey="${#TestCase#SubjectKey}" TransactionType="Insert">
          <SiteRef LocationOID="${#TestCase#Site}"/>
@@ -2376,7 +2383,7 @@ if (line != null) {
          </saer:SaveAndEvaluateAEsInputMessage>
       </saer:saveAndEvaluateAEs>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f4c711c9-b70b-47ae-9502-9853ccfe9de5"/><con:assertion type="Schema Compliance" id="16a3083f-885f-4319-8c90-627159edf634"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="c7a97faa-0576-4843-b47f-90cac539cc24" name="XPath Match"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="96cd2010-ec5e-4f9c-be32-4a4f2f0d80db" name="Has Adverse Event"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f4c711c9-b70b-47ae-9502-9853ccfe9de5"/><con:assertion type="Schema Compliance" id="16a3083f-885f-4319-8c90-627159edf634"><con:configuration><definition>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl</definition></con:configuration></con:assertion><con:assertion type="XPath Match" id="c7a97faa-0576-4843-b47f-90cac539cc24" name="XPath Match"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="96cd2010-ec5e-4f9c-be32-4a4f2f0d80db" name="Has Adverse Event"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns5='http://schema.integration.caaers.cabig.nci.nih.gov/researchstaff';
 declare namespace ns7='http://schema.integration.caaers.cabig.nci.nih.gov/participant';
 declare namespace ns6='http://schema.integration.caaers.cabig.nci.nih.gov/aereport';
@@ -2520,7 +2527,7 @@ if (line != null) {
          </saer:EvaluateAndInitiateInputMessage>
       </saer:EvaluateAndInitiate>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f4c711c9-b70b-47ae-9502-9853ccfe9de5"/><con:assertion type="Schema Compliance" id="16a3083f-885f-4319-8c90-627159edf634"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" id="bd21df18-e116-4ae9-90dd-1d9e6c6da1c2" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f4c711c9-b70b-47ae-9502-9853ccfe9de5"/><con:assertion type="XPath Match" id="bd21df18-e116-4ae9-90dd-1d9e6c6da1c2" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns5='http://schema.integration.caaers.cabig.nci.nih.gov/researchstaff';
 declare namespace ns7='http://schema.integration.caaers.cabig.nci.nih.gov/participant';
 declare namespace ns6='http://schema.integration.caaers.cabig.nci.nih.gov/aereport';
@@ -2577,4 +2584,710 @@ if (line != null) {
 		log.info "Found property: " + context.headers[i] + "=" + props[i]
 		testCase.setPropertyValue(context.headers[i],props[i])
 	}
-}</con:setupScript><con:tearDownScript>context.fileReader.close()</con:tearDownScript><con:properties><con:property><con:name>file</con:name><con:value>/Users/semanticbits/Downloads/Data for evaluateAndInitiate for A071102 - Combinations.csv</con:value></con:property><con:property><con:name>StudySubjectID</con:name><con:value>S20108221-A071102</con:value></con:property><con:property><con:name>Study</con:name><con:value>A071102</con:value></con:property><con:property><con:name>TAC</con:name><con:value>other</con:value></con:property><con:property><con:name>TAD</con:name><con:value>other</con:value></con:property><con:property><con:name>StartDateoffirstcourse</con:name><con:value>2015-01-06</con:value></con:property><con:property><con:name>StartDateofthiscourse</con:name><con:value>2015-01-08</con:value></con:property><con:property><con:name>Coursenumber</con:name><con:value>3</con:value></con:property><con:property><con:name>AEExternalID</con:name><con:value>reaction-88</con:value></con:property><con:property><con:name>Verbatim</con:name><con:value>Verbatim3</con:value></con:property><con:property><con:name>Ctepcode</con:name><con:value>10010774</con:value></con:property><con:property><con:name>Grade</con:name><con:value>3</con:value></con:property><con:property><con:name>DateFirstLearned</con:name><con:value>2015-01-08T18:05:59.0Z</con:value></con:property><con:property><con:name>Outcome</con:name><con:value>DISABILITY</con:value></con:property><con:property><con:name>Reporteremail</con:name><con:value>vasudev.chatti@semanticbits.com</con:value></con:property><con:property><con:name>Success</con:name><con:value>1</con:value></con:property><con:property><con:name>hospitalization</con:name><con:value>NO</con:value></con:property><con:property><con:name>Site</con:name><con:value>mn008</con:value></con:property><con:property><con:name>Notes</con:name><con:value>Case insensitivity when TAC is other and case insensitivity of site</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer><con:outgoing><con:name>caaers</con:name><con:entry type="Username" username="mayo-super-user" password="Hello-12"><con:configuration><addCreated>true</addCreated><addNonce>true</addNonce><passwordType>PasswordText</passwordType></con:configuration></con:entry></con:outgoing><con:outgoing><con:name>caaers-integ</con:name><con:entry type="Username" username="sb-admin" password="Hello-12"><con:configuration><addCreated>true</addCreated><addNonce>true</addNonce><passwordType>PasswordText</passwordType></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+}</con:setupScript><con:tearDownScript>context.fileReader.close()</con:tearDownScript><con:properties><con:property><con:name>file</con:name><con:value>/Users/semanticbits/Downloads/Data for evaluateAndInitiate for A071102 - Combinations.csv</con:value></con:property><con:property><con:name>StudySubjectID</con:name><con:value>S20108221-A071102</con:value></con:property><con:property><con:name>Study</con:name><con:value>A071102</con:value></con:property><con:property><con:name>TAC</con:name><con:value>Other</con:value></con:property><con:property><con:name>TAD</con:name><con:value>Lorem ipsum dolor sit amet consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montesnascetur ridiculus mus. Donec quam felis ultricies nec pellentesque eu pretium quis sem. Nulla consequat massa quis enim. Donec pede justo fringilla vel aliquet nec vulputate eget arcu. In enim justo rhoncus ut imperdiet a venenatis vitae justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula porttitor eu consequat vitae eleifend ac enim. Aliquam lorem ante dapibus in viverra quis feugiat a tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sed ipsum. Nam quam nunc blandit vel luctus pulvinar hendrerit id lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.Sed consequat leo eget bibendum sodales augue velit cursus nunc quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam scelerisque ut mollis sed nonummy id metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor suscipit eget imperdiet nec imperdiet iaculis ipsum. Sed aliquam ultrices mauris. Integer ante arcu accumsan a consectetuer eget posuere ut mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. VestibLoremipLorem ipsum dolor sit amet consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montesnascetur ridiculus mus. Donec quam felis ultricies nec pellentesque eu pretium quis sem. Nulla consequat massa quis enim. Donec pede justo fringilla vel aliquet nec vulputate eget arcu. In enim justo rhoncus ut imperdiet a venenatis vitae justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementumqwew semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula porttitor eu consequat vitae eleifend ac enim. Aliquam lorem ante dapibus in viverra quis feugiat a tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sed ipsum. Nam quam nunc blandit vel luctus pulvinar hendrerit id lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.Sed consequat leo eget bibendum sodales augue velit cursus nunc quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam scelerisque ut mollis sed nonummy id metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor suscipit eget imperdiet nec imperdiet iaculis ipsum. Sed aliquam ultrices mauris. Integer ante arcu accumsan a consectetuer eget posuere ut mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. VestibLoremipasdlakjdaslkasjdaskVestibLoremipasdlakjdaslkasjdaskVestibLoremipasdlakjdaslkasjdask</con:value></con:property><con:property><con:name>StartDateoffirstcourse</con:name><con:value>2015-01-06</con:value></con:property><con:property><con:name>StartDateofthiscourse</con:name><con:value>2015-02-11</con:value></con:property><con:property><con:name>Coursenumber</con:name><con:value>37</con:value></con:property><con:property><con:name>AEExternalID</con:name><con:value>reaction-88</con:value></con:property><con:property><con:name>Verbatim</con:name><con:value>Verbatim1</con:value></con:property><con:property><con:name>Ctepcode</con:name><con:value>10010774</con:value></con:property><con:property><con:name>Grade</con:name><con:value>3</con:value></con:property><con:property><con:name>DateFirstLearned</con:name><con:value>2015-01-06T17:05:01.0Z</con:value></con:property><con:property><con:name>Outcome</con:name><con:value>HOSPITALIZATION</con:value></con:property><con:property><con:name>Reporteremail</con:name><con:value>vasudev.chatti@semanticbits.com</con:value></con:property><con:property><con:name>Success</con:name><con:value>0</con:value></con:property><con:property><con:name>hospitalization</con:name><con:value>YES</con:value></con:property><con:property><con:name>Site</con:name><con:value>MN008</con:value></con:property><con:property><con:name>Notes</con:name><con:value>TAD with more than 4000 chars</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="55df7ac3-a68b-4fb8-afb2-f1fd23565f98" name="E2B"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="77cb7db3-22c9-4761-8fe0-7505c37439ec" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createValidSubjectAndEvaluateAndSubmitE2B" searchProperties="true"><con:settings/><con:testStep type="properties" name="course-properties" id="cd3bb731-b80f-4556-b34a-de8255bcd6a6"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>aeOneExternalId</con:name><con:value>aeOne-11_151_63-0-0</con:value></con:property><con:property><con:name>aeStartDate</con:name><con:value>2013-02-05T16:42:45.0Z</con:value></con:property><con:property><con:name>aeTwoExternalId</con:name><con:value>aeTwo-11_151_63-0-0</con:value></con:property><con:property><con:name>courseDurationInDays</con:name><con:value>14</con:value></con:property><con:property><con:name>courseEndDate</con:name><con:value>2013-02-17</con:value></con:property><con:property><con:name>courseStartDate</con:name><con:value>2013-02-03</con:value></con:property><con:property><con:name>cycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>dob</con:name><con:value>20 May 2002</con:value></con:property><con:property><con:name>drugEndDate</con:name><con:value>20130203</con:value></con:property><con:property><con:name>drugStartDate</con:name><con:value>20130202</con:value></con:property><con:property><con:name>e2bInFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/input</con:value></con:property><con:property><con:name>e2bInputFileName</con:name><con:value>e2b_11_151_63_input.xml</con:value></con:property><con:property><con:name>e2bOutFolder</con:name><con:value>/usr/local/tomcats/apache-servicemix-3.4.1/data/log/e2b/output</con:value></con:property><con:property><con:name>firstCourseStartDate</con:name><con:value>2013-02-02</con:value></con:property><con:property><con:name>messageNumber</con:name><con:value>1440633607869</con:value></con:property><con:property><con:name>now</con:name><con:value>2015-08-26T16:42:45.0Z</con:value></con:property><con:property><con:name>password</con:name><con:value>Caaers123!</con:value></con:property><con:property><con:name>port</con:name><con:value>22</con:value></con:property><con:property><con:name>reactionStartDate</con:name><con:value>20150826</con:value></con:property><con:property><con:name>reportId</con:name><con:value>993565252</con:value></con:property><con:property><con:name>runIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>server</con:name><con:value>10.10.10.71</con:value></con:property><con:property><con:name>startCycleNumber</con:name><con:value>1</con:value></con:property><con:property><con:name>subjectKey</con:name><con:value>11_151_63</con:value></con:property><con:property><con:name>tac</con:name><con:value>TAC 1</con:value></con:property><con:property><con:name>threadIndex</con:name><con:value>0</con:value></con:property><con:property><con:name>username</con:name><con:value>caaers</con:value></con:property><con:property><con:name>studyId</con:name><con:value>A071102</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="registration-script" id="91b4018b-35ca-419c-b7fe-d7339c65dd83"><con:settings/><con:config><script>String subjectKey = "${(int)(Math.random()* 28) }_${(int)(Math.random()* 200) }_${(int)(Math.random()* 100) }"
+int y = 2000 + Math.random() * 10 
+int d = Math.random() * 28 + 1
+int m = Math.random() * 6
+String dd = d &lt; 10 ? "0" + d  : d
+String dob = "${dd} ${['Jan','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'][m]} ${y}"
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("subjectKey", subjectKey)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("dob", dob)
+log.info("   User : ${context.ThreadIndex} , Run : ${context.RunCount} - subjectKey : ${subjectKey}, dob:${dob}")
+</script></con:config></con:testStep><con:testStep type="restrequest" name="registerPatient" id="9e33736f-64af-4dd5-b931-d3d19115e8f3"><con:settings/><con:config service="https://dev.semanticbits.com" methodName="ParticipantInitialization" resourcePath="/caaers/ParticipantInitialization" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="registerPatient" id="a0538563-594d-49a9-9ec9-88d3e8b363e6" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ODM CreationDateTime="2013-03-19T09:19:44" FileOID="RavePatientPush.xml" FileType="Transactional" ODMVersion="1.3">
+	<ClinicalData MetaDataVersionOID="3629869" StudyOID="${studyId}">
+		<SubjectData SubjectKey="${subjectKey}" TransactionType="Insert">
+			<SiteRef LocationOID="CTSUTST01"/>
+			<StudyEventData StudyEventOID="SUBJECT" TransactionType="Update">
+				<FormData FormOID="SUBJECT_ENROLLMENT" TransactionType="Update">
+					<ItemGroupData ItemGroupOID="SUBJECT_ENROLLMENT" TransactionType="Update">
+						<ItemData ItemOID="PARTIC_ENROL_DT" Value="${dob}"/>
+						<ItemData ItemOID="CURRENT_SITE_ID" Value="MN008"/>
+						<ItemData ItemOID="PT_ID" Value="${subjectKey}"/>
+						<ItemData ItemOID="ENROLLING_SITE_ID" Value="MN008"/>
+						<ItemData ItemOID="LEAD_INST_NAME" Value="ECOG"/>
+						<ItemData ItemOID="ENROLL_TIME" Value="09:19:28:AM">
+							<MeasurementUnitRef MeasurementUnitOID="EDT"/>
+						</ItemData>
+						<ItemData ItemOID="GROUP_DATA" Value="N/A"/>
+						<ItemData ItemOID="SRC_APP" Value="OPEN"/>
+					</ItemGroupData>
+				</FormData>
+			</StudyEventData>
+			<StudyEventData StudyEventOID="ENROLLMENT_FORMS" TransactionType="Update">
+				<FormData FormOID="DEMOGRAPHY" TransactionType="Update">
+					<ItemGroupData ItemGroupOID="DEMOGRAPHY" TransactionType="Update">
+						<ItemData ItemOID="PT_INITIALS_NAME" Value="FLM"/>
+						<ItemData ItemOID="PER_BIR_DT" Value="${dob}"/>
+						<ItemData ItemOID="ETHN_GRP_CAT_TXT" Value="Not Hispanic or Latino"/>
+						<ItemData ItemOID="PERSON_GENDER" Value="Female Gender"/>
+						<ItemData ItemOID="COUNTRY_CD" Value="US"/>
+						<ItemData ItemOID="ADDR_POSTAL_CD" Value="32464"/>
+						<ItemData ItemOID="PAYMENT_METHOD" Value="PRIVATE INSURANCE"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="DEMOGRAPHY" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="RACE_CAT_TXT" Value="Black or African American"/>
+					</ItemGroupData>
+				</FormData>
+			</StudyEventData>
+			<StudyEventData StudyEventOID="ENROLLMENT_FORMS" TransactionType="Update">
+				<FormData FormOID="STEP_INFORMATION" TransactionType="Update">
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="EVENT_DATE" Value="19 Mar 2013"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="REG_STEP_NUM" Value="1"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="EVENT_DESC" Value="Randomization"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="EVENT_TIME" Value="09:19:28:AM">
+							<MeasurementUnitRef MeasurementUnitOID="EDT"/>
+						</ItemData>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="TRACKING_NUM" Value="109975"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="TX_MD_PART_INV_NM" Value="Stuart Bloom"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="PROT_REG_NAME" Value="Stuart Bloom"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="INVESTIGATOR_NAME" Value="Stuart Bloom"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="ORG_NAME" Value="ECOG"/>
+					</ItemGroupData>
+					<ItemGroupData ItemGroupOID="STEP_INFORMATION" ItemGroupRepeatKey="1" TransactionType="Update">
+						<ItemData ItemOID="PROT_TX_ARM_ASS_TXT" Value="B"/>
+					</ItemGroupData>
+				</FormData>
+			</StudyEventData>
+		</SubjectData>
+	</ClinicalData>
+</ODM>]]></con:request><con:originalUri>https://dev.semanticbits.com/caaers/ParticipantInitialization</con:originalUri><con:assertion type="Simple Contains" id="29762f72-4a0a-4a60-b92a-b9af28017307" name="Contains"><con:configuration><token>IsTransactionSuccessful="1"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:username>registrar</con:username><con:password>rartsigermai-11</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="groovy" name="course-sript" id="d77db8b1-1def-45b4-9efc-df5c8a0b7b83"><con:settings/><con:config><script>String firstCourseStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("firstCourseStartDate")
+Integer startCycleNumber = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("startCycleNumber"))
+Integer courseDurationInDays = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("courseDurationInDays"))
+Integer threadIndex = context.ThreadIndex
+Integer runIndex = 0//context.RunCount
+String subjectKey = testRunner.testCase.testSteps["course-properties"].getPropertyValue("subjectKey")
+
+int factor = (courseDurationInDays * runIndex) + 1
+
+String now =  new Date().format("yyyy-MM-dd'T16:42:45.0Z'")
+
+def d = new Date().parse("yyyy-MM-dd", firstCourseStartDate)
+String drugStartDate = d.format("yyyyMMdd")
+
+String courseStartDate = d.plus(factor).format("yyyy-MM-dd")
+String drugEndDate = d.plus(factor).format("yyyyMMdd")
+
+String courseEndDate = d.plus(factor +  courseDurationInDays).format("yyyy-MM-dd")
+def cycleNumber = String.valueOf( startCycleNumber + runIndex)
+String aeStartDate = d.plus(factor + 2).format("yyyy-MM-dd'T16:42:45.0Z'")
+
+String messageNumber = "" + System.currentTimeMillis()
+
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("messageNumber", messageNumber)
+
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("cycleNumber", cycleNumber)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("now", now)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("courseStartDate", courseStartDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("courseEndDate", courseEndDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("runIndex", String.valueOf(runIndex))
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("threadIndex", String.valueOf(threadIndex))
+
+String aeOneExternalId = "aeOne-${subjectKey}-${threadIndex}-${runIndex}"
+String aeTwoExternalId = "aeTwo-${subjectKey}-${threadIndex}-${runIndex}"
+
+String reactionStartDate = new Date().format("yyyyMMdd")
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("reactionStartDate", reactionStartDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("drugEndDate", drugEndDate)
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("drugStartDate", drugStartDate)
+
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("aeOneExternalId", String.valueOf(aeOneExternalId))
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("aeTwoExternalId", String.valueOf(aeTwoExternalId))
+
+
+
+log.info("   User : ${threadIndex} , Run : ${runIndex} - subjectKey : ${subjectKey}, courseStartDate:${courseStartDate}, courseEndDate:${courseEndDate}, cycleNumber: ${cycleNumber}, aeStartDate : ${aeStartDate}")
+</script></con:config></con:testStep><con:testStep type="request" name="evaluateAndInitiate" id="418356d8-d23b-49fe-bc7f-089afa7fed9d"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate" id="1d132137-f047-4f88-96e4-89f1343e227f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>SYSTEM</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">system_admin</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">/w9qY2QnBmzEx9lXoIxXyA==</wsse:Nonce>
+            <wsu:Created>2014-01-10T21:31:08.6661550+00:00</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <saer:EvaluateAndInitiate>
+         <saer:EvaluateAndInitiateInputMessage>
+            <saer:adverseEvents>
+               <saer:adverseEvent>
+                  <verbatim>Verbatim1</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10010774</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>3</grade>
+                  <hospitalization>YES</hospitalization>
+                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
+                  </outcome>
+                  <externalId>${aeOneExternalId}</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>
+               <saer:adverseEvent>
+                  <verbatim>Verbatim2</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10019491</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>3</grade>
+                  <hospitalization>YES</hospitalization>
+                  <dateFirstLearned>${aeStartDate}</dateFirstLearned>
+                  
+                  <outcome>
+                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
+                  </outcome>
+                  <externalId>${aeTwoExternalId}</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>               
+               
+            </saer:adverseEvents>
+            <saer:criteria>
+            <studySubjectIdentifier>${subjectKey}</studySubjectIdentifier>
+               <studyIdentifier>${studyId}</studyIdentifier>
+               <course>
+                 <startDateOfFirstCourse>${firstCourseStartDate}</startDateOfFirstCourse>
+                  <startDateOfThisCourse>${courseStartDate}</startDateOfThisCourse> 
+                  <endDateOfThisCourse>${courseEndDate}</endDateOfThisCourse>
+                  <cycleNumber>${cycleNumber}</cycleNumber> 
+                 <treatmentAssignmentCode>${tac}</treatmentAssignmentCode>
+                  <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
+               </course>
+            </saer:criteria>
+            <reporter>
+               <aer:firstName>Reporter</aer:firstName>
+               <aer:lastName>one</aer:lastName>
+               <aer:middleName>middlename</aer:middleName>
+               <aer:street>Sunrise valley drive</aer:street>
+               <aer:city>Chicago</aer:city>
+               <aer:state>IL</aer:state>
+               <aer:zip>20170</aer:zip>
+               <aer:country>USA</aer:country>
+               <aer:contactMechanism>
+                  <aer:type>phone</aer:type>
+                  <aer:value>703-787-1234</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>e-mail</aer:type>
+                  <aer:value>vasudev.chatti@semanticbits.com</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>fax</aer:type>
+                  <aer:value>703-787-1222</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>alternateEmails</aer:type>
+                  <aer:value>vasudevkarthik@gmail.com</aer:value>
+               </aer:contactMechanism>
+            </reporter>
+         </saer:EvaluateAndInitiateInputMessage>
+      </saer:EvaluateAndInitiate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="d85fdcee-be86-4bab-8989-407ee405d00e"/><con:assertion type="Simple Contains" id="e5f6c262-e900-4eca-87ec-382a52079cf6" name="Contains"><con:configuration><token>&lt;recommendedActions></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="transfer-reportId" id="acce0b03-29fd-423a-b967-7e6d83540518"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>transfer-reportId</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>evaluateAndInitiate</con:sourceStep><con:sourcePath>//reportId
+</con:sourcePath><con:targetType>reportId</con:targetType><con:targetStep>course-properties</con:targetStep><con:targetPath>
+</con:targetPath><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="submit10DayE2bFile" id="36a8990d-6a3f-4d22-ba95-5b1e764aa59c"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.JSchException
+import com.jcraft.jsch.Session
+import com.jcraft.jsch.SftpATTRS
+import com.jcraft.jsch.SftpException
+import org.apache.commons.io.FileUtils
+
+String messageNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("messageNumber")
+String reportId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reportId")
+String subjectKey = testRunner.testCase.testSteps["course-properties"].getPropertyValue("subjectKey")
+String aeOneExternalId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("aeOneExternalId")
+String reactionStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reactionStartDate")
+String aeTwoExternalId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("aeTwoExternalId")
+String tac = testRunner.testCase.testSteps["course-properties"].getPropertyValue("tac")
+String drugStartDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugStartDate")
+String drugEndDate = testRunner.testCase.testSteps["course-properties"].getPropertyValue("drugEndDate")
+String cycleNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("cycleNumber")
+String  studyId= testRunner.testCase.testSteps["course-properties"].getPropertyValue("studyId")
+
+String Baselineperformancestatusscale = testRunner.testCase.getPropertyValue("Baselineperformancestatusscale")
+log.info("Baselineperformancestatusscale: ${Baselineperformancestatusscale}")
+String Baselineperformancenumber = testRunner.testCase.getPropertyValue("Baseline performance status at initiation of protocol")
+log.info("Baselineperformancenumber: ${Baselineperformancenumber}");
+String DiseaseName = testRunner.testCase.getPropertyValue("DiseaseName")
+log.info("DiseaseName: ${DiseaseName}");
+String OtherSiteofMetastaticDisease = testRunner.testCase.getPropertyValue("OtherSiteofMetastaticDisease")
+log.info("OtherSiteofMetastaticDisease: ${OtherSiteofMetastaticDisease}")
+String PriorTherapyAgents = testRunner.testCase.getPropertyValue("PriorTherapyAgents")
+log.info("PriorTherapyAgents: ${PriorTherapyAgents}")
+
+
+
+
+String PrimarySiteofDisease = testRunner.testCase.getPropertyValue("Primary Site of Disease")
+log.info("PriorTherapyAgents: ${PrimarySiteofDisease}")
+String PreExistingCondition = testRunner.testCase.getPropertyValue("Pre-existing Condition")
+log.info("PreExistingCondition: ${PreExistingCondition}")
+String OtherCause = testRunner.testCase.getPropertyValue("Other Cause")
+log.info("OtherCause: ${OtherCause}")
+String MetastaticSite = testRunner.testCase.getPropertyValue("Metastatic Site")
+log.info("MetastaticSite: ${MetastaticSite}")
+
+log.info("message number: ${messageNumber}");
+//construct an e2b file
+String e2bXML = """<ichicsr lang="en">
+   <ichicsrmessageheader>
+      <messagetype>ichicsr</messagetype>
+      <messageformatversion>2.1</messageformatversion>
+      <messageformatrelease>2.0</messageformatrelease>
+      <messagenumb>${messageNumber}</messagenumb>
+      <messagesenderidentifier>2014.2.0 Sender</messagesenderidentifier>
+      <messagereceiveridentifier>2014.2.0 Receiver</messagereceiveridentifier>
+      <messagedateformat>204</messagedateformat>
+      <messagedate>20141217200315</messagedate>
+   </ichicsrmessageheader>
+   <safetyreport>
+      <safetyreportid>${reportId}</safetyreportid>
+      <companynumb>${reportId}</companynumb>
+      <primarysource>
+         <sponsorstudynumb>${studyId}</sponsorstudynumb>
+      </primarysource>
+      <physicianemail>physicianone3@email.com</physicianemail>
+      <physiciangivename>Physician_given_name</physiciangivename>
+      <physicianfamilyname>Phyfamilyname</physicianfamilyname>
+      <physicianmiddlename>Phymdlname</physicianmiddlename>
+      <physicianphone>7037879658</physicianphone>
+      <recipientemails>vasudev.chatti.semanticbits.com</recipientemails>
+      <patient>
+         <!--study site NCI id-->
+         <subjectstudysiteid>MN008</subjectstudysiteid>
+         <!--study subject id-->
+         <patientinvestigationnumb>${subjectKey}</patientinvestigationnumb>
+        <medicalhistoryepisode>
+            <baselineperformancescale>${Baselineperformancestatusscale}</baselineperformancescale>
+            <baselineperformancenumber>${Baselineperformancenumber}</baselineperformancenumber>
+         </medicalhistoryepisode>
+         <!-- AE1 -->
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <primaryaeflag>1</primaryaeflag>
+            <primarysourcereaction>VerbatimOne</primarysourcereaction>
+            <reactionstartdateformat>102</reactionstartdateformat>
+            <reactionstartdate>${reactionStartDate}</reactionstartdate>
+            <reactionoutcome>3</reactionoutcome>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Glioblastoma multiforme</factor>
+            <factortype>primary disease</factortype>
+            <attribution>4</attribution>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Convulsions</factor>
+            <factortype>other cause</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>737664</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>362856</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>1</termhighlighted>
+            <aeexternalid>${aeOneExternalId}</aeexternalid>
+            <factor>Advil</factor>
+            <factortype>concomitant medication</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         
+         <!-- AE 2-->    
+           <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <primaryaeflag>2</primaryaeflag>
+            <primarysourcereaction>VerbatimTwo</primarysourcereaction>
+            <reactionstartdateformat>102</reactionstartdateformat>
+            <reactionstartdate>${reactionStartDate}</reactionstartdate>
+            <reactionoutcome>3</reactionoutcome>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>${DiseaseName}</factor>
+            <factortype>primary disease</factortype>
+            <attribution>4</attribution>
+         </reaction>
+         <reaction>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>Convulsions</factor>
+            <factortype>other cause</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>737664</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>3</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>362856</factor>
+            <factortype>course agent</factortype>
+            <attribution>5</attribution>
+         </reaction>
+         <reaction>
+            <termhighlighted>1</termhighlighted>
+            <aeexternalid>${aeTwoExternalId}</aeexternalid>
+            <factor>Advil</factor>
+            <factortype>concomitant medication</factortype>
+            <attribution>1</attribution>
+         </reaction>
+         
+         <medicalhistoryepisode>
+            <patientepisodename>${PreExistingCondition}</patientepisodename>
+            <patientmedicalcomment>Pre-existing Condition</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>${MetastaticSite}</patientepisodename>
+            <patientmedicalcomment>Metastatic Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>${OtherSiteofMetastaticDisease}</patientepisodename>
+            <patientmedicalcomment>Other Metastatic Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <!--The following section identifies the reporting period-->
+          <drug>
+            <drugcharacterization>3</drugcharacterization>
+            <medicinalproduct>${tac}</medicinalproduct>
+      <!-- <drugindication>rc1-new</drugindication>-->
+            <drugstartdateformat>102</drugstartdateformat>
+            <drugstartdate>${drugStartDate}</drugstartdate>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>${drugEndDate}</drugenddate>
+            <drugstartperiod>${cycleNumber}</drugstartperiod>
+         </drug>	
+		 
+			 
+		 <!--Required. This is the prior therapy section. A single E2B file can contain multiple prior therapies.-->
+         <medicalhistoryepisode>
+            <!--Prior Therapy For Primary Disease-->
+            <patientepisodename>${PriorTherapyAgents}</patientepisodename>
+            <patientmedicalcomment>Prior Therapy</patientmedicalcomment>
+         </medicalhistoryepisode>
+		 
+         <!--This is the Study disease. It should be accompanied by an attribution (<medicalepisodeassess>).-->
+         <medicalhistoryepisode>
+            <patientepisodename>Glioblastoma multiforme</patientepisodename>
+            <patientmedicalcomment>Study Disease</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>${PrimarySiteofDisease}</patientepisodename>
+            <patientmedicalcomment>Disease Site</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <medicalhistoryepisode>
+            <patientepisodename>Convulsions</patientepisodename>
+            <patientmedicalcomment>Other Cause</patientmedicalcomment>
+         </medicalhistoryepisode>
+         <test>
+            <testdateformat>102</testdateformat>
+            <testdate>20130201</testdate>
+            <testname>Bacterial Infection NOS</testname>
+            <infectiousagent>Streptococcus</infectiousagent>
+            <infectionsite>APPENDIX</infectionsite>
+         </test>
+         <test>
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit>
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Baseline</testtype>
+			</test>	
+
+			<test>				
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit>
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Recovery</testtype>
+			</test> 
+			<test>				
+				<testname>Ammonia</testname>
+				<testresult>15</testresult>
+				<testunit>mEq/L</testunit> 
+				<testdateformat>102</testdateformat>
+				<testdate>20140225</testdate>
+				<testtype>Worst</testtype>
+			</test>
+      
+         <drug>
+            <drugcharacterization>1</drugcharacterization>
+            <medicinalproduct>737664</medicinalproduct>
+            <drugbatchnumb>111101</drugbatchnumb>
+            <drugcumulativedosagenumb>600</drugcumulativedosagenumb>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>20140710</drugenddate>
+            <drugtreatmentduration>1</drugtreatmentduration>
+            <drugtreatmentdurationunit>804</drugtreatmentdurationunit>
+            <drugadditional>Agent</drugadditional>
+            <drugcumulativedosageunitextended>Ci</drugcumulativedosageunitextended>
+         </drug>
+         <drug>
+            <drugcharacterization>1</drugcharacterization>
+            <medicinalproduct>362856</medicinalproduct>
+            <drugbatchnumb>151111</drugbatchnumb>
+            <drugcumulativedosagenumb>600</drugcumulativedosagenumb>
+            <drugenddateformat>102</drugenddateformat>
+            <drugenddate>20140710</drugenddate>
+            <drugadditional>Agent</drugadditional>
+            <drugcumulativedosageunitextended>Ci</drugcumulativedosageunitextended>
+         </drug>
+         <drug>
+            <drugcharacterization>2</drugcharacterization>
+            <medicinalproduct>Advil</medicinalproduct>
+         </drug>
+         <summary>
+            <nameofreport>CTEP 10 Calendar Day SAE Report</nameofreport>
+            <!--Submitter information-->
+            <senderfirstname>Alfred</senderfirstname>
+            <sendermidname>Dynamite</sendermidname>
+            <senderlastname>Nobel</senderlastname>
+            <senderphonenumber>703-787-9656</senderphonenumber>
+            <senderfaxnumber>703-787-9656</senderfaxnumber>
+            <senderemailid>vasudev.chatti@semanticbits.com</senderemailid>
+            <ptweight>50</ptweight>
+            <ptheight>100</ptheight>
+            <indadminflag>1</indadminflag>
+            <narrativeincludeclinical>the description or narrative of the event</narrativeincludeclinical>
+            <retreatedflag>2</retreatedflag>
+         </summary>
+      </patient>
+      <medicalhistoryepisode>
+         <autopsyreportflag>1</autopsyreportflag>
+         <consultsflag>1</consultsflag>
+         <dischargesummaryflag>1</dischargesummaryflag>
+         <flowsheetscrfsflag>1</flowsheetscrfsflag>
+         <labreportsflag>1</labreportsflag>
+         <obaformsflag>2</obaformsflag>
+         <pathologyreportflag>2</pathologyreportflag>
+         <progressnotesflag>1</progressnotesflag>
+         <radiologyreportflag>2</radiologyreportflag>
+         <referrallettersflag>2</referrallettersflag>
+         <irbsummaryreportflag>1</irbsummaryreportflag>
+         <otheradditionalflag>2</otheradditionalflag>
+         <doclist>this is the doc list</doclist>
+      </medicalhistoryepisode>
+   </safetyreport>
+</ichicsr>"""
+
+String homeFolder = new File(System.getProperty("user.home"))
+File e2bTestFolder = new File(homeFolder, "e2btest")
+e2bTestFolder.mkdir()
+File e2bFile = new File(e2bTestFolder, "e2b_${subjectKey}_input.xml")
+e2bFile.text = e2bXML
+testRunner.testCase.testSteps["course-properties"].setPropertyValue("e2bInputFileName", e2bFile.getName())
+log.info("   Generated E2B File: ${e2bFile.getName()}")
+
+
+//now upload the e2bFileToSubmit
+String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
+//call ftp client and put the file in e2bInPath
+String server = testRunner.testCase.testSteps["course-properties"].getPropertyValue("server")
+String username = testRunner.testCase.testSteps["course-properties"].getPropertyValue("username")
+String password = testRunner.testCase.testSteps["course-properties"].getPropertyValue("password")
+int port = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("port"))
+
+JSch jsch = new JSch();
+Session session = null;   
+try {
+   //Connect to sftp server
+   session = jsch.getSession(username, server, port)
+   session.setConfig("StrictHostKeyChecking", "no")
+   session.setPassword(password)
+   session.connect()
+   Channel channel = session.openChannel("sftp")
+   channel.connect();
+   ChannelSftp sftpChannel = (ChannelSftp) channel
+   //Go to e2b input folder     
+   sftpChannel.cd("${e2bInPath}/")
+   log.info("current directory after mkdir : ${sftpChannel.pwd()}")
+   FileInputStream inputStream = new FileInputStream(e2bFile)
+   //copy e2b file into e2binput folder
+   sftpChannel.put(inputStream, e2bFile.getName())
+   sftpChannel.exit();
+
+} catch (JSchException e) {
+   e.printStackTrace();
+} catch (SftpException e) {
+   e.printStackTrace();
+}
+finally {
+   session.disconnect();
+}
+
+]]></script></con:config></con:testStep><con:testStep type="delay" name="Wait For 1 minute" id="36c3b42c-172f-46e3-9cea-7fb1ca4c1b62"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep type="groovy" name="downloadE2bAck" id="9d1f6fcf-2a6a-4041-8aec-556547a12707"><con:settings/><con:config><script><![CDATA[import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.JSchException
+import com.jcraft.jsch.Session
+import com.jcraft.jsch.SftpATTRS
+import com.jcraft.jsch.SftpException
+import org.apache.commons.io.FileUtils
+
+//download the file from done folder 
+String e2bFileName = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInputFileName")
+String e2bInPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bInFolder")
+String e2bDonePath = "${e2bInPath}/inprogress/done"
+
+//now download all the file created after done file 
+String e2bOutPath = testRunner.testCase.testSteps["course-properties"].getPropertyValue("e2bOutFolder")
+String server = testRunner.testCase.testSteps["course-properties"].getPropertyValue("server")
+String username = testRunner.testCase.testSteps["course-properties"].getPropertyValue("username")
+String password = testRunner.testCase.testSteps["course-properties"].getPropertyValue("password")
+int port = Integer.parseInt(testRunner.testCase.testSteps["course-properties"].getPropertyValue("port"))
+String reportId = testRunner.testCase.testSteps["course-properties"].getPropertyValue("reportId")
+String messageNumber = testRunner.testCase.testSteps["course-properties"].getPropertyValue("messageNumber")
+
+JSch jsch = new JSch()
+Session session = null
+SftpATTRS attrs
+try {
+   
+   session = jsch.getSession(username, server, port)
+   session.setConfig("StrictHostKeyChecking", "no")
+   session.setPassword(password)
+   session.connect()
+
+   Channel channel = session.openChannel("sftp")
+   channel.connect();
+   ChannelSftp sftpChannel = (ChannelSftp) channel
+  // String currentDirectory = sftpChannel.pwd()
+  // println("current directory : ${currentDirectory}")
+   sftpChannel.cd("${e2bDonePath}/")
+   log.info("current directory : ${sftpChannel.pwd()}")
+   try {
+   	attrs = sftpChannel.lstat(e2bFileName)
+   }
+   catch(Exception e) {
+   	  log.error("e2b file ${e2bFileName} not found in done folder")
+   	  testRunner.fail("e2b file ${e2bFileName} not found in done folder")
+   }
+   int lastUploadedModifiedDate = attrs.getMTime()
+   log.info("lastUploaded Mtime : ${attrs.getMTime()}")
+
+   //Create temp folder in local directory
+   File tempDirectory = new File("${System.getProperty('user.home')}/temp")
+   if(!tempDirectory.exists()){
+       tempDirectory.mkdir()
+   }
+   //Cleanup temp directory before copying files
+   FileUtils.cleanDirectory(tempDirectory)
+
+   sftpChannel.cd("${e2bOutPath}/")
+   log.info("current directory : ${sftpChannel.pwd()}")       
+   Vector<ChannelSftp.LsEntry> entries = sftpChannel.ls("*").findAll { it.getAttrs().getMTime() > lastUploadedModifiedDate || it.getAttrs().getMTime() == lastUploadedModifiedDate } 
+   log.info("entries : ${entries.size()}");
+   for (ChannelSftp.LsEntry entry : entries) {      
+           //get output stream
+           OutputStream output = new FileOutputStream("${tempDirectory.getPath()}/${entry.getFilename()}");
+           sftpChannel.get(entry.getFilename(), output)     
+   }
+
+   sftpChannel.exit()
+   boolean status = false
+   //look for success or failures in the file.
+   log.info("find .act file which has messageNumber ${messageNumber} ")
+   File ackFile = tempDirectory.listFiles().find { it.text.contains("<icsrmessagenumb>${messageNumber}</icsrmessagenumb>") && it.text.contains("<reportacknowledgmentcode>01</reportacknowledgmentcode>") }
+   log.info "ack file found: ${ackFile}"
+   if(ackFile) {
+   	 log.info("The e2b ${e2bFileName} submitted successfully ")		
+   }
+   else {
+   	  log.error("e2b ${e2bFileName} submission failed")
+   	  testRunner.fail("e2b ${e2bFileName} submission failed")
+   }  
+
+} catch (JSchException e) {
+   e.printStackTrace();
+} catch (SftpException e) {
+   e.printStackTrace();
+}
+finally {
+   session.disconnect();
+}
+
+]]></script></con:config></con:testStep><con:testStep type="groovy" name="New Line" id="a83ba86f-85c3-4389-8957-b47060e28309"><con:settings/><con:config><script>// ${#TestCase#ColHeader}
+testCase = testRunner.testCase;
+
+line = context.fileReader.readLine()
+log.info "Read line: " + line
+
+if (line != null) {
+	String[] props = line.split(",")
+	
+	for (int i = 0; i &lt; props.length &amp;&amp; i &lt; context.headers.length; i++) {
+		log.info "Found property: " + context.headers[i] + "=" + props[i]
+		testCase.setPropertyValue(context.headers[i],props[i])
+	}
+
+	// loop
+	testRunner.gotoStep(1)
+}
+</script></con:config></con:testStep><con:setupScript>testCase = testRunner.testCase;
+file = testCase.getPropertyValue("file")
+
+log.info "Data Driven: reading from " + file
+
+// open a file reader in context.filereader
+context.fileReader = new BufferedReader(new FileReader(file))
+
+// read headers into context.headers and trim them
+line = context.fileReader.readLine()
+if (line != null) {
+	context.headers = line.split(",")
+	
+	for (int i = 0; i &lt; context.headers.length; i++) {
+		context.headers[i] = context.headers[i].trim()
+		log.info "Found header: " + context.headers[i]
+	}
+}
+
+// read first line
+line = context.fileReader.readLine()
+log.info "Read line: " + line
+
+if (line != null) {
+	String[] props = line.split(",")
+
+	log.info "Found properties: " + props.length
+	log.info "Using headers: " + context.headers.length
+	for (int i = 0; i &lt; props.length &amp;&amp; i &lt; context.headers.length; i++) {
+		log.info "Found property: " + context.headers[i] + "=" + props[i]
+		testCase.setPropertyValue(context.headers[i],props[i])
+	}
+}</con:setupScript><con:tearDownScript>context.fileReader.close()</con:tearDownScript><con:properties><con:property><con:name>file</con:name><con:value>/Users/semanticbits/Downloads/E2B-datacsv.csv</con:value></con:property><con:property><con:name>Study.studyIdentifier</con:name><con:value/></con:property><con:property><con:name>Report Name</con:name><con:value>CTEP 24 Hour SAE Notification</con:value></con:property><con:property><con:name>Report Transaction</con:name><con:value>DON'T consume this for data driven tests</con:value></con:property><con:property><con:name>Adverse event data</con:name><con:value/></con:property><con:property><con:name>Baseline performance status at initiation of protocol</con:name><con:value>0</con:value></con:property><con:property><con:name>Baselineperformancestatusscale</con:name><con:value>ZUBROD</con:value></con:property><con:property><con:name>Height(cm)</con:name><con:value>176</con:value></con:property><con:property><con:name>Weight(kg)</con:name><con:value>66</con:value></con:property><con:property><con:name>Date of Initial Diagnosis(MM/YYYY) if known</con:name><con:value>201308</con:value></con:property><con:property><con:name>DiseaseName</con:name><con:value>Glioblastoma multiforme</con:value></con:property><con:property><con:name>Other Disease Name</con:name><con:value/></con:property><con:property><con:name>Primary Site of Disease</con:name><con:value>Ant-LLL</con:value></con:property><con:property><con:name>Other Primary Site of Disease</con:name><con:value/></con:property><con:property><con:name>Site of Metastatic Disease</con:name><con:value/></con:property><con:property><con:name>OtherSiteofMetastaticDisease</con:name><con:value>otherSiteofMetastaticDisease</con:value></con:property><con:property><con:name>collection4</con:name><con:value/></con:property><con:property><con:name>Select Prior Therapy For Primary Disease</con:name><con:value/></con:property><con:property><con:name>Start Date</con:name><con:value>20130713</con:value></con:property><con:property><con:name>Stop Date</con:name><con:value>20140713</con:value></con:property><con:property><con:name>Comments</con:name><con:value/></con:property><con:property><con:name>PriorTherapyAgents</con:name><con:value>Bone Marrow Transplant</con:value></con:property><con:property><con:name>collection5</con:name><con:value/></con:property><con:property><con:name>Concomitant Medication</con:name><con:value/></con:property><con:property><con:name>collection6</con:name><con:value/></con:property><con:property><con:name>Pre-Existing Condition</con:name><con:value>Anemia</con:value></con:property><con:property><con:name>Other Pre-Existing Condition</con:name><con:value/></con:property><con:property><con:name>collection7</con:name><con:value/></con:property><con:property><con:name>Treatment Assignment Code</con:name><con:value/></con:property><con:property><con:name>Other Treatment Assignment Description</con:name><con:value/></con:property><con:property><con:name>Start Date of first course (MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Start Date of course associated with this Expedited Report (MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Total number of courses to date</con:name><con:value/></con:property><con:property><con:name>Course number on which event occurred</con:name><con:value/></con:property><con:property><con:name>Reporting Period Type</con:name><con:value/></con:property><con:property><con:name>Was an investigational agent(s) administered on this protocol</con:name><con:value/></con:property><con:property><con:name>Was an investigational device(s) administered on this protocol</con:name><con:value/></con:property><con:property><con:name>collection8</con:name><con:value/></con:property><con:property><con:name>Agent NSC Number</con:name><con:value/></con:property><con:property><con:name>Lot #</con:name><con:value/></con:property><con:property><con:name>Date Last Administered(MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Delayed</con:name><con:value/></con:property><con:property><con:name>Duration Delay</con:name><con:value/></con:property><con:property><con:name>Delay Unit of Measure</con:name><con:value/></con:property><con:property><con:name>Dose Modifications</con:name><con:value/></con:property><con:property><con:name>Total Dose Administered this Course</con:name><con:value/></con:property><con:property><con:name>Metastatic Site</con:name><con:value>Appendix</con:value></con:property><con:property><con:name>Dose Unit of Measure</con:name><con:value/></con:property><con:property><con:name>Type of Device</con:name><con:value/></con:property><con:property><con:name>Common Name</con:name><con:value/></con:property><con:property><con:name>Brand Name</con:name><con:value/></con:property><con:property><con:name>Catalog Number</con:name><con:value/></con:property><con:property><con:name>Device Available for Evaluation(do not send to FDA)</con:name><con:value/></con:property><con:property><con:name>Expiration Date</con:name><con:value/></con:property><con:property><con:name>Explanted Date</con:name><con:value/></con:property><con:property><con:name>Implanted Date</con:name><con:value/></con:property><con:property><con:name>Is this a single use device that was reprocessed and reused?</con:name><con:value/></con:property><con:property><con:name>Name of the Reprocessor</con:name><con:value/></con:property><con:property><con:name>Address of Reprocessor</con:name><con:value/></con:property><con:property><con:name>Manufacture Name</con:name><con:value/></con:property><con:property><con:name>Manufacture City</con:name><con:value/></con:property><con:property><con:name>Manufacturer State/Province</con:name><con:value/></con:property><con:property><con:name>Model #</con:name><con:value/></con:property><con:property><con:name>Serial #</con:name><con:value/></con:property><con:property><con:name>Other #</con:name><con:value/></con:property><con:property><con:name>Operator of Device</con:name><con:value/></con:property><con:property><con:name>Other Operator of Device</con:name><con:value/></con:property><con:property><con:name>Returned Date</con:name><con:value/></con:property><con:property><con:name>Type of Radiation Administration</con:name><con:value/></con:property><con:property><con:name>Date of Last Treatment(MM/DD/YYYY)</con:name><con:value/></con:property><con:property><con:name>Schedule- Number of Elapsed Days</con:name><con:value/></con:property><con:property><con:name>Schedule- Number of Fractions</con:name><con:value/></con:property><con:property><con:name>Total Dose (to date)</con:name><con:value/></con:property><con:property><con:name>Unit of Measure</con:name><con:value/></con:property><con:property><con:name>Adjustment</con:name><con:value/></con:property><con:property><con:name>Date ofSurgery</con:name><con:value/></con:property><con:property><con:name>Site of Surgery</con:name><con:value/></con:property><con:property><con:name>Lab Category</con:name><con:value/></con:property><con:property><con:name>Lab Test</con:name><con:value/></con:property><con:property><con:name>Test Type</con:name><con:value/></con:property><con:property><con:name>Lab Test Date</con:name><con:value/></con:property><con:property><con:name>Lab Test Unit of Measure</con:name><con:value/></con:property><con:property><con:name>Lab Test Value</con:name><con:value/></con:property><con:property><con:name>Other Lab Test Name</con:name><con:value/></con:property><con:property><con:name>Infectious Agent Test Date</con:name><con:value/></con:property><con:property><con:name>Infectious Agent</con:name><con:value/></con:property><con:property><con:name>Site of Infection</con:name><con:value/></con:property><con:property><con:name>Autopsy Report</con:name><con:value/></con:property><con:property><con:name>Consults</con:name><con:value/></con:property><con:property><con:name>Discharge Summary</con:name><con:value/></con:property><con:property><con:name>Flow Sheets/Case Report Forms</con:name><con:value/></con:property><con:property><con:name>Laboratory Reports</con:name><con:value/></con:property><con:property><con:name>OBA Forms</con:name><con:value/></con:property><con:property><con:name>Pathology Report</con:name><con:value/></con:property><con:property><con:name>Progress Notes</con:name><con:value/></con:property><con:property><con:name>Radiology Report</con:name><con:value/></con:property><con:property><con:name>Referral Letters</con:name><con:value/></con:property><con:property><con:name>Summary Report sent to IRB</con:name><con:value/></con:property><con:property><con:name>Other</con:name><con:value/></con:property><con:property><con:name>Other Information</con:name><con:value/></con:property><con:property><con:name>Type of Cause</con:name><con:value/></con:property><con:property><con:name>Concomitant Medication Causes</con:name><con:value/></con:property><con:property><con:name>Disease Causes</con:name><con:value/></con:property><con:property><con:name>Other Cause</con:name><con:value>other cause</con:value></con:property><con:property><con:name>Protocol Agent Causes</con:name><con:value>contaminant medication</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer><con:outgoing><con:name>caaers</con:name><con:entry type="Username" username="mayo-super-user" password="Hello-12"><con:configuration><addCreated>true</addCreated><addNonce>true</addNonce><passwordType>PasswordText</passwordType></con:configuration></con:entry></con:outgoing><con:outgoing><con:name>caaers-integ</con:name><con:entry type="Username" username="sb-admin" password="Hello-12"><con:configuration><addCreated>true</addCreated><addNonce>true</addNonce><passwordType>PasswordText</passwordType></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
