@@ -37,6 +37,10 @@ public class MeddraStudyDisease extends AbstractStudyDisease<LowLevelTerm> {
     public LowLevelTerm getTerm() {
         return super.getTerm();
     }
+    
+    public void setTerm(LowLevelTerm term) {
+    	super.setTerm(term);
+    };
 
     /* (non-Javadoc)
      * @see gov.nih.nci.cabig.caaers.domain.AbstractStudyDisease#getTermName()

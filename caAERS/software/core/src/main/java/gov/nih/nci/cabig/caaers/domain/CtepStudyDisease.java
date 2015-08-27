@@ -36,6 +36,10 @@ public class CtepStudyDisease extends AbstractStudyDisease<DiseaseTerm> {
     public DiseaseTerm getTerm() {
         return super.getTerm();
     }
+    
+    public void setTerm(DiseaseTerm term) {
+    	super.setTerm(term);
+    };
 
     /**
      * Gets the disease term.
