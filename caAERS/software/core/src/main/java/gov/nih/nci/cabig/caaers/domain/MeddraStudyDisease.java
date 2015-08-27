@@ -37,6 +37,10 @@ public class MeddraStudyDisease extends AbstractStudyDisease<LowLevelTerm> {
     public LowLevelTerm getTerm() {
         return super.getTerm();
     }
+    
+    public void setTerm(LowLevelTerm term) {
+    	super.setTerm(term);
+    };
 
     /* (non-Javadoc)
      * @see gov.nih.nci.cabig.caaers.domain.AbstractStudyDisease#getTermName()
@@ -46,6 +50,17 @@ public class MeddraStudyDisease extends AbstractStudyDisease<LowLevelTerm> {
     public String getTermName() {
         if(getTerm() == null) return null;
         return getTerm().getFullName();
+    }
+    
+    /**
+     * Sets the term name.
+     *
+     * @param name the new term name
+     */
+    @Override
+    @Transient
+    public void setTermName(String name) {
+    	super.setTermName(name);
     }
     
     /* (non-Javadoc)

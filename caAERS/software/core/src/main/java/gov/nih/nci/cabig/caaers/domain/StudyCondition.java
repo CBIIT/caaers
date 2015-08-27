@@ -36,6 +36,10 @@ public class StudyCondition extends AbstractStudyDisease<Condition> {
     public Condition getTerm() {
         return super.getTerm();
     }
+    
+    public void setTerm(Condition term) {
+    	super.setTerm(term);
+    };
 
     /* (non-Javadoc)
      * @see gov.nih.nci.cabig.caaers.domain.AbstractStudyDisease#getTermName()
@@ -45,6 +49,17 @@ public class StudyCondition extends AbstractStudyDisease<Condition> {
     public String getTermName() {
         if(getTerm() == null) return null;
         return getTerm().getConditionName();
+    }
+    
+    /**
+     * Sets the term name.
+     *
+     * @param name the new term name
+     */
+    @Override
+    @Transient
+    public void setTermName(String name) {
+    	super.setTermName(name);
     }
 
     /* (non-Javadoc)

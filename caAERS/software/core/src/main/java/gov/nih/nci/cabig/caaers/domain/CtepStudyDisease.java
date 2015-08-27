@@ -36,6 +36,10 @@ public class CtepStudyDisease extends AbstractStudyDisease<DiseaseTerm> {
     public DiseaseTerm getTerm() {
         return super.getTerm();
     }
+    
+    public void setTerm(DiseaseTerm term) {
+    	super.setTerm(term);
+    };
 
     /**
      * Gets the disease term.
@@ -65,6 +69,17 @@ public class CtepStudyDisease extends AbstractStudyDisease<DiseaseTerm> {
     public String getTermName() {
         if(getTerm() == null) return null;
         return getTerm().getFullName();
+    }
+    
+    /**
+     * Sets the term name.
+     *
+     * @param name the new term name
+     */
+    @Override
+    @Transient
+    public void setTermName(String name) {
+    	super.setTermName(name);
     }
     
     /* (non-Javadoc)
