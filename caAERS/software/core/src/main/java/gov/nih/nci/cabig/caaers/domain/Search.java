@@ -6,17 +6,15 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.domain;
 
-import java.util.Date;
-
 import gov.nih.nci.cabig.ctms.domain.AbstractMutableDomainObject;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
+import java.util.Date;
 
 
 /**
