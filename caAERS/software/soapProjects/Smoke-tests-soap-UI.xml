@@ -5694,7 +5694,7 @@ xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-s
       <saer:EvaluateAndInitiate>
          <saer:EvaluateAndInitiateInputMessage>
             <saer:adverseEvents>
-              <saer:adverseEvent>
+               <saer:adverseEvent>
                   <verbatim>Verbatim2011</verbatim>
                   <adverseEventCtepTerm>
                      <ctepCode>10010774</ctepCode>
@@ -5713,7 +5713,7 @@ xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-s
                   <adverseEventCtepTerm>
                      <ctepCode>10047700</ctepCode>
                   </adverseEventCtepTerm>
-                  <grade>3</grade>
+                  <grade>2</grade>
                   <hospitalization>NO</hospitalization>
                   <dateFirstLearned>2015-07-28T17:06:01.0000000Z</dateFirstLearned>
                   <outcome>
@@ -5721,7 +5721,7 @@ xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-s
                   </outcome>
                   <externalId>reaction-89</externalId>
                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
-               </saer:adverseEvent> 
+               </saer:adverseEvent>
                <!--<saer:adverseEvent>
                   <verbatim>Verbatim10</verbatim>
                   <adverseEventCtepTerm>
@@ -5753,17 +5753,17 @@ xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-s
                </saer:adverseEvent>-->
             </saer:adverseEvents>
             <saer:criteria>
-               <studySubjectIdentifier>9102340</studySubjectIdentifier>
+               <studySubjectIdentifier>S14RC1-A071102</studySubjectIdentifier>
                <studyIdentifier>A071102</studyIdentifier>
                <course>
-                  <startDateOfFirstCourse>2014-01-06</startDateOfFirstCourse>
-                  <startDateOfThisCourse>2015-07-24</startDateOfThisCourse>
-                  <cycleNumber>24</cycleNumber>
-                  <treatmentAssignmentCode>other</treatmentAssignmentCode>
-                 <otherTreatmentAssignmentDescription>postrc1testing</otherTreatmentAssignmentDescription>
-                 </course> 
+                  <startDateOfFirstCourse>2014-07-01</startDateOfFirstCourse>
+                  <startDateOfThisCourse>2015-08-10</startDateOfThisCourse>
+                  <cycleNumber>10</cycleNumber>
+                  <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>
+                  <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
+               </course>
             </saer:criteria>
-         <reportId>125602945</reportId>
+         <!--   <reportId>1263496332</reportId>-->
             <!--<withdrawReport>true</withdrawReport>-->
             <reporter>
                <aer:firstName>Reporter</aer:firstName>
