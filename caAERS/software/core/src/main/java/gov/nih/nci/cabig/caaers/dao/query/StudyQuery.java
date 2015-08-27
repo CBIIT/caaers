@@ -183,24 +183,24 @@ public class StudyQuery extends AbstractQuery {
     }
  
     public void filterByOtherIntervention(Integer code, String operator) {
-    	orWhere("i.studyTherapyType " + parseOperator(operator) + " :OTHERINT" );
+    	orWhere("i.studyTherapyType.code " + parseOperator(operator) + " :OTHERINT" );
     	setParameter("OTHERINT", code);
     }
     
     public void filterByDeviceIntervention(Integer code, String operator) {
-    	orWhere("d.studyTherapyType " + parseOperator(operator) + " :DEVICEINT" );
+    	orWhere("d.studyTherapyType.code " + parseOperator(operator) + " :DEVICEINT" );
     	setParameter("DEVICEINT", code);
     }
     
     public void filterByAgentIntervention(Integer code, String operator) {
-    	orWhere("sai.studyTherapyType " + parseOperator(operator) + " :AGENTINT" );
+    	orWhere("sai.studyTherapyType.code " + parseOperator(operator) + " :AGENTINT" );
     	setParameter("AGENTINT", code);
     }
     
     public void filterByStudyIntervention(Integer code, String operator) {
-    	orWhere("i.studyTherapyType " + parseOperator(operator) + " :STUDYINT" );
-    	orWhere("d.studyTherapyType " + parseOperator(operator) + " :STUDYINT" );
-    	orWhere("sai.studyTherapyType " + parseOperator(operator) + " :STUDYINT" );
+    	orWhere("i.studyTherapyType.code " + parseOperator(operator) + " :STUDYINT" );
+    	orWhere("d.studyTherapyType.code " + parseOperator(operator) + " :STUDYINT" );
+    	orWhere("sai.studyTherapyType.code " + parseOperator(operator) + " :STUDYINT" );
     	setParameter("STUDYINT", code);
     }
     
