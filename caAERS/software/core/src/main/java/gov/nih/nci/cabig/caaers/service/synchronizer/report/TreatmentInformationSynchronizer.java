@@ -28,7 +28,7 @@ public class TreatmentInformationSynchronizer implements Synchronizer<ExpeditedA
         TreatmentInformation dbTi =  dest.getTreatmentInformation();
 
         dbTi.setTreatmentAssignment(xmlTi.getTreatmentAssignment());
-        dbTi.setTreatmentAssignmentDescription(xmlTi.getTreatmentAssignmentDescription());
+        dbTi.setTreatmentDescription(xmlTi.getTreatmentDescription());
         dbTi.setFirstCourseDate(xmlTi.getFirstCourseDate());
         dbTi.setTotalCourses(xmlTi.getTotalCourses());
         dbTi.setAdverseEventCourse(xmlTi.getAdverseEventCourse());
