@@ -6,12 +6,12 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import edu.nwu.bioinformatics.commons.testing.CoreTestCase;
 import gov.nih.nci.cabig.caaers.DaoNoSecurityTestCase;
 import gov.nih.nci.cabig.caaers.domain.Search;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,7 +19,73 @@ import gov.nih.nci.cabig.caaers.domain.Search;
  */
 public class SearchDaoTest extends DaoNoSecurityTestCase<SearchDao> {
 
-	public void testSave() throws Exception {
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        {
+            Search s = new Search();
+            s.setLoginId("SYSTEM_ADMIN");
+            s.setId(-1);
+            s.setName("Search1");
+            s.setDescription("Description1");
+            s.setCreatedDate(new Date());
+            s.setCriteriaXml("Criteria1");
+            getDao().save(s);
+        }
+        {
+            Search s = new Search();
+            s.setLoginId("SYSTEM_ADMIN");
+            s.setId(-2);
+            s.setName("Search2");
+            s.setCreatedDate(new Date());
+            s.setDescription("Description2");
+            s.setCriteriaXml("Criteria2");
+            getDao().save(s);
+        }
+        {
+            Search s = new Search();
+            s.setLoginId("SYSTEM_ADMIN");
+            s.setId(-3);
+            s.setName("Search3");
+            s.setCreatedDate(new Date());
+            s.setDescription("Description3");
+            s.setCriteriaXml("Criteria3");
+            getDao().save(s);
+        }
+        {
+            Search s = new Search();
+            s.setLoginId("SYSTEM_ADMIN");
+            s.setId(-4);
+            s.setName("Search4");
+            s.setCreatedDate(new Date());
+            s.setDescription("Description4");
+            s.setCriteriaXml("Criteria4");
+            getDao().save(s);
+        }
+        {
+            Search s = new Search();
+            s.setLoginId("LOGIN_ID");
+            s.setId(-5);
+            s.setName("Search5");
+            s.setDescription("Description5");
+            s.setCreatedDate(new Date());
+            s.setCriteriaXml("Criteria5");
+            getDao().save(s);
+        }
+        getDao().flush();
+
+    }
+
+
+    @Override
+    public void tearDown() throws Exception {
+        List<Search> searches = getDao().findAll("id");
+        for(Search s : searches) getDao().deleteByLoginIdAndName(s.getName(), s.getLoginId());
+        getDao().flush();
+        super.tearDown();
+    }
+
+    public void testSave() throws Exception {
 		Search search = new Search();
 		search.setLoginId("testLogin");
 		search.setName("testName");
