@@ -11,6 +11,7 @@ import static gov.nih.nci.cabig.caaers.domain.dto.ReportDefinitionWrapper.Action
 import gov.nih.nci.cabig.caaers.CaaersSystemException;
 import gov.nih.nci.cabig.caaers.dao.AdverseEventRecommendedReportDao;
 import gov.nih.nci.cabig.caaers.dao.AdverseEventReportingPeriodDao;
+import gov.nih.nci.cabig.caaers.dao.ExpeditedAdverseEventReportDao;
 import gov.nih.nci.cabig.caaers.dao.ParticipantDao;
 import gov.nih.nci.cabig.caaers.dao.StudyDao;
 import gov.nih.nci.cabig.caaers.dao.TreatmentAssignmentDao;
@@ -114,6 +115,12 @@ public class SAEEvaluationServiceImpl {
 	private SAEServiceMessageConverter xmlConverter = new SAEServiceMessageConverter();
     private enum RequestType{SaveEvaluate, Evaluate, EvaluateInitiate};
 	private static String DEF_ERR_MSG = "Error evaluating adverse events with SAE rules";
+	private ExpeditedAdverseEventReportDao expeditedAdverseEventReportDao;
+
+	public void setExpeditedAdverseEventReportDao(
+			ExpeditedAdverseEventReportDao expeditedAdverseEventReportDao) {
+		this.expeditedAdverseEventReportDao = expeditedAdverseEventReportDao;
+	}
 
 	private static final Log logger = LogFactory.getLog(SAEEvaluationServiceImpl.class);
 	
@@ -260,17 +267,72 @@ public class SAEEvaluationServiceImpl {
     	
     	SaveAndEvaluateAEsInputMessage sae = xmlConverter.SAEInputMessage(evaluateInputMessage);
     	
+    	// CAAERS-7414 if reportId is passed check if the reporting period attributes are consistent with the one already saved.
+    	String reportId = evaluateInputMessage.getReportId();
+    	if(!StringUtils.isBlank(reportId)){
+        	validateReportIdAndAdverseEventReportingPeriodAttributes(sae, reportId);
+    	}
+    	
     	SaveAndProcessOutput data = saveAndProcessAdverseEvents(sae);
     	
     	SaveAndEvaluateAEsOutputMessage response = data.getMsg();
     	
     	EvaluateAndInitiateOutputMessage retVal = xmlConverter.EvaluateAndInitiateOutput(response);
+    	
+    	
     			
-    	if(response.getRecommendedActions() != null && response.getRecommendedActions().size() > 0 &&  data.getPeriod() != null) {
+    	if(response.getRecommendedActions() != null && data.getPeriod() != null) {
     		safetySvcImpl.initiateSafetyReportAction(evaluateInputMessage, response, retVal, data.getPeriod());
     	}
 		return retVal;
     }
+    
+	public void validateReportIdAndAdverseEventReportingPeriodAttributes(
+			SaveAndEvaluateAEsInputMessage sae, String reportId)
+			throws CaaersFault {
+		
+		if(StringUtils.isBlank(reportId)){return;}
+
+		if (sae == null) {
+			throw Helper.createCaaersFault(DEF_ERR_MSG, "WS_SAE_007",
+					messageSource.getMessage("WS_SAE_007", new String[] {}, "",
+							Locale.getDefault()));
+		}
+
+    	// find reporting period attributes from input
+		
+		AdverseEventReportingPeriod rpDest = new AdverseEventReportingPeriod();
+		gov.nih.nci.cabig.caaers.integration.schema.adverseevent.CourseType course = null;
+		
+		if(sae.getCriteria() != null && sae.getCriteria().getCourse() != null && sae.getCriteria().getCourse() != null){
+			course = sae.getCriteria().getCourse();
+		}
+		if(course != null && course.getStartDateOfThisCourse() != null){
+			rpDest.setStartDate(course.getStartDateOfThisCourse().toGregorianCalendar().getTime());
+		}
+		
+		if(course != null && sae.getCriteria().getCourse().getCycleNumber() != null){
+			rpDest.setCycleNumber(course.getCycleNumber().intValue());
+		}
+		
+		if(course != null && course.getTreatmentAssignmentCode() != null){
+			TreatmentAssignment treatmentAssignmentSrc = new TreatmentAssignment();
+			treatmentAssignmentSrc.setCode(course.getTreatmentAssignmentCode());
+			rpDest.setTreatmentAssignment(treatmentAssignmentSrc);
+		}
+		
+		ExpeditedAdverseEventReport dbReport = expeditedAdverseEventReportDao
+				.getByExternalId(reportId);
+		if (dbReport != null) {
+			String tac = dbReport.getReportingPeriod().getTreatmentAssignment() != null? dbReport.getReportingPeriod().getTreatmentAssignment().getCode():null;
+			if (!rpDest.hasSameCoreAttributes(dbReport.getReportingPeriod().getCycleNumber(), 
+					dbReport.getReportingPeriod().getStartDate(),tac)) {
+				throw Helper.createCaaersFault(DEF_ERR_MSG, "WS_SAE_008",
+						messageSource.getMessage("WS_SAE_008",
+								new String[] {reportId}, "", Locale.getDefault()));
+			}
+		}
+	}
 
 
 	/**
@@ -990,10 +1052,13 @@ public class SAEEvaluationServiceImpl {
             errors.addValidationErrors(rpOutcome.getValidationErrors().getErrors());
             return null;
         }
+        
         //check if we need the create path or update path.
         String tac = rpDest.getTreatmentAssignment() != null ? rpDest.getTreatmentAssignment().getCode() : null;
         String epochName = rpDest.getEpoch() != null ? rpDest.getEpoch().getName() : null;
         AdverseEventReportingPeriod rpFound = rpDest.getAssignment().findReportingPeriod(rpDest.getExternalId(), rpDest.getStartDate(),rpDest.getEndDate(), rpDest.getCycleNumber(), epochName, tac);
+      
+        
         ArrayList<AdverseEventReportingPeriod> reportingPeriodList = new ArrayList<AdverseEventReportingPeriod>(rpDest.getAssignment().getActiveReportingPeriods());
         if(rpFound != null) {
             // This is used only incase of SAE Evaluation Service.

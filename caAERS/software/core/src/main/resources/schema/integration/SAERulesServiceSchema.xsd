@@ -188,6 +188,7 @@
             <xs:element minOccurs="1" name="status" type="xs:string"/>
             <xs:element minOccurs="1" name="due" type="xs:string"/>
             <xs:element minOccurs="0" name="dueDate" type="xs:string"/>
+            <xs:element minOccurs="0" name="amendmentNumber" type="xs:integer"/>
         </xs:sequence>
     </xs:complexType>
 

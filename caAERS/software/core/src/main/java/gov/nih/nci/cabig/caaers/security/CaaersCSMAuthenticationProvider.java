@@ -85,6 +85,7 @@ public class CaaersCSMAuthenticationProvider extends CSMAuthenticationProvider {
 
                     credential.setUser(caaersUser);
                     loginPolicyValidator.validate(passwordPolicy, credential, null);
+                    super.additionalAuthenticationChecks(user, token);
 
                 }
 		} catch (DisabledException attemptsEx) {
@@ -94,6 +95,8 @@ public class CaaersCSMAuthenticationProvider extends CSMAuthenticationProvider {
 			throw attemptsEx;
 		} catch (LockedException lockEx) {
 			// This exception is thrown when user tries to login while the account is locked.
+            newFailedDate = new Date();
+            newFailedLogins = previousFailedLogins;
 			throw lockEx;
 		}catch (CredentialsExpiredException oldEx) {
 			// This exception is thrown when the password is too old.
@@ -110,6 +113,8 @@ public class CaaersCSMAuthenticationProvider extends CSMAuthenticationProvider {
 			if(caaersUser != null) {
                 if( (newFailedLogins != previousFailedLogins) || DateUtils.compateDateAndTime(previousFailedDate, newFailedDate) != 0 ) {
                     try {
+                        caaersUser.setFailedLoginAttempts(newFailedLogins);
+                        caaersUser.setLastFailedLoginAttemptTime(newFailedDate);
                         userRepository.save(caaersUser);
                     }catch (StaleObjectStateException  | ConcurrencyFailureException ignore) {
                         if(logger.isDebugEnabled()) {

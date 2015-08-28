@@ -70,9 +70,10 @@ public class SAEAdverseEventReportingPeriodConverter {
             rp.setEpoch(new Epoch());
             rp.getEpoch().setName(course.getTreatmentType());
         }
+        String desc = course.getOtherTreatmentAssignmentDescription();
         if(course.getTreatmentAssignmentCode() !=null ) {
             String code = course.getTreatmentAssignmentCode();
-            String desc = course.getOtherTreatmentAssignmentDescription();
+
 
             //other TAC ?
             if(StringUtils.equalsIgnoreCase("other", code)) {
@@ -85,6 +86,8 @@ public class SAEAdverseEventReportingPeriodConverter {
                 ta.setStudy(study);
                 rp.setTreatmentAssignment(ta);
             }
+        } else {
+            rp.setTreatmentAssignmentDescription(desc);
         }
 
         if(course.getStartDateOfFirstCourse() != null){

@@ -7,10 +7,7 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
 import gov.nih.nci.cabig.caaers.domain.AbstractIdentifiableDomainObject;
-import gov.nih.nci.cabig.caaers.domain.Identifier;
-import gov.nih.nci.cabig.caaers.domain.OrganizationAssignedIdentifier;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +18,13 @@ import java.util.List;
  *
  * @param <E>
  */
-public class IdentifierSynchronizer<E extends AbstractIdentifiableDomainObject> implements Migrator<E> {
+public class IdentifierSynchronizer<E extends AbstractIdentifiableDomainObject> implements Synchronizer<E> {
 
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(E dbObj, E xmlObj,
 			DomainObjectImportOutcome<E> outcome) {
 		

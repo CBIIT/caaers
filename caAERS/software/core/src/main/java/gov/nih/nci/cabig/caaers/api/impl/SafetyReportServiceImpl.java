@@ -30,7 +30,6 @@ import gov.nih.nci.cabig.caaers.integration.schema.aereport.BaseAdverseEventRepo
 import gov.nih.nci.cabig.caaers.integration.schema.aereport.BaseReportType;
 import gov.nih.nci.cabig.caaers.integration.schema.aereport.BaseReports;
 import gov.nih.nci.cabig.caaers.integration.schema.aereportid.ReportIdCriteria;
-import gov.nih.nci.cabig.caaers.integration.schema.aereportid.SafetyReportIdentifer;
 import gov.nih.nci.cabig.caaers.integration.schema.common.CaaersServiceResponse;
 import gov.nih.nci.cabig.caaers.integration.schema.common.ResponseDataType;
 import gov.nih.nci.cabig.caaers.integration.schema.common.ServiceResponse;
@@ -50,14 +49,17 @@ import gov.nih.nci.cabig.caaers.utils.DateUtils;
 import gov.nih.nci.cabig.caaers.validation.CaaersValidationException;
 import gov.nih.nci.cabig.caaers.validation.ValidationError;
 import gov.nih.nci.cabig.caaers.validation.ValidationErrors;
+import gov.nih.nci.cabig.caaers.ws.faults.CaaersFault;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
@@ -77,9 +79,8 @@ public class SafetyReportServiceImpl {
     private ParticipantDao participantDao;
 
     private StudyDao studyDao;
-    
 
-    private MessageSource messageSource;
+	private MessageSource messageSource;
     
     private ExpeditedAdverseEventReportDao expeditedAdverseEventReportDao;
     private StudyParticipantAssignmentDao studyParticipantAssignmentDao;
@@ -307,11 +308,11 @@ public class SafetyReportServiceImpl {
     	String externalId = aeSrcReport.getExternalId();
         ExpeditedAdverseEventReport dbReport = null;
     	if(StringUtils.isEmpty(externalId)) {
-        	SafetyReportIdentifer newReportId = idServiceImpl.generateSafetyReportId(new ReportIdCriteria());
-        	aeSrcReport.setExternalId(newReportId.getSafetyReportId());
+            String newReportId = generateSafetyReportId();
+        	aeSrcReport.setExternalId(newReportId);
         	List<Report> reports = aeSrcReport.getReports();
         	for (Report report : reports) {
-				report.setCaseNumber(newReportId.getSafetyReportId());
+				report.setCaseNumber(newReportId);
 			}
         } else {
         	dbReport = externalId != null ? expeditedAdverseEventReportDao.getByExternalId(externalId) : null;
@@ -319,67 +320,73 @@ public class SafetyReportServiceImpl {
     	
     	return dbReport;
     }
-    
+
+    private String generateSafetyReportId() {
+        return idServiceImpl.generateSafetyReportId(new ReportIdCriteria()).getSafetyReportId();
+    }
+
     /**
-     * Will initiate an safety reporting action, and return the Report Id
+     * Will initiate an safety reporting action, and return the data-collection
      * @param aeSrcReport
-     * @param dbReport
+     * @param caaersServiceResponseWrapper
      * @param errors
      * @return
      */
-    public ExpeditedAdverseEventReport initiateSafetyReportAction(ExpeditedAdverseEventReport aeSrcReport, CaaersServiceResponse caaersServiceResponse, ValidationErrors errors, boolean ignoreER_CA1){
-    	
-    	//Determine the flow, create vs update
-        ExpeditedAdverseEventReport dbReport = getOrSetReportId(aeSrcReport);
-        
-        List<Report> reportsAffected = new ArrayList<Report>();
+    public ExpeditedAdverseEventReport initiateSafetyReportAction(ExpeditedAdverseEventReport aeSrcReport, CaaersServiceResponseWrapper caaersServiceResponseWrapper, ValidationErrors errors) {
+
+        //migrate data-collection
         ExpeditedAdverseEventReport aeDestReport = new ExpeditedAdverseEventReport();
-        
         migrate(aeSrcReport, aeDestReport, errors);
-        if(ignoreER_CA1) errors.removeErrorsWithCode("ER-CA-1");
         if(errors.hasErrors()) return aeDestReport;
-        
+
+        //transfer subject if needed
+        transferStudySubjectIfRequired(aeSrcReport, aeDestReport, errors);
+        if(errors.hasErrors()) return aeDestReport;
+
+
+        boolean fireExpeditedReportCreationEvent = false;
+
+        //Determine the flow, create vs update
+        ExpeditedAdverseEventReport dbReport = getOrSetReportId(aeSrcReport);
+
+        List<Report> reportsAffected = new ArrayList<Report>();
         if(dbReport != null) {
-	        DomainObjectImportOutcome<ExpeditedAdverseEventReport> outCome = new DomainObjectImportOutcome<ExpeditedAdverseEventReport>();
+             //update flow - synchronize the data-collections
+            DomainObjectImportOutcome<ExpeditedAdverseEventReport> outCome = new DomainObjectImportOutcome<ExpeditedAdverseEventReport>();
+            outCome.setContext("initiate");
 	        aeReportSynchronizer.migrate(aeDestReport, dbReport, outCome);
 
 	        if(outCome.hasErrors()) errors.addValidationErrors(outCome.getValidationErrors().getErrors());
-	        if(ignoreER_CA1) errors.removeErrorsWithCode("ER-CA-1");
             if(errors.hasErrors()) return aeDestReport;
-        }
 
-        transferStudySubjectIfRequired(aeSrcReport, aeDestReport, errors);
-        if(ignoreER_CA1) errors.removeErrorsWithCode("ER-CA-1");
-        if(errors.hasErrors()) return aeDestReport;
-
-        if(dbReport == null){
-            //create flow
-        	// Deep copy the reports as it is throwing ConcurrentModification Exception.
-        	aeDestReport.updateAESignatures();
-	        expeditedAdverseEventReportDao.save(aeDestReport);
-            List<Report> reports = new ArrayList<Report>(aeDestReport.getReports());
-            aeDestReport.getReports().clear();
-            // Save the report(s) after Migration.
-            for ( Report rpt: reports )    {
-            	Report createdReport = createReport(rpt, aeDestReport);
-                reportsAffected.add(createdReport);
-                if(caaersServiceResponse != null){
-                	buildReportInformationOutput(createdReport, caaersServiceResponse, ActionType.CREATE);
-                }
-            }
-            //only fire event in create flow
-            if(getEventFactory() != null) getEventFactory().publishEntityModifiedEvent(aeDestReport);
-        }else{
-            //update flow
-        	dbReport.updateAESignatures();
-        	expeditedAdverseEventReportDao.save(dbReport);
+            dbReport.updateAESignatures();
+            expeditedAdverseEventReportDao.save(dbReport);
             for(Report r : dbReport.getActiveReports()) {
                 reportRepository.save(r);
             }
-        	inferReportingAction(aeSrcReport, dbReport,	aeDestReport, reportsAffected, caaersServiceResponse);
+
+
+        } else {
+
+            //create flow - so lets only create the data collection
+            aeDestReport.updateAESignatures();
+            List<Report> reportsToCreate = aeDestReport.getReports();
+            aeDestReport.setReports(new ArrayList<Report>()); //clear off the reports so that later we can create it.
+            expeditedAdverseEventReportDao.save(aeDestReport);
+            dbReport = aeDestReport;
+
+            //now create a new dummy expedited report to hold the Reports.
+            aeDestReport = new ExpeditedAdverseEventReport();
+            aeDestReport.setReports(reportsToCreate);
+
+            fireExpeditedReportCreationEvent = true;
         }
+        caaersServiceResponseWrapper.addAdditionalInfo("reportsAffected", reportsAffected);
 
+        inferReportingAction(aeSrcReport, dbReport,	aeDestReport, reportsAffected, caaersServiceResponseWrapper);
 
+        //only fire event in create flow
+        if(getEventFactory() != null && fireExpeditedReportCreationEvent ) getEventFactory().publishEntityModifiedEvent(aeDestReport);
         return aeDestReport;
     }
 
@@ -418,7 +425,7 @@ public class SafetyReportServiceImpl {
     }
     
 
-	private void inferReportingAction(ExpeditedAdverseEventReport aeSrcReport, ExpeditedAdverseEventReport dbReport, ExpeditedAdverseEventReport aeDestReport, List<Report> reportsAffected, CaaersServiceResponse caaersServiceResponse) {
+	private void inferReportingAction(ExpeditedAdverseEventReport aeSrcReport, ExpeditedAdverseEventReport dbReport, ExpeditedAdverseEventReport aeDestReport, List<Report> reportsAffected, CaaersServiceResponseWrapper caaersServiceResponseWrapper) {
 		
 		 //Withdraw active reports
 		 //find active reports that are eligible for withdraw
@@ -431,8 +438,8 @@ public class SafetyReportServiceImpl {
 	    		for(Report withdrawableReport : withdrawableReports){
 	    			if(withdrawableReport.isSameReportByCaseNumberOrReportDefinition(report)){
 	    				 withdrawReport(withdrawableReport, dbReport);
-	    	             if(caaersServiceResponse != null){
-	    	                buildReportInformationOutput(withdrawableReport, caaersServiceResponse, ActionType.WITHDRAW);
+	    	             if(caaersServiceResponseWrapper != null){
+	    	                buildReportInformationOutput(withdrawableReport, caaersServiceResponseWrapper, ActionType.WITHDRAW);
 	    	             }
 	    			}
 	    		}
@@ -477,23 +484,23 @@ public class SafetyReportServiceImpl {
                 for(Report  report: reportsToAmend){
                 	amendReport(report, dbReport);
                     //reportsAffected.add(createReport(srcReport, dbReport));
-                	if(caaersServiceResponse != null){
-                		buildReportInformationOutput(report, caaersServiceResponse, ActionType.AMEND);
+                	if(caaersServiceResponseWrapper != null){
+                		buildReportInformationOutput(report, caaersServiceResponseWrapper, ActionType.AMEND);
                 	}
                 }
                 List<Report> reportsToWithdraw = dbReport.findReportsToWithdraw(srcReport.getReportDefinition());
                 for(Report  report: reportsToWithdraw){
                     withdrawReport(report, dbReport);
-                    if(caaersServiceResponse != null){
-                    	buildReportInformationOutput(report, caaersServiceResponse, ActionType.WITHDRAW);
+                    if(caaersServiceResponseWrapper != null){
+                    	buildReportInformationOutput(report, caaersServiceResponseWrapper, ActionType.WITHDRAW);
                     }
                 }
                 List<Report> reportsToEdit = dbReport.findReportsToEdit(srcReport.getReportDefinition());
                 if(reportsToEdit.isEmpty()) {
                 	Report createdReport = createReport(srcReport, dbReport);
                     reportsAffected.add(createdReport);
-                    if(caaersServiceResponse != null){
-                    	buildReportInformationOutput(createdReport, caaersServiceResponse, ActionType.CREATE);
+                    if(caaersServiceResponseWrapper != null){
+                    	buildReportInformationOutput(createdReport, caaersServiceResponseWrapper, ActionType.CREATE);
                     }
                 } else {
                 	for(Report  report: reportsToEdit){
@@ -505,8 +512,8 @@ public class SafetyReportServiceImpl {
                         if(logger.isInfoEnabled()) {
                             logger.info("Edited report : " + report.getName() + "( id :" + String.valueOf(report.getId()) + ", caseNumber:" +  srcReport.getCaseNumber() + ")");
                         }
-                		if(caaersServiceResponse != null){
-                			buildReportInformationOutput(report, caaersServiceResponse, ActionType.EDIT);
+                		if(caaersServiceResponseWrapper != null){
+                			buildReportInformationOutput(report, caaersServiceResponseWrapper, ActionType.EDIT);
                 		}
 	                }
                 }
@@ -558,89 +565,107 @@ public class SafetyReportServiceImpl {
     }
     
     @Transactional(readOnly=false)
-    public void initiateSafetyReportAction(
-			EvaluateAndInitiateInputMessage evaluateInputMessage,
-			SaveAndEvaluateAEsOutputMessage response,
-			EvaluateAndInitiateOutputMessage retVal,
-			AdverseEventReportingPeriod repPeriod) {
+    public void initiateSafetyReportAction(EvaluateAndInitiateInputMessage evaluateInputMessage,SaveAndEvaluateAEsOutputMessage response,
+			EvaluateAndInitiateOutputMessage retVal,AdverseEventReportingPeriod repPeriod) {
     	
-    	boolean replace = false;
+
     	RecommendedActions withdrawAction = null;
 		RecommendedActions createAction = null;
+		RecommendedActions amendAction = null;
+
+        boolean explicitWithdraw = false;
+        boolean replace = false;
+        boolean withdraw = false;
+        boolean create = false;
+        boolean amend = false;
+
+        ExpeditedAdverseEventReport aeSrcReport = evaluateAndInitiateReportConverter.convert(evaluateInputMessage, repPeriod, response);
+        ValidationErrors errors = new ValidationErrors();
 		List<RecommendedActions> recActions = response.getRecommendedActions();
-    	if(response.getRecommendedActions().size() > 1) {
-    		boolean withdraw = false;
-    		boolean create = false;
-    		boolean amend = false;
-    		RecommendedActions amendAction = null;
-			for(RecommendedActions action : response.getRecommendedActions()) {
-				if(!withdraw && "Withdraw".equalsIgnoreCase(action.getAction())) {
-					withdraw = true;
-					withdrawAction = action;
-				}
-				if(!create && "Create".equalsIgnoreCase(action.getAction())) {
-					create = true;
-					createAction = action;
-				}
-				if(!amend && "Amend".equalsIgnoreCase(action.getAction())) {
-					amend = true;
-					amendAction = action;
-				}
+
+        //explicit withdraw request ?
+		if( BooleanUtils.isTrue(evaluateInputMessage.isWithdrawReport()) ) {
+
+            explicitWithdraw = true;
+            if(!recActions.isEmpty()) {
+                final RecommendedActions action = recActions.get(0);
+                action.setAction("Withdraw");
+                action.setActionText("Withdraw the " + action.getReport());
+                action.setDue("Never");
+                action.setDueDate(null);
+                response.getRecommendedActions().clear();
+                response.getRecommendedActions().add(action);
+            }
+
+		} else {
+            //not an explicit withdraw, so perform all the recommendations
+    		amendAction = findRecommendedActions(recActions, ActionType.AMEND);
+    		createAction = findRecommendedActions(recActions, ActionType.CREATE);
+    		withdrawAction = findRecommendedActions(recActions, ActionType.WITHDRAW);
+
+            withdraw = withdrawAction != null;
+            amend = amendAction != null;
+            create = createAction != null;
+            replace = create && withdraw;
+
+            if(replace) {
+                aeSrcReport.removeReport(withdrawAction.getReport());
+			} else if (amend && create) {
+                aeSrcReport.removeReport(amendAction.getReport());
 			}
-			
-			replace = create && withdraw;
-			
-			response.setRecommendedActions(new ArrayList<RecommendedActions>());
-			if(withdraw) {
-				response.getRecommendedActions().add(withdrawAction);
-			} else if (amend) {
-				response.getRecommendedActions().add(amendAction);
-			} else if (create) {
-				response.getRecommendedActions().add(createAction);
-			} else {
-				response.setRecommendedActions(recActions);
-			}
 		}
-		
-		CaaersServiceResponse caaersServiceResponse = Helper.createResponse();
-		ExpeditedAdverseEventReport aeSrcReport = evaluateAndInitiateReportConverter.convert(evaluateInputMessage, repPeriod, response);
-		ValidationErrors errors = new ValidationErrors();
-		
-		initiateSafetyReportAction(aeSrcReport, caaersServiceResponse, errors, true);
-		
-		errors.removeErrorsWithCode("ER-CA-1");
-		
-		if(errors.getErrorCount() > 0) {
-			throw new CaaersValidationException(errors.toString());
-		}
-		
-		if(replace) {
-			response.getRecommendedActions().clear();
-			response.getRecommendedActions().add(createAction);
-			evaluateInputMessage.setReportId(null);
-			aeSrcReport = evaluateAndInitiateReportConverter.convert(evaluateInputMessage, repPeriod, response);
-			initiateSafetyReportAction(aeSrcReport, caaersServiceResponse, errors, true);
-		}
-		
-		retVal.setReportId(aeSrcReport.getExternalId());
-		
-		errors.removeErrorsWithCode("ER-CA-1");
-		
-		if(errors.getErrorCount() > 0) {
-			throw new CaaersValidationException(errors.toString());
-		}
-		
-		response.setRecommendedActions(recActions);
-	}
+
+        //CAAERS-7414 - always respond with a report-id
+        String caseNumber = aeSrcReport.getExternalId();
+        if(!explicitWithdraw && StringUtils.isEmpty(caseNumber)) {
+            caseNumber = generateSafetyReportId();
+            aeSrcReport.setExternalId(caseNumber);
+            for(Report report : aeSrcReport.getReports()) report.setCaseNumber(caseNumber);
+        }
+        retVal.setReportId(caseNumber);
+
+
+
+        //perform the recomended action
+        CaaersServiceResponseWrapper caaersServiceResponseWrapper = Helper.createResponseWrapper();
+        if(!response.getRecommendedActions().isEmpty()) {
+
+            initiateSafetyReportAction(aeSrcReport, caaersServiceResponseWrapper, errors);
+            //are there errors ?
+            if(errors.getErrorCount() > 0) {
+                throw new CaaersValidationException(errors.toString());
+            }
+        }
+
+
+
+        //update the amendment number if the report is amendable.
+        for(RecommendedActions action : recActions) {
+            if(StringUtils.equalsIgnoreCase(action.getAction(), "Create")) {
+                action.setStatus("In process");
+            }
+            String due = (String)caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_displayDue");
+            String dueDate = (String)caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_due");
+            if(StringUtils.isNotEmpty(due)) action.setDue(due);
+            if(StringUtils.isNotEmpty(dueDate)) action.setDueDate(dueDate);
+            Boolean amendable = (Boolean) caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_amendable");
+            String strAmendmentNumber = (String) caaersServiceResponseWrapper.getAdditionalInfo(action.getReport() + "_amendmentNumber");
+            BigInteger amendmentNumber = NumberUtils.isNumber(strAmendmentNumber) ? new BigInteger(strAmendmentNumber) : null;
+            if(BooleanUtils.isTrue(amendable)) {
+                action.setAmendmentNumber(amendmentNumber);
+            }
+        }
+
+    }
     
     /**
      * Will initiate the safety reporting action
-     * @param adverseEventReport
-     * @return
-     */
+     * @param baseAadverseEventReport
+     * @return                                                                                                 */
     @Transactional(readOnly=false)
     public CaaersServiceResponse initiateSafetyReportAction(BaseAdverseEventReport baseAadverseEventReport) throws Exception {
-        CaaersServiceResponse caaersServiceResponse = Helper.createResponse();
+        CaaersServiceResponseWrapper caaersServiceResponseWrapper = Helper.createResponseWrapper();
+        CaaersServiceResponse caaersServiceResponse = caaersServiceResponseWrapper.getCaaersServiceResponse();
         
         ValidationErrors errors = new ValidationErrors();
         ExpeditedAdverseEventReport aeSrcReport = null;
@@ -661,7 +686,7 @@ public class SafetyReportServiceImpl {
             caaersServiceResponse.getServiceResponse().setResponseData(rdType);
             rdType.setAny(new BaseReports());
 
-            initiateSafetyReportAction(aeSrcReport, caaersServiceResponse, errors, false);
+            initiateSafetyReportAction(aeSrcReport, caaersServiceResponseWrapper, errors);
 
             if(errors.hasErrors())  {
                 expeditedAdverseEventReportDao.clearSession();
@@ -720,6 +745,32 @@ public class SafetyReportServiceImpl {
         }
         return response;
     }
+    
+    // CAAERS-7414 validate if reportId is consistent with reporting period attributes
+    public void validateReportIdAndAdverseEventReportingPeriodAttributes(ExpeditedAdverseEventReport aeReport, ValidationErrors errors)
+			throws CaaersFault {
+    	
+    	if(StringUtils.isBlank(aeReport.getExternalId())){
+    		return;
+    	}
+
+    	// find reporting period attributes from input
+		Date startDateSrc = aeReport.getReportingPeriod().getStartDate();
+		Integer cycleNumberSrc = aeReport.getReportingPeriod().getCycleNumber();
+		String  tAC = null;
+		if(aeReport.getReportingPeriod().getTreatmentAssignment() != null){
+			tAC = aeReport.getReportingPeriod().getTreatmentAssignment().getCode();
+		}
+
+		ExpeditedAdverseEventReport dbReport = expeditedAdverseEventReportDao
+				.getByExternalId(aeReport.getExternalId());
+		if (dbReport != null) {
+			if (!dbReport.getReportingPeriod().hasSameCoreAttributes(cycleNumberSrc, 
+					startDateSrc,tAC)) {
+				errors.addValidationError("WS_GEN_SRS1", "Reporting Period with given attributes is not found in the report with id " +  dbReport.getExternalId() + ".");
+			}
+		}
+	}
 
     /**
      * Will save the ExpeditedAdverseEventReport
@@ -740,24 +791,36 @@ public class SafetyReportServiceImpl {
     }
     
     
-    private void buildReportInformationOutput(Report report, CaaersServiceResponse caaersServiceResponse, ActionType actionType){
+    private void buildReportInformationOutput(Report report, CaaersServiceResponseWrapper caaersServiceResponseWrapper, ActionType actionType){
+         CaaersServiceResponse caaersServiceResponse = caaersServiceResponseWrapper.getCaaersServiceResponse();
+         String reportName = report.getName();
+        caaersServiceResponseWrapper.addAdditionalInfo(reportName  , report);
+
     	 BaseReportType baseReport = new BaseReportType();
     	 baseReport.setReportID(report.getAeReport().getExternalId());
     	 
     	 baseReport.setAction(actionType.getDisplayName());
     	 if(report.getLastVersion().getAmendmentNumber() != null) {
     		 baseReport.setAmendmentNumber(report.getLastVersion().getAmendmentNumber().toString());
+             caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_amendmentNumber" , baseReport.getAmendmentNumber());
     	 }
+         caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_amendable" , report.getReportDefinition().getAmendable());
     	 baseReport.setReportName(report.getReportDefinition().getName());
     	 baseReport.setCaseNumber(report.getCaseNumber());
+         caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_caseNumber", report.getCaseNumber());
          if((report.getStatus() == ReportStatus.AMENDED || report.getStatus() == ReportStatus.PENDING || report.getStatus() == ReportStatus.FAILED || 
         		 report.getStatus() == ReportStatus.INPROCESS) && report.getDueOn() != null){
         	baseReport.setDueDate(DateUtils.formatToWSResponseDateWithTimeZone(report.getDueOn()));
+            caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_due" , baseReport.getDueDate());
+            caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_displayDue" , report.getReportDefinition().getDueInGivenDueDate(report.getDueOn()));
          }
+
          // set action text https://tracker.nci.nih.gov/browse/CAAERS-6962
          baseReport.setActionText(actionType.name().substring(0, 1).toUpperCase() + 
         		 actionType.name().substring(1, actionType.name().length()).toLowerCase()  +
         		 " the " + report.getReportDefinition().getName());
+         caaersServiceResponseWrapper.addAdditionalInfo(reportName +"_actionText", baseReport.getActionText());
+
          ServiceResponse serviceResponse = caaersServiceResponse.getServiceResponse();
          if(serviceResponse == null) {
         	 serviceResponse = new ServiceResponse();
@@ -789,7 +852,7 @@ public class SafetyReportServiceImpl {
      */
     public ValidationErrors createOrUpdateSafetyReport(AdverseEventReport adverseEventReport, List<Report> reportsAffected) throws Exception {
        ValidationErrors errors = new ValidationErrors();
-        ExpeditedAdverseEventReport aeSrcReport = null;
+       ExpeditedAdverseEventReport aeSrcReport = null;
 
         try {
 
@@ -806,6 +869,7 @@ public class SafetyReportServiceImpl {
 		   
 
            //2. Do some basic validations (if needed)
+        	validateReportIdAndAdverseEventReportingPeriodAttributes(aeSrcReport, errors);
            //3. Determine the flow, create vs update
            String externalId = aeSrcReport.getExternalId();
            ExpeditedAdverseEventReport dbAeReport = externalId != null ? expeditedAdverseEventReportDao.getByExternalId(externalId) : null;
@@ -830,6 +894,14 @@ public class SafetyReportServiceImpl {
 	   }
        return errors;
 	}
+
+    private RecommendedActions findRecommendedActions(List<RecommendedActions> recomendActionsList, ActionType actionType) {
+        if(recomendActionsList == null) return null;
+        for(RecommendedActions actions : recomendActionsList) {
+            if(StringUtils.equalsIgnoreCase(actionType.name(), actions.getAction())) return actions;
+        }
+        return null;
+    }
     
     public BaseExpeditedAdverseEventReportConverter getBaseEaeConverter() {
 		return baseEaeConverter;

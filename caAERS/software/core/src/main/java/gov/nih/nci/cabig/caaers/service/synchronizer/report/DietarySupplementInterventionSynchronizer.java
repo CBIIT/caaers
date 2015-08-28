@@ -1,9 +1,9 @@
 package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
-import gov.nih.nci.cabig.caaers.domain.BiologicalIntervention;
 import gov.nih.nci.cabig.caaers.domain.DietarySupplementIntervention;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,6 +11,12 @@ import java.util.List;
  * @since 1.5
  */
 public class DietarySupplementInterventionSynchronizer extends AbstractAEInterventionSynchronizer {
+
+    private List<String> context = Arrays.asList("e2b");
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
     @Override
     public List<DietarySupplementIntervention> existingInterventions(ExpeditedAdverseEventReport aeReport) {
         return aeReport.getDietaryInterventions();

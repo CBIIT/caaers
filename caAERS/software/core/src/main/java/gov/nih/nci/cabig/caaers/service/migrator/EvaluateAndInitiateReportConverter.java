@@ -6,6 +6,7 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.migrator;
 
+import com.aparzev.lang.StringUtils;
 import gov.nih.nci.cabig.caaers.dao.StudyDao;
 import gov.nih.nci.cabig.caaers.dao.report.ReportDefinitionDao;
 import gov.nih.nci.cabig.caaers.domain.AdverseEvent;
@@ -13,7 +14,10 @@ import gov.nih.nci.cabig.caaers.domain.AdverseEventReportingPeriod;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
 import gov.nih.nci.cabig.caaers.integration.schema.saerules.EvaluateAndInitiateInputMessage;
+import gov.nih.nci.cabig.caaers.integration.schema.saerules.RecommendedActions;
 import gov.nih.nci.cabig.caaers.integration.schema.saerules.SaveAndEvaluateAEsOutputMessage;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.BooleanUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -46,17 +50,20 @@ public class EvaluateAndInitiateReportConverter {
 		aeSrcReport.setCreatedAt(now);
 		aeSrcReport.setReportingPeriod(repPeriod);
 		List<Report> reports = new ArrayList<Report>();
-		
-		if(response.getRecommendedActions() != null && response.getRecommendedActions().size() > 0) {
-			Report report = new Report();
-			report.setReportDefinition(reportDefinitionDao.getByName(response.getRecommendedActions().get(0).getReport()));
-			if(isTrue(evaluateInputMessage.isWithdrawReport()) || response.getRecommendedActions().get(0).getAction().equalsIgnoreCase("Withdraw")) {
-				report.setWithdrawnOn(now);
-			}
-			report.setCaseNumber(evaluateInputMessage.getReportId());
-			reports.add(report);
-		}
-		aeSrcReport.setReports(reports);
+        aeSrcReport.setReports(reports);
+        if(CollectionUtils.isNotEmpty(response.getRecommendedActions())) {
+            for(RecommendedActions action : response.getRecommendedActions()) {
+                Report report = new Report();
+                report.setReportDefinition(reportDefinitionDao.getByName(action.getReport()));
+                if(BooleanUtils.isTrue(evaluateInputMessage.isWithdrawReport()) || StringUtils.equalsIgnoreCase("Withdraw", action.getAction())) {
+                    report.setWithdrawnOn(now);
+                }
+
+                report.setCaseNumber(evaluateInputMessage.getReportId());
+                reports.add(report);
+            }
+        }
+
 		return aeSrcReport;
 	}
 	

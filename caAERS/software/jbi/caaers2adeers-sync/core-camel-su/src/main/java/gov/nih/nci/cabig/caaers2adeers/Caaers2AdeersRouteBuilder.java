@@ -136,7 +136,7 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
         Namespaces ns = new Namespaces("soap",  "http://schemas.xmlsoap.org/soap/envelope/");
         
 		onException(Throwable.class, Exception.class, NullPointerException.class)
-			.to("log:gov.nih.nci.cabig.caaers2adeers.general_error?showHeaders=true&multiline=true&level=ERROR")
+			.to("log:gov.nih.nci.cabig.caaers2adeers.general_error?showHeaders=true&multiline=true&level=ERROR&showException=true&showCaughtException=true")
     		.choice()
             .when(header(ToCaaersReportWSRouteBuilder.NEEDS_ACK).isEqualTo(Boolean.TRUE.toString()))
             	.processRef("errorParserProcessor")
@@ -296,8 +296,11 @@ public class Caaers2AdeersRouteBuilder extends RouteBuilder {
         from("direct:morgue")
                 .to("log:gov.nih.nci.cabig.caaers2adeers.invalid?showAll=true&level=WARN&showException=true&showStackTrace=true")
         		.process(track(REQUST_PROCESSING_ERROR, "Error"))
-                .to("xslt:xslt/caaers/response/unknown.xsl")
-                .to(fileTracker.fileURI(REQUST_PROCESSING_ERROR)) ;
+        		.to(fileTracker.fileURI(REQUST_PROCESSING_ERROR))
+        		.doTry()
+                	.to("xslt:xslt/caaers/response/unknown.xsl")
+                 .doCatch(Exception.class)                 	
+                 	.stop().end();
 
 		//invalid soap requests
         from("direct:soapfault")

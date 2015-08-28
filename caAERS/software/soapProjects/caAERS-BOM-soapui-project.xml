@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="ba9e9bfb-58eb-46a1-a8f9-4b55f42411fd" activeEnvironment="Default" name="caAERS BOM" resourceRoot="" soapui-version="5.1.3" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="ba9e9bfb-58eb-46a1-a8f9-4b55f42411fd" activeEnvironment="Default" name="caAERS BOM" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Environment" value="Default"/>
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="BOM"/>
@@ -29,7 +29,7 @@
   <con:entry key="Add Settings" value="false"/>
   <con:entry key="Endpoint" value=""/>
   <con:entry key="Select Report Type" value=""/>
-</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="d1ba52f5-648b-4eb6-b008-975c14510cc2" wsaVersion="NONE" name="SAEEvaluationWebServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://schema.integration.caaers.cabig.nci.nih.gov/saerules}SAEEvaluationWebServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl"><con:part><con:url>https://dev.semanticbits.com/caaers/services/SAEEvaluationService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SAEEvaluationWebServiceImplService" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:ns1="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="d1ba52f5-648b-4eb6-b008-975c14510cc2" wsaVersion="NONE" name="SAEEvaluationWebServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://schema.integration.caaers.cabig.nci.nih.gov/saerules}SAEEvaluationWebServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl"><con:part><con:url>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SAEEvaluationWebServiceImplService" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:ns1="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
     <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns="http://schema.integration.caaers.cabig.nci.nih.gov/common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="treatmentAssignment" type="TreatmentAssignmentType"/>
@@ -1050,16 +1050,16 @@
           </xs:complexContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="saveAndEvaluateAEs" type="saveAndEvaluateAEs"/>
-      <xs:complexType name="saveAndEvaluateAEs">
+      <xs:element name="EvaluateAndInitiate" type="EvaluateAndInitiate"/>
+      <xs:complexType name="EvaluateAndInitiate">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsInputMessage"/>
+          <xs:element minOccurs="0" ref="EvaluateAndInitiateInputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="saveAndEvaluateAEsResponse" type="saveAndEvaluateAEsResponse"/>
-      <xs:complexType name="saveAndEvaluateAEsResponse">
+      <xs:element name="EvaluateAndInitiateResponse" type="EvaluateAndInitiateResponse"/>
+      <xs:complexType name="EvaluateAndInitiateResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsOutputMessage"/>
+          <xs:element minOccurs="0" ref="EvaluateAndInitiateOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="evaluateAEs" type="evaluateAEs"/>
@@ -1074,16 +1074,16 @@
           <xs:element minOccurs="0" ref="EvaluateAEsOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="EvaluateAndInitiate" type="EvaluateAndInitiate"/>
-      <xs:complexType name="EvaluateAndInitiate">
+      <xs:element name="saveAndEvaluateAEs" type="saveAndEvaluateAEs"/>
+      <xs:complexType name="saveAndEvaluateAEs">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="EvaluateAndInitiateInputMessage"/>
+          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsInputMessage"/>
         </xs:sequence>
       </xs:complexType>
-      <xs:element name="EvaluateAndInitiateResponse" type="EvaluateAndInitiateResponse"/>
-      <xs:complexType name="EvaluateAndInitiateResponse">
+      <xs:element name="saveAndEvaluateAEsResponse" type="saveAndEvaluateAEsResponse"/>
+      <xs:complexType name="saveAndEvaluateAEsResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" ref="EvaluateAndInitiateOutputMessage"/>
+          <xs:element minOccurs="0" ref="SaveAndEvaluateAEsOutputMessage"/>
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
@@ -1098,7 +1098,7 @@
             <xs:element minOccurs="0" name="physician" type="PhysicianType"/>
             <xs:element name="reporter" type="ReporterType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="reportedAE" type="ReportedAE"/>
-            <xs:element maxOccurs="unbounded" minOccurs="1" name="report" type="ReportType"/>
+            <xs:element maxOccurs="unbounded" name="report" type="ReportType"/>
             <xs:element minOccurs="0" name="externalId" type="xs:string"/>
           </xs:sequence>
         </xs:complexType>
@@ -1140,14 +1140,14 @@
             <xs:element minOccurs="0" name="investigationalDeviceAdministered" type="xs:boolean"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="medicalDevice" type="MedicalDeviceType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="concomitantMedication" type="ConcomitantMedicationType"/>
-            <xs:element maxOccurs="unbounded" minOccurs="1" name="adverseEvent" type="AdverseEventType"/>
+            <xs:element maxOccurs="unbounded" name="adverseEvent" type="AdverseEventType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="lab" type="LabType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="sAEReportPriorTherapy" type="SAEReportPriorTherapyType"/>
             <xs:element minOccurs="0" name="treatmentInformation" type="TreatmentInformationType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="sAEReportPreExistingCondition" type="SAEReportPreExistingConditionType"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="otherCause" type="OtherCauseType"/>
             <xs:element minOccurs="0" name="additionalInformation" type="AdditionalInformationType"/>
-            <xs:element maxOccurs="unbounded" minOccurs="1" name="report" type="ReportType"/>
+            <xs:element maxOccurs="unbounded" name="report" type="ReportType"/>
             <xs:element minOccurs="0" name="externalId" type="xs:string"/>
           </xs:sequence>
         </xs:complexType>
@@ -1215,29 +1215,29 @@
       </xs:complexType>
       <xs:complexType name="PhysicianType">
         <xs:sequence>
-          <xs:element name="firstName" type="xs:string"/>
-          <xs:element name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="middleName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="street" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="city" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="state" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="zip" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="city" type="xs:string"/>
+          <xs:element minOccurs="0" name="state" type="xs:string"/>
+          <xs:element minOccurs="0" name="zip" type="xs:string"/>
+          <xs:element minOccurs="0" name="country" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contactMechanism" type="ContactMechanismType"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="ReporterType">
         <xs:sequence>
-          <xs:element name="firstName" type="xs:string"/>
-          <xs:element name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="middleName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="street" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="city" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="state" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="zip" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="city" type="xs:string"/>
+          <xs:element minOccurs="0" name="state" type="xs:string"/>
+          <xs:element minOccurs="0" name="zip" type="xs:string"/>
+          <xs:element minOccurs="0" name="country" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contactMechanism" type="ContactMechanismType"/>
         </xs:sequence>
       </xs:complexType>
@@ -1247,11 +1247,11 @@
           <xs:element name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="middleName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="street" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="city" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="state" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="zip" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="city" type="xs:string"/>
+          <xs:element minOccurs="0" name="state" type="xs:string"/>
+          <xs:element minOccurs="0" name="zip" type="xs:string"/>
+          <xs:element minOccurs="0" name="country" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contactMechanism" type="ContactMechanismType"/>
         </xs:sequence>
       </xs:complexType>
@@ -1260,11 +1260,11 @@
           <xs:element name="firstName" type="xs:string"/>
           <xs:element name="lastName" type="xs:string"/>
           <xs:element minOccurs="0" name="nciIdentifier" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="street" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="city" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="state" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="zip" type="xs:string"/>
-          <xs:element maxOccurs="1" minOccurs="0" name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="city" type="xs:string"/>
+          <xs:element minOccurs="0" name="state" type="xs:string"/>
+          <xs:element minOccurs="0" name="zip" type="xs:string"/>
+          <xs:element minOccurs="0" name="country" type="xs:string"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contactMechanism" type="ContactMechanismType"/>
         </xs:sequence>
       </xs:complexType>
@@ -1335,7 +1335,7 @@
       </xs:complexType>
       <xs:complexType name="StudyRefType">
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="identifiers">
+          <xs:element name="identifiers">
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="identifier" type="ReducedIdentifierType"/>
@@ -1363,8 +1363,8 @@
       <xs:element name="organizationRef" type="OrganizationRefType"/>
       <xs:complexType name="OrganizationRefType">
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="name" type="cct:CustomStringType"/>
-          <xs:element maxOccurs="1" minOccurs="1" name="nciInstituteCode" type="cct:CustomStringType"/>
+          <xs:element name="name" type="cct:CustomStringType"/>
+          <xs:element name="nciInstituteCode" type="cct:CustomStringType"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="systemAssignedIdentifier" type="SystemAssignedIdentifierType"/>
@@ -1443,24 +1443,24 @@
       </xs:simpleType>
       <xs:complexType name="ParticipantType">
         <xs:sequence>
-          <xs:element maxOccurs="1" minOccurs="1" name="firstName" type="FirstAndLastNameType"/>
-          <xs:element maxOccurs="1" minOccurs="1" name="lastName" type="FirstAndLastNameType"/>
+          <xs:element name="firstName" type="FirstAndLastNameType"/>
+          <xs:element name="lastName" type="FirstAndLastNameType"/>
           <xs:element minOccurs="0" name="maidenName" type="MiddleAndMaidenNameType"/>
           <xs:element minOccurs="0" name="middleName" type="MiddleAndMaidenNameType"/>
           <xs:choice>
             <xs:element name="birthDate" type="xs:date"/>
             <xs:sequence>
-              <xs:element maxOccurs="1" minOccurs="1" name="birthMonth" type="cct:CustomMonthType"/>
-              <xs:element maxOccurs="1" minOccurs="1" name="birthYear" type="cct:CustomDateType"/>
+              <xs:element name="birthMonth" type="cct:CustomMonthType"/>
+              <xs:element name="birthYear" type="cct:CustomDateType"/>
             </xs:sequence>
           </xs:choice>
-          <xs:element maxOccurs="1" minOccurs="1" name="gender" type="GenderType"/>
-          <xs:element maxOccurs="1" minOccurs="1" name="race" type="RaceType"/>
-          <xs:element maxOccurs="1" minOccurs="1" name="ethnicity" type="EthnicityType"/>
-          <xs:element maxOccurs="1" minOccurs="1" name="identifiers">
+          <xs:element name="gender" type="GenderType"/>
+          <xs:element name="race" type="RaceType"/>
+          <xs:element name="ethnicity" type="EthnicityType"/>
+          <xs:element name="identifiers">
             <xs:complexType>
               <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="1" ref="organizationAssignedIdentifier"/>
+                <xs:element maxOccurs="unbounded" ref="organizationAssignedIdentifier"/>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="systemAssignedIdentifier"/>
               </xs:sequence>
             </xs:complexType>
@@ -1631,8 +1631,8 @@
           <xs:element minOccurs="0" name="lastAdministeredDate" type="xs:date"/>
           <xs:element minOccurs="0" name="totalDoseAdministeredThisCourse" type="xs:decimal"/>
           <xs:sequence minOccurs="0">
-            <xs:element minOccurs="1" name="administrationDelayAmount" type="xs:decimal"/>
-            <xs:element minOccurs="1" name="administrationDelayUnits" type="DelayUnitsType"/>
+            <xs:element name="administrationDelayAmount" type="xs:decimal"/>
+            <xs:element name="administrationDelayUnits" type="DelayUnitsType"/>
           </xs:sequence>
           <xs:element minOccurs="0" name="durationAndSchedule" type="xs:string"/>
           <xs:element minOccurs="0" name="dose" type="DoseType"/>
@@ -1949,7 +1949,6 @@
           <xs:element minOccurs="0" name="correlationId" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
-      <!--FIXED Types-->
       <xs:simpleType name="ReviewStatusType">
         <xs:restriction base="xs:string">
           <xs:enumeration value="DRAFT_INCOMPLETE"/>
@@ -2012,15 +2011,10 @@
       <xs:simpleType name="AttributionType">
         <xs:restriction base="xs:int">
           <xs:enumeration value="1"/>
-          <!--UNRELATED-->
           <xs:enumeration value="2"/>
-          <!--UNLIKELY-->
           <xs:enumeration value="3"/>
-          <!--POSSIBLE-->
           <xs:enumeration value="4"/>
-          <!--PROBABLE-->
           <xs:enumeration value="5"/>
-          <!--DEFINITE-->
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType name="ReprocessedDeviceType">
@@ -2071,11 +2065,14 @@
       </xs:simpleType>
     </xs:schema>
   </wsdl:types>
-  <wsdl:message name="evaluateAEs">
-    <wsdl:part element="tns:evaluateAEs" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="evaluateAEsResponse">
     <wsdl:part element="tns:evaluateAEsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveAndEvaluateAEsResponse">
+    <wsdl:part element="tns:saveAndEvaluateAEsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveAndEvaluateAEs">
+    <wsdl:part element="tns:saveAndEvaluateAEs" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="EvaluateAndInitiate">
     <wsdl:part element="tns:EvaluateAndInitiate" name="parameters"></wsdl:part>
@@ -2083,19 +2080,16 @@
   <wsdl:message name="CaaersFault">
     <wsdl:part element="ns1:CaaersFault" name="CaaersFault"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="saveAndEvaluateAEs">
-    <wsdl:part element="tns:saveAndEvaluateAEs" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="EvaluateAndInitiateResponse">
     <wsdl:part element="tns:EvaluateAndInitiateResponse" name="parameters"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="saveAndEvaluateAEsResponse">
-    <wsdl:part element="tns:saveAndEvaluateAEsResponse" name="parameters"></wsdl:part>
+  <wsdl:message name="evaluateAEs">
+    <wsdl:part element="tns:evaluateAEs" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:portType name="SAEEvaluationServiceInterface">
-    <wsdl:operation name="saveAndEvaluateAEs">
-      <wsdl:input message="tns:saveAndEvaluateAEs" name="saveAndEvaluateAEs"></wsdl:input>
-      <wsdl:output message="tns:saveAndEvaluateAEsResponse" name="saveAndEvaluateAEsResponse"></wsdl:output>
+    <wsdl:operation name="EvaluateAndInitiate">
+      <wsdl:input message="tns:EvaluateAndInitiate" name="EvaluateAndInitiate"></wsdl:input>
+      <wsdl:output message="tns:EvaluateAndInitiateResponse" name="EvaluateAndInitiateResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="evaluateAEs">
@@ -2103,20 +2097,20 @@
       <wsdl:output message="tns:evaluateAEsResponse" name="evaluateAEsResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="EvaluateAndInitiate">
-      <wsdl:input message="tns:EvaluateAndInitiate" name="EvaluateAndInitiate"></wsdl:input>
-      <wsdl:output message="tns:EvaluateAndInitiateResponse" name="EvaluateAndInitiateResponse"></wsdl:output>
+    <wsdl:operation name="saveAndEvaluateAEs">
+      <wsdl:input message="tns:saveAndEvaluateAEs" name="saveAndEvaluateAEs"></wsdl:input>
+      <wsdl:output message="tns:saveAndEvaluateAEsResponse" name="saveAndEvaluateAEsResponse"></wsdl:output>
       <wsdl:fault message="tns:CaaersFault" name="CaaersFault"></wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SAEEvaluationWebServiceImplServiceSoapBinding" type="tns:SAEEvaluationServiceInterface">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="saveAndEvaluateAEs">
+    <wsdl:operation name="EvaluateAndInitiate">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="saveAndEvaluateAEs">
+      <wsdl:input name="EvaluateAndInitiate">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="saveAndEvaluateAEsResponse">
+      <wsdl:output name="EvaluateAndInitiateResponse">
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="CaaersFault">
@@ -2135,12 +2129,12 @@
         <soap:fault name="CaaersFault" use="literal"/>
       </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="EvaluateAndInitiate">
+    <wsdl:operation name="saveAndEvaluateAEs">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="EvaluateAndInitiate">
+      <wsdl:input name="saveAndEvaluateAEs">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="EvaluateAndInitiateResponse">
+      <wsdl:output name="saveAndEvaluateAEsResponse">
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="CaaersFault">
@@ -2150,11 +2144,55 @@
   </wsdl:binding>
   <wsdl:service name="SAEEvaluationWebServiceImplService">
     <wsdl:port binding="tns:SAEEvaluationWebServiceImplServiceSoapBinding" name="SAEEvaluationServiceInterfacePort">
-      <soap:address location="https://dev.semanticbits.com/caaers/services/SAEEvaluationService"/>
+      <soap:address location="https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://dev.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="f235f692-374a-4af2-b705-f607f26be5ba" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="8df6f296-0fe7-4d08-9fa3-abd8592948af" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="ab8a6617-959a-4a3f-985a-e9693f694e09" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite id="a68abf0e-019d-4246-9798-0fef645938d6" name="BOM"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="12d13d68-0af9-42a1-9626-7b4977accbb3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="1ef48970-7e46-41ea-b9cc-c7e69b2ec0b0"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.10.10.61:6611/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">    <soapenv:Header>       <wsse:Security soapenv:mustUnderstand="1">          <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">             <wsse:Username>SYSTEM</wsse:Username>             <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">system_admin</wsse:Password>             <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">/w9qY2QnBmzEx9lXoIxXyA==</wsse:Nonce>             <wsu:Created>2014-01-10T21:31:08.6661550+00:00</wsu:Created>          </wsse:UsernameToken>       </wsse:Security>    </soapenv:Header>    <soapenv:Body>       <saer:saveAndEvaluateAEs>          <saer:SaveAndEvaluateAEsInputMessage>             <saer:adverseEvents>                <saer:adverseEvent>                   <verbatim>Verbatim4</verbatim>                   <adverseEventCtepTerm>                      <ctepCode>10010774</ctepCode>                   </adverseEventCtepTerm>                   <grade>4</grade>                  <hospitalization>YES</hospitalization>                   <dateFirstLearned>2015-04-10T17:05:01.0000000Z</dateFirstLearned>                   <outcome>                      <outComeEnumType>HOSPITALIZATION</outComeEnumType>                   </outcome>                   <externalId>reaction-88</externalId>                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>                </saer:adverseEvent>  <!--<saer:adverseEvent>                   <verbatim>Verbatim2</verbatim>                   <adverseEventCtepTerm>                      <ctepCode>10047700</ctepCode>                   </adverseEventCtepTerm>                   <grade>2</grade>                   <hospitalization>YES</hospitalization>                   <dateFirstLearned>2014-11-28T17:06:01.0000000Z</dateFirstLearned>                                      <outcome>                      <outComeEnumType>HOSPITALIZATION</outComeEnumType>                   </outcome>                   <externalId>reaction-89</externalId>                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>                </saer:adverseEvent> -->                              </saer:adverseEvents>             <saer:criteria>                <studySubjectIdentifier>S29-A071102</studySubjectIdentifier>                <studyIdentifier>A071102</studyIdentifier>                <course>                   <startDateOfFirstCourse>2014-01-06</startDateOfFirstCourse>                   <startDateOfThisCourse>2015-05-03</startDateOfThisCourse>                   <cycleNumber>3</cycleNumber>                   <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>                   <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>                </course>             </saer:criteria>          </saer:SaveAndEvaluateAEsInputMessage>       </saer:saveAndEvaluateAEs>    </soapenv:Body> </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="707657e8-db7b-4cff-9945-f3ff6230a42f" name="Not SOAP Fault"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/saerules/SAEEvaluationServiceInterface/saveAndEvaluateAEs"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="BOM" id="91e24472-976e-491c-9ce3-9bbd9b29ccab"><con:settings/><con:config><script>// fail: https://dev.semanticbits.com/caaers/services/SAEEvaluationService
-// pass: http://10.10.10.61:6611/caaers/services/RaveIntegrationServices
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.10.10.71:8080/caaers/services/SAEEvaluationService</con:endpoint><con:endpoint>https://dev.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/SAEEvaluationService</con:endpoint></con:endpoints><con:operation id="f235f692-374a-4af2-b705-f607f26be5ba" isOneWay="false" action="" name="evaluateAEs" bindingOperationName="evaluateAEs" type="Request-Response" outputName="evaluateAEsResponse" inputName="evaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="8df6f296-0fe7-4d08-9fa3-abd8592948af" isOneWay="false" action="" name="EvaluateAndInitiate" bindingOperationName="EvaluateAndInitiate" type="Request-Response" outputName="EvaluateAndInitiateResponse" inputName="EvaluateAndInitiate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation id="ab8a6617-959a-4a3f-985a-e9693f694e09" isOneWay="false" action="" name="saveAndEvaluateAEs" bindingOperationName="saveAndEvaluateAEs" type="Request-Response" outputName="saveAndEvaluateAEsResponse" inputName="saveAndEvaluateAEs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite id="a68abf0e-019d-4246-9798-0fef645938d6" name="BOM For SaveAndEvaluateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="12d13d68-0af9-42a1-9626-7b4977accbb3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="saveAndEvaluateAEs - A071102 - TAC" id="1ef48970-7e46-41ea-b9cc-c7e69b2ec0b0"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="saveAndEvaluateAEs - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>SYSTEM</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">system_admin</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">/w9qY2QnBmzEx9lXoIxXyA==</wsse:Nonce>
+            <wsu:Created>2014-01-10T21:31:08.6661550+00:00</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <saer:saveAndEvaluateAEs>
+         <saer:SaveAndEvaluateAEsInputMessage>
+            <saer:adverseEvents>
+               <saer:adverseEvent>
+                  <verbatim>Verbatim4</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10010774</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>4</grade>
+                  <hospitalization>YES</hospitalization>
+                  <dateFirstLearned>2015-04-10T17:05:01.0000000Z</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
+                  </outcome>
+                  <externalId>reaction-88</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>
+               <!--<saer:adverseEvent>                   <verbatim>Verbatim2</verbatim>                   <adverseEventCtepTerm>                      <ctepCode>10047700</ctepCode>                   </adverseEventCtepTerm>                   <grade>2</grade>                   <hospitalization>YES</hospitalization>                   <dateFirstLearned>2014-11-28T17:06:01.0000000Z</dateFirstLearned>                                      <outcome>                      <outComeEnumType>HOSPITALIZATION</outComeEnumType>                   </outcome>                   <externalId>reaction-89</externalId>                   <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>                </saer:adverseEvent>-->
+            </saer:adverseEvents>
+            <saer:criteria>
+               <studySubjectIdentifier>9103827</studySubjectIdentifier>
+               <studyIdentifier>A071102</studyIdentifier>
+               <course>
+                  <startDateOfFirstCourse>2014-01-06</startDateOfFirstCourse>
+                  <startDateOfThisCourse>2015-05-05</startDateOfThisCourse>
+                  <cycleNumber>19</cycleNumber>
+                  <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>
+                  <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
+               </course>
+            </saer:criteria>
+         </saer:SaveAndEvaluateAEsInputMessage>
+      </saer:saveAndEvaluateAEs>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="707657e8-db7b-4cff-9945-f3ff6230a42f" name="Not SOAP Fault"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/saerules/SAEEvaluationServiceInterface/saveAndEvaluateAEs"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="BOM" id="91e24472-976e-491c-9ce3-9bbd9b29ccab"><con:settings/><con:config><script>// pass: https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices
 
 testCase = testRunner.testCase;
 testStep = testCase.getTestStepAt(0)
@@ -2163,8 +2201,6 @@ testStep = testCase.getTestStepAt(0)
 sendBOM = "true".equals(testCase.getPropertyValue("sendBOM"))
 socketTimeout = testCase.getPropertyValue("socketTimeout").toInteger() // 10000
 endpoint = testStep.getPropertyValue("endpoint");
-post = new String(testStep.testRequest.messageExchange.rawRequestData)
-xml = testStep.testRequest.messageExchange.requestContent
 
 url = new URL(endpoint)
 host = url.getHost()
@@ -2177,9 +2213,17 @@ if (port &lt;= 0) {
 	else port = 80
 }
 
+
+post = new String(testStep.testRequest.messageExchange.rawRequestData)
+xml = testStep.testRequest.messageExchange.requestContent
+
+int msgIndex = post.indexOf(xml)
+post = post.substring(0, msgIndex)
+log.info "post headers : " + post
+
 // build soap payload
 xmlBytes = xml.getBytes(charset)
-bomBytes = new String("\uFEFF").getBytes()
+bomBytes = new String("\uFEFF").getBytes(charset)
 if (! sendBOM) bomBytes = new byte[0]
 message = new byte[xmlBytes.length + bomBytes.length]
 System.arraycopy(bomBytes, 0, message, 0, bomBytes.length);
@@ -2192,10 +2236,11 @@ if (sendBOM) {
 	}
 }
 
+
 // pront out some debug info
 log.info "BOM Host: " + host
 log.info "BOM Port: " + port
-log.info "BOM Post: " + post
+log.info "BOM Post Headers: " + post
 log.info "BOM XML: " + xml
 log.info "BOM Message length: " + message.length
 
@@ -2212,28 +2257,22 @@ if (socketTimeout) {
 	log.info "BOM Timeout: " + socketTimeout
 }
 
-// if you need to debug the payload, uncomment the two lines below and change the file path
-//new File("/Users/mccon012",'message.xml').withOutputStream { out ->
-//	out.write(message)
-//}
 
 // send the http details then the soap payload
 // read the response
 resp = ""
 try {
 	os = sock.getOutputStream()
-	is = sock.getInputStream()
-
 	os.write(post.getBytes(charset))
 	os.write(message)
 	os.flush()
 	
+	is = sock.getInputStream()	
 	byte[] buf = new byte[1024]
 	int count = 0
 	while ((count = is.read(buf, 0, buf.length)) != -1) {
 		resp += new String(buf, 0, count)
-	}	
-
+	}
 	os.close()
 	is.close()
 } catch (SocketTimeoutException e) {
@@ -2245,7 +2284,265 @@ try {
 // print debug message
 log.info "BOM Response: " + resp
 
+
+
+// if you need to debug the payload, uncomment the two lines below and change the file path
+//def messageLogFile = new File("c:/temp",'actual_message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(testStep.testRequest.messageExchange.rawRequestData)
+//}
+//
+//messageLogFile = new File("c:/temp",'message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(post.getBytes(charset))
+//	out.write(message)
+//}
+//
+//
+//messageLogFile = new File("c:/temp",'response.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(resp.getBytes())
+//}
+
 // assert that we get 200 response code
 assert resp.startsWith("HTTP/1.1 200 OK") == true : "BOM failed - didn't return  200"
+log.info("Response: ${resp}")
 // assert that the payload contains some real stuff
-assert resp.contains("saveAndEvaluateAEsResponse") == true : "BOM failed - couldn't find saveAndEvaluateAEs in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+assert resp.contains("saveAndEvaluateAEsResponse") == true : "BOM failed - couldn't find saveAndEvaluateAEs in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="e4e34f73-bb84-4178-a385-553491501458" name="BOM For EvaluateAndInitiateAEs"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b72b1d9f-09fb-4f18-a1ed-02d530970a40" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BOM" searchProperties="true"><con:settings/><con:testStep type="request" name="evaluateAndInitiate - A071102 - TAC" id="17376833-b5f7-451e-a0d6-eee03c07ab6c"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SAEEvaluationWebServiceImplServiceSoapBinding</con:interface><con:operation>saveAndEvaluateAEs</con:operation><con:request name="evaluateAndInitiate - A071102 - TAC" outgoingWss="caaers-local" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="51530b83-ba47-4758-8eb6-6a365f4b47b0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:saer="http://schema.integration.caaers.cabig.nci.nih.gov/saerules" xmlns:aer="http://schema.integration.caaers.cabig.nci.nih.gov/aereport" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken wsu:Id="UsernameToken-19" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>SYSTEM</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">system_admin</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">/w9qY2QnBmzEx9lXoIxXyA==</wsse:Nonce>
+            <wsu:Created>2014-01-10T21:31:08.6661550+00:00</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <saer:EvaluateAndInitiate>
+         <saer:EvaluateAndInitiateInputMessage>
+            <saer:adverseEvents>
+               <saer:adverseEvent>
+                  <verbatim>Verbatim225D</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10010774</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>3</grade>
+                  <hospitalization>YES</hospitalization>
+                  <dateFirstLearned>2015-08-10T17:06:01.0000000Z</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>HOSPITALIZATION</outComeEnumType>
+                  </outcome>
+                  <externalId>reaction-88</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>
+               <saer:adverseEvent>
+                  <verbatim>Verbatim90</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10047700</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>3</grade>
+                  <hospitalization>NO</hospitalization>
+                  <dateFirstLearned>2015-07-28T17:06:01.0000000Z</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>OTHER_SERIOUS</outComeEnumType>
+                  </outcome>
+                  <externalId>reaction-89</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>
+               <!--<saer:adverseEvent>
+                  <verbatim>Verbatim10</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10013442</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>1</grade>
+                  <hospitalization>NO</hospitalization>
+                  <dateFirstLearned>2014-11-28T17:06:01.0000000Z</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>OTHER_SERIOUS</outComeEnumType>
+                  </outcome>
+                  <externalId>reaction-90</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>-->
+               <!--<saer:adverseEvent>
+                  <verbatim>Verbatim11</verbatim>
+                  <adverseEventCtepTerm>
+                     <ctepCode>10002272</ctepCode>
+                  </adverseEventCtepTerm>
+                  <grade>1</grade>
+                  <hospitalization>NO</hospitalization>
+                  <dateFirstLearned>2014-11-28T17:06:01.0000000Z</dateFirstLearned>
+                  <outcome>
+                     <outComeEnumType>OTHER_SERIOUS</outComeEnumType>
+                  </outcome>
+                  <externalId>reaction-91</externalId>
+                  <reporterEmail>vasudev.chatti@semanticbits.com</reporterEmail>
+               </saer:adverseEvent>-->
+            </saer:adverseEvents>
+            <saer:criteria>
+               <studySubjectIdentifier>S6RC1-A071102</studySubjectIdentifier>
+               <studyIdentifier>A071102</studyIdentifier>
+               <course>
+                  <startDateOfFirstCourse>2015-07-15</startDateOfFirstCourse>
+                 <startDateOfThisCourse>2015-08-01</startDateOfThisCourse>
+            <cycleNumber>10</cycleNumber>
+                  <treatmentAssignmentCode>TAC 1</treatmentAssignmentCode>
+                  <otherTreatmentAssignmentDescription>N/A</otherTreatmentAssignmentDescription>
+               </course>
+            </saer:criteria>
+           <!--<reportId>690375996</reportId>-->
+            <!--<withdrawReport>true</withdrawReport>-->
+            <reporter>
+               <aer:firstName>Reporter</aer:firstName>
+               <aer:lastName>one</aer:lastName>
+               <aer:middleName>middlename</aer:middleName>
+               <aer:street>Sunrise valley drive</aer:street>
+               <aer:city>Chicago</aer:city>
+               <aer:state>IL</aer:state>
+               <aer:zip>20170</aer:zip>
+               <aer:country>USA</aer:country>
+               <aer:contactMechanism>
+                  <aer:type>phone</aer:type>
+                  <aer:value>703-787-1234</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>e-mail</aer:type>
+                  <aer:value>vasudev.chatti@semanticbits.com</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>fax</aer:type>
+                  <aer:value>703-787-1222</aer:value>
+               </aer:contactMechanism>
+               <aer:contactMechanism>
+                  <aer:type>alternateEmails</aer:type>
+                  <aer:value>vasudevkarthik@gmail.com</aer:value>
+               </aer:contactMechanism>
+            </reporter>
+         </saer:EvaluateAndInitiateInputMessage>
+      </saer:EvaluateAndInitiate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="707657e8-db7b-4cff-9945-f3ff6230a42f" name="Not SOAP Fault"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://schema.integration.caaers.cabig.nci.nih.gov/saerules/SAEEvaluationServiceInterface/saveAndEvaluateAEs"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="BOM" id="d06f28dc-a2c6-4f5a-869e-7ece34df584b"><con:settings/><con:config><script>// pass: https://oracle.qa.semanticbits.com/caaers/services/RaveIntegrationServices
+
+testCase = testRunner.testCase;
+testStep = testCase.getTestStepAt(0)
+
+// get properties
+sendBOM = "true".equals(testCase.getPropertyValue("sendBOM"))
+socketTimeout = testCase.getPropertyValue("socketTimeout").toInteger() // 10000
+endpoint = testStep.getPropertyValue("endpoint");
+
+url = new URL(endpoint)
+host = url.getHost()
+port = url.getPort()
+isSSL = url.getProtocol() == "https"
+charset = java.nio.charset.StandardCharsets.UTF_8
+
+if (port &lt;= 0) {
+	if (isSSL) port = 443
+	else port = 80
+}
+
+
+post = new String(testStep.testRequest.messageExchange.rawRequestData)
+xml = testStep.testRequest.messageExchange.requestContent
+
+int msgIndex = post.indexOf(xml)
+post = post.substring(0, msgIndex)
+log.info "post headers : " + post
+
+// build soap payload
+xmlBytes = xml.getBytes(charset)
+bomBytes = new String("\uFEFF").getBytes(charset)
+if (! sendBOM) bomBytes = new byte[0]
+message = new byte[xmlBytes.length + bomBytes.length]
+System.arraycopy(bomBytes, 0, message, 0, bomBytes.length);
+System.arraycopy(xmlBytes, 0, message, bomBytes.length, xmlBytes.length);
+
+// modify the content-length to include bom
+if (sendBOM) {
+	post = post.replaceFirst(/Content-Length\: (\d+)/) { all, length -> 
+		"Content-Length: " + message.length
+	}
+}
+
+
+// pront out some debug info
+log.info "BOM Host: " + host
+log.info "BOM Port: " + port
+log.info "BOM Post Headers: " + post
+log.info "BOM XML: " + xml
+log.info "BOM Message length: " + message.length
+
+sock = new Socket(url.getHost(), port)
+
+// wrap with an ssl socket if we are using ssl
+if (isSSL) {
+	sock = javax.net.ssl.SSLSocketFactory.getDefault().createSocket(sock, host, port, true)
+}
+
+// set a socket timeout for poorly bahaving servers
+if (socketTimeout) {
+	sock.setSoTimeout(socketTimeout)
+	log.info "BOM Timeout: " + socketTimeout
+}
+
+
+// send the http details then the soap payload
+// read the response
+resp = ""
+try {
+	os = sock.getOutputStream()
+	os.write(post.getBytes(charset))
+	os.write(message)
+	os.flush()
+	
+	is = sock.getInputStream()	
+	byte[] buf = new byte[1024]
+	int count = 0
+	while ((count = is.read(buf, 0, buf.length)) != -1) {
+		resp += new String(buf, 0, count)
+	}
+	os.close()
+	is.close()
+} catch (SocketTimeoutException e) {
+	log.warn "BOM socket timed out but will check response anyway"
+} finally {
+	sock.close()
+}
+
+// print debug message
+log.info "BOM Response: " + resp
+
+
+
+// if you need to debug the payload, uncomment the two lines below and change the file path
+//def messageLogFile = new File("c:/temp",'actual_message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(testStep.testRequest.messageExchange.rawRequestData)
+//}
+//
+//messageLogFile = new File("c:/temp",'message.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(post.getBytes(charset))
+//	out.write(message)
+//}
+//
+//
+//messageLogFile = new File("c:/temp",'response.xml');
+//log.info "writing file: " + messageLogFile.absolutePath
+//messageLogFile.withOutputStream { out ->
+//	out.write(resp.getBytes())
+//}
+
+// assert that we get 200 response code
+assert resp.startsWith("HTTP/1.1 200 OK") == true : "BOM failed - didn't return  200"
+log.info("Response: ${resp}")
+
+// assert that the payload contains some real stuff
+assert resp.contains("EvaluateAndInitiateResponse") == true : "BOM failed - couldn't find EvaluateAndInitiateResponse in response"</script></con:config></con:testStep><con:properties><con:property><con:name>sendBOM</con:name><con:value>true</con:value></con:property><con:property><con:name>socketTimeout</con:name><con:value>10000</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

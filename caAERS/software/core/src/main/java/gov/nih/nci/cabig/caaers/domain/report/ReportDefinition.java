@@ -777,6 +777,34 @@ public class ReportDefinition extends AbstractMutableDomainObject implements Ser
     /**
      * Gets the expected display due date.
      *
+     * @param dueDate the expected due date
+     * @return the expected display due date
+     */
+    @Transient
+    public String getDueInGivenDueDate(Date dueDate){
+    	
+    	Date now = new Date();    	
+    	int actualDuration = duration;
+    	
+    	String msgPrefix = "Due in ";
+    	String msgSuffix = " overdue";
+    	double difference = 0.0;
+    	
+    	if( DateUtils.compateDateAndTime(now, dueDate) >= 0 ){
+    		msgPrefix = "";
+    		difference = now.getTime() - dueDate.getTime();
+    	}else {
+    		msgSuffix = "";
+    		difference = dueDate.getTime() - now.getTime();
+    	}
+    	actualDuration = (int) Math.round(difference / timeScaleUnitType.getMilliSecondConversionFactor());
+    	return msgPrefix + actualDuration + " " + timeScaleUnitType.name().toLowerCase() + ((actualDuration > 1)? "s": "") +  msgSuffix; 
+    	
+    }
+    
+    /**
+     * Gets the expected display due date.
+     *
      * @return the expected display due date
      */
     @Transient

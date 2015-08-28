@@ -2,16 +2,24 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 
 import gov.nih.nci.cabig.caaers.domain.AdverseEventResponseDescription;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
-import gov.nih.nci.cabig.caaers.domain.Investigator;
-import gov.nih.nci.cabig.caaers.domain.Physician;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class AdverseEventResponseDescriptionSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class AdverseEventResponseDescriptionSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = Arrays.asList("e2b");
+
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 
     public void migrate(ExpeditedAdverseEventReport aeReportSrc, ExpeditedAdverseEventReport aeReportDest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
         AdverseEventResponseDescription src = aeReportSrc.getResponseDescription();

@@ -18,7 +18,7 @@ public class FileTracker implements InitializingBean {
     }
 
     public String fileURI(IntegrationLog.Stage s){
-        return "file://"+ folder +"/?fileName=${date:now:yyyy}/${date:now:MM}/${date:now:dd}/${in.header.c2a_entity}/${in.header.c2a_correlation_id}/"+ s.name() + ".xml";
+        return "file://"+ folder +"/?fileName=${date:now:yyyy}/${date:now:MM}/${date:now:dd}/${in.header.c2a_entity}/${in.header.c2a_correlation_id}/"+ s.name() + ".xml&fileExist=Append";
     }
 
     public void setFolder(String folder) {

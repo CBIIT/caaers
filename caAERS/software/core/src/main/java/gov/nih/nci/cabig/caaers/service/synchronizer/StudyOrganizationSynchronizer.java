@@ -6,25 +6,21 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.service.synchronizer;
 
-import gov.nih.nci.cabig.caaers.domain.Investigator;
-import gov.nih.nci.cabig.caaers.domain.Organization;
-import gov.nih.nci.cabig.caaers.domain.ResearchStaff;
-import gov.nih.nci.cabig.caaers.domain.Study;
-import gov.nih.nci.cabig.caaers.domain.StudyCoordinatingCenter;
-import gov.nih.nci.cabig.caaers.domain.StudyFundingSponsor;
-import gov.nih.nci.cabig.caaers.domain.StudyInvestigator;
-import gov.nih.nci.cabig.caaers.domain.StudyOrganization;
-import gov.nih.nci.cabig.caaers.domain.StudyPersonnel;
-import gov.nih.nci.cabig.caaers.domain.StudySite;
+import gov.nih.nci.cabig.caaers.domain.*;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
-
-import java.util.HashMap;
-
 import org.apache.commons.collections.CollectionUtils;
 
-public class StudyOrganizationSynchronizer implements Migrator<gov.nih.nci.cabig.caaers.domain.Study>{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+public class StudyOrganizationSynchronizer implements Synchronizer<gov.nih.nci.cabig.caaers.domain.Study>{
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 	public void migrate(Study dbStudy, Study xmlStudy,DomainObjectImportOutcome<Study> outcome) {
 		
 		

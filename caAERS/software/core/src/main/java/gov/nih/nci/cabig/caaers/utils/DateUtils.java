@@ -7,6 +7,7 @@
 package gov.nih.nci.cabig.caaers.utils;
 
 import gov.nih.nci.cabig.caaers.domain.DateValue;
+import org.apache.commons.lang.StringUtils;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -14,8 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Ion C. Olaru
@@ -341,6 +340,14 @@ public class DateUtils {
     
     public static String formatToWSResponseDateWithTimeZone(Date date){
         return formatDate(date, WS_DATE_PATTERN_WITH_TZ, TimeZone.getTimeZone("UTC"));
+    }
+
+    public static Date parseWSResponseDateWithTimeZone(String dateStr) {
+        try {
+            return parseDate(dateStr, WS_DATE_PATTERN_WITH_TZ);
+        }catch (Exception ignore) {
+            return null;
+        }
     }
 
 }

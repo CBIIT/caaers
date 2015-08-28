@@ -301,7 +301,7 @@
 			<ui-attribute>
 				<name>studyTherapyType.code</name>
 				<label>Intervention types</label>
-				<data-type>Integer</data-type>
+				<data-type>int</data-type>
 				<field-type>drop-down</field-type>
 				<valid-value value="1" display-uri="Agent"/>
 				<valid-value value="4" display-uri="Device"/>

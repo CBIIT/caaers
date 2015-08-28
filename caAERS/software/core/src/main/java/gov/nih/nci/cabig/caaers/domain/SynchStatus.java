@@ -36,6 +36,7 @@ public enum SynchStatus implements CodedEnum<Integer> {
     POST_PROCESS_EDI_MSG(83, "AdEERS report submission response"),
     ADEERS_REPORT_SUBMISSION_RESPONSE(84, "AdEERS report submission response"),
     ADEERS_REPORT_SUBMISSION_RESPONSE_TRASNSFORMATION(85, "AdEERS report submission response transformation"),
+    PRE_PROCESS_RAVE_INTEGRATION_MSG(48, "Remove white space in incoming Rave message"),
 
 
      REQUST_PROCESSING_ERROR(900, "Error while processing request"),

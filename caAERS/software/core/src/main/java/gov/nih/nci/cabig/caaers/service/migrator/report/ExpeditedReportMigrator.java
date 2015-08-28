@@ -20,6 +20,7 @@ import gov.nih.nci.cabig.caaers.service.migrator.CompositeMigrator;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -79,6 +80,10 @@ public class ExpeditedReportMigrator extends CompositeMigrator<ExpeditedAdverseE
 
 			}
 
+			if(!StringUtils.isBlank(src.getReportingPeriod().getTreatmentAssignmentDescription())){
+				arp.setTreatmentAssignmentDescription(src.getReportingPeriod().getTreatmentAssignmentDescription());
+	        }
+			
 			dest.setReportingPeriod(arp);
 			return;
 		} 

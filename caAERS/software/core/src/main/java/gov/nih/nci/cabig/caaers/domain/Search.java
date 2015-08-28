@@ -6,17 +6,17 @@
  ******************************************************************************/
 package gov.nih.nci.cabig.caaers.domain;
 
-import java.util.Date;
-
 import gov.nih.nci.cabig.ctms.domain.AbstractMutableDomainObject;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
- 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import java.util.Date;
+
+
 /**
  * This class represents the saved searches in the advancedsearch page.
  * @author Sameer Sawant
@@ -104,7 +104,9 @@ public class Search extends AbstractMutableDomainObject{
 	 *
 	 * @return the criteria
 	 */
-	public String getCriteriaXml() {
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    public String getCriteriaXml() {
 		return criteriaXml;
 	}
 

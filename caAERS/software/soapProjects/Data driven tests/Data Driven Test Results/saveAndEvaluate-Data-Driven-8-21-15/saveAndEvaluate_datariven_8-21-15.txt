@@ -1,0 +1,84 @@
+Test started at 2015-08-21 22:58:03.224
+Step 1 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 984 ms
+Step 2 [Next Line] OK: took 1 ms
+Step 3 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 523 ms
+Step 4 [Next Line] OK: took 1 ms
+Step 5 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 602 ms
+Step 6 [Next Line] OK: took 1 ms
+Step 7 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 711 ms
+Step 8 [Next Line] OK: took 1 ms
+Step 9 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 924 ms
+Step 10 [Next Line] OK: took 1 ms
+Step 11 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 716 ms
+Step 12 [Next Line] OK: took 1 ms
+Step 13 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 476 ms
+Step 14 [Next Line] OK: took 1 ms
+Step 15 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 439 ms
+Step 16 [Next Line] OK: took 0 ms
+Step 17 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 632 ms
+Step 18 [Next Line] OK: took 0 ms
+Step 19 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 489 ms
+Step 20 [Next Line] OK: took 0 ms
+Step 21 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 411 ms
+Step 22 [Next Line] OK: took 0 ms
+Step 23 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 461 ms
+Step 24 [Next Line] OK: took 0 ms
+Step 25 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 764 ms
+Step 26 [Next Line] OK: took 0 ms
+Step 27 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 510 ms
+Step 28 [Next Line] OK: took 0 ms
+Step 29 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 509 ms
+Step 30 [Next Line] OK: took 2 ms
+Step 31 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 410 ms
+Step 32 [Next Line] OK: took 0 ms
+Step 33 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 328 ms
+Step 34 [Next Line] OK: took 0 ms
+Step 35 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 385 ms
+Step 36 [Next Line] OK: took 2 ms
+Step 37 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 918 ms
+Step 38 [Next Line] OK: took 1 ms
+Step 39 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 724 ms
+Step 40 [Next Line] OK: took 0 ms
+Step 41 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 499 ms
+Step 42 [Next Line] OK: took 0 ms
+Step 43 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 511 ms
+Step 44 [Next Line] OK: took 0 ms
+Step 45 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 284 ms
+Step 46 [Next Line] OK: took 0 ms
+Step 47 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 737 ms
+Step 48 [Next Line] OK: took 1 ms
+Step 49 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 561 ms
+Step 50 [Next Line] OK: took 1 ms
+Step 51 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 562 ms
+Step 52 [Next Line] OK: took 1 ms
+Step 53 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 507 ms
+Step 54 [Next Line] OK: took 1 ms
+Step 55 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 623 ms
+Step 56 [Next Line] OK: took 1 ms
+Step 57 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 397 ms
+Step 58 [Next Line] OK: took 1 ms
+Step 59 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 378 ms
+Step 60 [Next Line] OK: took 1 ms
+Step 61 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 747 ms
+Step 62 [Next Line] OK: took 1 ms
+Step 63 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 370 ms
+Step 64 [Next Line] OK: took 0 ms
+Step 65 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 400 ms
+Step 66 [Next Line] OK: took 1 ms
+Step 67 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 469 ms
+Step 68 [Next Line] OK: took 0 ms
+Step 69 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 699 ms
+Step 70 [Next Line] OK: took 0 ms
+Step 71 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 700 ms
+Step 72 [Next Line] OK: took 0 ms
+Step 73 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 687 ms
+Step 74 [Next Line] OK: took 2 ms
+Step 75 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 659 ms
+Step 76 [Next Line] OK: took 0 ms
+Step 77 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 816 ms
+Step 78 [Next Line] OK: took 1 ms
+Step 79 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 596 ms
+Step 80 [Next Line] OK: took 1 ms
+TestCase finished with status [FINISHED], time taken = 23871
+Step 81 [saveAndEvaluateAEs - A071102 - TAC - VAR] OK: took 728 ms
+Step 82 [Next Line] OK: took 0 ms

@@ -13,7 +13,8 @@ import java.util.Date;
 
 public class IntegrationLogQuery extends AbstractQuery {
 
-    private static final String queryString = "SELECT distinct il from IntegrationLog il ";
+    //BJ - removed "distinct" based on https://hibernate.atlassian.net/browse/HHH-3606
+    private static final String queryString = "SELECT il from IntegrationLog il ";
 
     public IntegrationLogQuery() {
         super(queryString);

@@ -7,43 +7,27 @@
 package gov.nih.nci.cabig.caaers.domain;
 
 import gov.nih.nci.cabig.caaers.domain.comparator.AdverseEventComprator;
-import gov.nih.nci.cabig.caaers.domain.meddra.LowLevelTerm;
 import gov.nih.nci.cabig.caaers.domain.report.Report;
 import gov.nih.nci.cabig.caaers.domain.workflow.ReportingPeriodReviewComment;
 import gov.nih.nci.cabig.caaers.domain.workflow.WorkflowAware;
 import gov.nih.nci.cabig.caaers.utils.DateUtils;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import gov.nih.nci.cabig.caaers.utils.ObjectUtils;
-import gov.nih.nci.cabig.caaers.validation.AdverseEventGroup;
 import gov.nih.nci.cabig.caaers.validation.CourseCycleGroup;
 import gov.nih.nci.cabig.caaers.validation.fields.validators.NotNullConstraint;
-import gov.nih.nci.cabig.ctms.domain.DomainObject;
-
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
  
 /**
@@ -957,56 +941,51 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
      */
     public AdverseEvent findAdverseEventByIdTermAndDates(AdverseEvent thatAe){
         for(AdverseEvent thisAe : getAdverseEvents()){
+
             //are Ids matching ?
             if(ObjectUtils.equals(thisAe.getId(), thatAe.getId())) return thisAe;
 
-            // If the both external Id's are present, if they are matching then return else continue.
-            if ( StringUtils.isNotEmpty(thisAe.getExternalId())&&  StringUtils.isNotEmpty(thatAe.getExternalId())) {
-                if(ObjectUtils.equals(thisAe.getExternalId(), thatAe.getExternalId()))
-                    return thisAe;
-                else
-                    continue;
-            } else {
-                // If one of the adverse events external id is not NULL then they are different so continuing find matching.
-                if ( (thisAe.getExternalId() == null &&  StringUtils.isNotEmpty(thatAe.getExternalId())) || (StringUtils.isNotEmpty(thisAe.getExternalId()) &&  thatAe.getExternalId() == null)) {
-                    continue;
-                }
-            }
+            //externalId matching ?
+            if(ObjectUtils.equals(thisAe.getExternalId(), thatAe.getExternalId())) return thisAe;
+
+            //are dates matching ? no then continue with next
+            if(DateUtils.compareDate(thisAe.getStartDate(), thatAe.getStartDate()) != 0)  continue;
+            if(DateUtils.compareDate(thisAe.getEndDate(), thatAe.getEndDate()) != 0)  continue;
 
             AbstractAdverseEventTerm thisTerm = thisAe.getAdverseEventTerm();
             AbstractAdverseEventTerm thatTerm = thatAe.getAdverseEventTerm();
-            if(thisTerm != null && thatTerm != null)
+            if(thisTerm == null && thatTerm == null) {
+                //verbatim only study
+                if(StringUtils.equals(thisAe.getDetailsForOther(), thatAe.getDetailsForOther())) return thisAe;
+            } else if((thatTerm != null && thatTerm instanceof AdverseEventCtcTerm)  && (thisTerm != null && thisTerm instanceof AdverseEventCtcTerm)) {
+                //ctc ?
+                AdverseEventCtcTerm thisAeCtcTerm = (AdverseEventCtcTerm) thisTerm;
+                AdverseEventCtcTerm thatAeCtcTerm = (AdverseEventCtcTerm) thatTerm;
 
-                //are dates matching ?
-                if(DateUtils.compareDate(thisAe.getStartDate(), thatAe.getStartDate()) != 0)  continue;
-            if(DateUtils.compareDate(thisAe.getEndDate(), thatAe.getEndDate()) != 0)  continue;
+                //is other specify - yes then check MedDRA code set in Adverse events
+                if(thisAeCtcTerm.isOtherRequired() && thatAeCtcTerm.isOtherRequired()) {
+                    String thisMeddraCode = thisAe.getLowLevelTerm() != null ? thisAe.getLowLevelTerm().getMeddraCode() :  null;
+                    String thatMeddraCode = thatAe.getLowLevelTerm() != null ? thatAe.getLowLevelTerm().getMeddraCode() :  null;
+                    if(StringUtils.equals(thisMeddraCode, thatMeddraCode)) return thisAe;
 
-            DomainObject thisAeTerm = thisAe.getAdverseEventTerm() != null ? thisAe.getAdverseEventTerm().getTerm() : null;
-            DomainObject thatAeTerm = thatAe.getAdverseEventTerm() != null ? thatAe.getAdverseEventTerm().getTerm() :  null;
-            if((thisAeTerm == null && thatAeTerm != null ) || (thisAeTerm != null && thatAeTerm == null)) continue;
-
-            if(thisAeTerm == null && thatAeTerm == null){
-                //verbatim only AE entry
-                if(!StringUtils.equals(thisAe.getDetailsForOther(), thatAe.getDetailsForOther())) continue;
-            }else {
-
-                //check terms
-                if(!ObjectUtils.equals(thisAeTerm.getId(), thatAeTerm.getId())) continue;
-
-                if(thisAeTerm instanceof AdverseEventCtcTerm){
-                    //check other specify
-                    if(!StringUtils.equals(thisAe.getOtherSpecify(), thatAe.getOtherSpecify())) continue;
-
-                    //check other MedDRA
-                    Integer thisLltId = thisAe.getLowLevelTerm() != null ? thisAe.getLowLevelTerm().getId() : Integer.MIN_VALUE;
-                    Integer thatLltId = thatAe.getLowLevelTerm() != null ? thatAe.getLowLevelTerm().getId() : Integer.MIN_VALUE;
-                    if(!ObjectUtils.equals(thisLltId, thatLltId)) continue;
-
+                } else {
+                    //check the ctep code
+                    String thisCtcCode = thisAeCtcTerm.getCtcTerm() != null ? thisAeCtcTerm.getCtcTerm().getCtepCode(): null;
+                    String thatCtcCode = thatAeCtcTerm.getCtcTerm() != null ? thatAeCtcTerm.getCtcTerm().getCtepCode(): null;
+                    if(StringUtils.equals(thisCtcCode, thatCtcCode)) return thisAe;
                 }
+
+            } else if((thatTerm != null && thatTerm instanceof AdverseEventMeddraLowLevelTerm)  && (thisTerm != null && thisTerm instanceof AdverseEventMeddraLowLevelTerm)) {
+                //MedDRA ?
+                AdverseEventMeddraLowLevelTerm thisAeMeddraTerm = (AdverseEventMeddraLowLevelTerm) thisTerm;
+                AdverseEventMeddraLowLevelTerm thatAeMeddraTerm = (AdverseEventMeddraLowLevelTerm) thatTerm;
+                //check the meddra code
+                String thisMeddraCode = thisAeMeddraTerm.getLowLevelTerm() != null ? thisAeMeddraTerm.getLowLevelTerm().getMeddraCode() :  null;
+                String thatMeddraCode = thatAeMeddraTerm.getLowLevelTerm() != null ? thatAeMeddraTerm.getLowLevelTerm().getMeddraCode() :  null;
+                if(StringUtils.equals(thisMeddraCode, thatMeddraCode)) return thisAe;
             }
 
-            //found a match
-            return thisAe;
+
         }
         return null;
     }
@@ -1113,6 +1092,38 @@ public class AdverseEventReportingPeriod extends AbstractMutableRetireableDomain
 		return !StringUtils.equalsIgnoreCase(
 				getTreatmentAssignmentDescription(),
 				otherReportingPeriod.getTreatmentAssignmentDescription());
+	}
+	
+	 /**
+     * verifies whether the reporting period has same core attributes
+     * related to CAAERS-7414
+     *
+     * @param otherCycleNumber, reporting period cycle number
+     * @param otherStartDate, reporting start date
+     * @param treatmentAssignment, treatment assignment
+     * @return true, if successful
+     */
+	public boolean hasSameCoreAttributes(Integer otherCycleNumber, Date otherStartDate, String otherTAC) {
+		
+		// if thisTAC or otherTAC are null assign them the value 'OTHER'
+		String thisTAC = this.getTreatmentAssignment() != null && this.getTreatmentAssignment().getCode() != null ? 
+				StringUtils.upperCase(this.getTreatmentAssignment().getCode()) : "OTHER";
+		String thatTAC = otherTAC != null ? StringUtils.upperCase(otherTAC) : "OTHER";
+		
+		if(!ObjectUtils.equals(thisTAC, thatTAC)){
+			return false;
+		}
+		
+		// if at least one of the start dates is not null, compare them
+			
+		if((this.getStartDate() != null || otherStartDate != null) && (DateUtils.compareDate(this.startDate, otherStartDate) != 0))
+			return false;
+		
+		 // if at least one of the cycle numbers is not null, compare them
+		if((this.getCycleNumber() != null || otherCycleNumber != null) && (!ObjectUtils.equals(this.getCycleNumber(), otherCycleNumber)))
+			return false;
+
+		return true;
 	}
     
 }

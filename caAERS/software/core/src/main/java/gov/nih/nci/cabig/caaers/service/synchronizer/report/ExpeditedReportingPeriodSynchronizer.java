@@ -3,13 +3,24 @@ package gov.nih.nci.cabig.caaers.service.synchronizer.report;
 import gov.nih.nci.cabig.caaers.domain.AdverseEventReportingPeriod;
 import gov.nih.nci.cabig.caaers.domain.ExpeditedAdverseEventReport;
 import gov.nih.nci.cabig.caaers.service.DomainObjectImportOutcome;
-import gov.nih.nci.cabig.caaers.service.migrator.Migrator;
+import gov.nih.nci.cabig.caaers.service.synchronizer.Synchronizer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Biju Joseph
  * @since 1.5
  */
-public class ExpeditedReportingPeriodSynchronizer implements Migrator<ExpeditedAdverseEventReport> {
+public class ExpeditedReportingPeriodSynchronizer implements Synchronizer<ExpeditedAdverseEventReport> {
+
+    private List<String> context = new ArrayList<String>();
+    @Override
+    public List<String> contexts() {
+        return context;
+    }
 
     public void migrate(ExpeditedAdverseEventReport aeReportSrc, ExpeditedAdverseEventReport aeReportDest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
         AdverseEventReportingPeriod src = aeReportSrc.getReportingPeriod();
@@ -28,5 +39,8 @@ public class ExpeditedReportingPeriodSynchronizer implements Migrator<ExpeditedA
         }
         
         dest.setEndDate(src.getEndDate());
+        if(!StringUtils.isBlank(src.getTreatmentAssignmentDescription())){
+        	dest.setTreatmentAssignmentDescription(src.getTreatmentAssignmentDescription());
+        }
      }
 }

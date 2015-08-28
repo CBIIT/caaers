@@ -23,7 +23,11 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
     
     public void migrate(ExpeditedAdverseEventReport src, ExpeditedAdverseEventReport dest, DomainObjectImportOutcome<ExpeditedAdverseEventReport> outcome) {
 
-        AdverseEventReportingPeriod reportingPeriod = dest.getReportingPeriod();
+    	if(src == dest) {
+    		//they are the same object skip migration
+    		return;
+    	}
+    	AdverseEventReportingPeriod reportingPeriod = dest.getReportingPeriod();
         List<AdverseEvent> destAdverseEvents = new ArrayList<AdverseEvent>();
          // Associate the updated information to adverse events.
         for ( AdverseEvent aeSrc : src.getAdverseEvents() ) {
@@ -33,7 +37,12 @@ public class ExpeditedAdverseEventMigrator implements Migrator<ExpeditedAdverseE
                         String.valueOf(aeSrc.getStartDate()), String.valueOf(aeSrc.getEndDate()), String.valueOf(aeSrc.getExternalId()));
                 return;
             }
-
+            //doing object comparison to skip useless migrations
+            if(aeDest == aeSrc) {
+            	destAdverseEvents.add(aeDest);
+            	continue;
+            }
+            
             if(aeSrc.getStartDate() != null)
             	aeDest.setStartDate(aeSrc.getStartDate());
             if(aeSrc.getEndDate() != null)
