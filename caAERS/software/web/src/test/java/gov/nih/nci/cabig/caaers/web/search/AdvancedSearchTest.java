@@ -7,15 +7,10 @@
 package gov.nih.nci.cabig.caaers.web.search;
 
 import gov.nih.nci.cabig.caaers.dao.query.AbstractQuery;
-import gov.nih.nci.cabig.caaers.web.search.ui.AdvancedSearchUi;
-import gov.nih.nci.cabig.caaers.web.search.ui.DependentObject;
-import gov.nih.nci.cabig.caaers.web.search.ui.SearchTargetObject;
-import gov.nih.nci.cabig.caaers.web.search.ui.UiAttribute;
-import gov.nih.nci.cabig.caaers.web.search.ui.ViewColumn;
+import gov.nih.nci.cabig.caaers.web.search.ui.*;
+import junit.framework.TestCase;
 
 import java.util.List;
-
-import junit.framework.TestCase;
 
 public class AdvancedSearchTest extends TestCase{
 	/**
@@ -61,7 +56,7 @@ public class AdvancedSearchTest extends TestCase{
 					} else if (dataType.equals("String") && uiAttribute.getFieldType().equals("date-field")) {
 						par[0]=String.class;
 						obj[0] = "10/10/2010";
-					} else if (dataType.equals("Integer")) {
+					} else if (dataType.equals("Integer")|| dataType.equals("int")) {
 						par[0]=Integer.class;
 						obj[0] = Integer.parseInt("1");					
 					} else if (dataType.equals("boolean")) {
